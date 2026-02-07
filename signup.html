@@ -1,225 +1,174 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BeDoctor – Create Account</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BeDoctor | Sign up</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
 
 <style>
-/* ======================
-   BeDoctor – Signup Page
-====================== */
 
 :root{
-  --bg:#f7fbff;
-  --surface:rgba(255,255,255,.88);
-  --surface2:#ffffff;
-  --text:#0f172a;
-  --muted:#475569;
+  --bg:#0b0f1a;
+  --card:rgba(255,255,255,.08);
+  --text:#eef4ff;
+  --muted:#b6c3d6;
 
-  --accent:#7c3aed;     /* Purple */
-  --accent2:#ec4899;    /* Pink */
-  --accentSoft:rgba(124,58,237,.25);
+  --accent:#8b5cf6;      
+  --accent2:#ec4899;     
 
-  --stroke:rgba(15,23,42,.12);
+  --stroke:rgba(255,255,255,.16);
   --radius:20px;
 
-  --shadow:0 30px 70px rgba(15,23,42,.12);
-  --shadow2:0 14px 35px rgba(15,23,42,.12);
-}
-
-html[data-theme="dark"]{
-  --bg:#070e1a;
-  --surface:rgba(16,26,45,.72);
-  --surface2:#101a2d;
-  --text:#eef4ff;
-  --muted:#b6c6da;
-
-  --stroke:rgba(255,255,255,.14);
-  --shadow:0 40px 90px rgba(0,0,0,.55);
-  --shadow2:0 18px 45px rgba(0,0,0,.45);
+  --shadow:0 30px 80px rgba(0,0,0,.55);
+  --glow:0 0 40px rgba(139,92,246,.35),
+          0 0 70px rgba(236,72,153,.25);
 }
 
 *{box-sizing:border-box}
+
 body{
   margin:0;
   min-height:100vh;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
   color:var(--text);
   background:var(--bg);
   overflow:hidden;
 }
 
-/* ===== Purple/Pink Stars ===== */
 .stars{
   position:fixed;
   inset:0;
-  z-index:-3;
-  pointer-events:none;
+  z-index:-2;
   background:
-    radial-gradient(circle at 10% 20%, rgba(236,72,153,.55) 1.6px, transparent 2px),
-    radial-gradient(circle at 30% 70%, rgba(124,58,237,.55) 1.6px, transparent 2px),
-    radial-gradient(circle at 50% 35%, rgba(236,72,153,.45) 1.6px, transparent 2px),
-    radial-gradient(circle at 70% 20%, rgba(124,58,237,.45) 1.6px, transparent 2px),
-    radial-gradient(circle at 85% 65%, rgba(236,72,153,.5) 1.6px, transparent 2px),
-    radial-gradient(circle at 15% 85%, rgba(124,58,237,.5) 1.6px, transparent 2px);
-  background-size:140px 140px;
-  opacity:.7;
+    radial-gradient(circle at 10% 20%, rgba(236,72,153,.9) 1.2px, transparent 2px),
+    radial-gradient(circle at 30% 80%, rgba(139,92,246,.9) 1.2px, transparent 2px),
+    radial-gradient(circle at 70% 25%, rgba(236,72,153,.9) 1.2px, transparent 2px),
+    radial-gradient(circle at 85% 70%, rgba(139,92,246,.9) 1.2px, transparent 2px),
+    radial-gradient(circle at 50% 50%, rgba(236,72,153,.9) 1.2px, transparent 2px);
+  background-size:160px 160px;
+  opacity:.55;
 }
 
-/* ===== Layout ===== */
+
 .page{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1.1fr 0.9fr;
   min-height:100vh;
 }
 
-/* ===== Left Image Side ===== */
+
 .visual{
-  position:relative;
-  background:
-    linear-gradient(135deg,rgba(124,58,237,.25),rgba(236,72,153,.25)),
-    url("banner.svg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
 }
 
-.visual::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.55));
+.visual img{
+  max-width:100%;
+  max-height:80vh;
+  filter:drop-shadow(0 40px 100px rgba(139,92,246,.45));
 }
 
-.visual-content{
-  position:absolute;
-  bottom:40px;
-  left:40px;
-  right:40px;
-  color:white;
-  z-index:2;
-}
 
-.visual-content h1{
-  font-size:36px;
-  margin:0 0 10px;
-}
-
-.visual-content p{
-  max-width:420px;
-  line-height:1.6;
-  opacity:.9;
-}
-
-/* ===== Right Form Side ===== */
 .form-wrap{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:40px 20px;
+  padding:30px;
 }
 
-.form-card{
+.card{
   width:100%;
-  max-width:420px;
-  background:var(--surface);
+  max-width:440px;
+  background:var(--card);
+  border:1px solid var(--stroke);
   border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:36px 32px;
+  box-shadow:var(--shadow),var(--glow);
+  padding:36px;
+  backdrop-filter:blur(16px);
 }
 
-/* Logo */
 .logo{
   display:flex;
   align-items:center;
   gap:12px;
-  margin-bottom:26px;
+  margin-bottom:20px;
 }
+
 .logo img{
-  width:44px;
-  height:44px;
+  width:52px;
+  height:52px;
 }
-.logo span{
+
+.logo strong{
   font-size:22px;
   font-weight:900;
 }
 
-/* Title */
-.form-card h2{
-  margin:0 0 8px;
+h1{
+  margin:10px 0 6px;
   font-size:28px;
 }
-.form-card p{
-  margin:0 0 24px;
+
+p{
+  margin:0 0 20px;
   color:var(--muted);
+  font-size:14.5px;
+  line-height:1.7;
 }
 
-/* Inputs */
-.field{
-  margin-bottom:16px;
-}
-.field label{
-  display:block;
-  font-size:14px;
-  margin-bottom:6px;
-  font-weight:700;
-}
-.field input{
+
+input, select{
   width:100%;
   padding:14px 16px;
   border-radius:14px;
   border:1px solid var(--stroke);
-  background:var(--surface2);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
   font-size:15px;
-}
-.field input:focus{
   outline:none;
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px var(--accentSoft);
+  margin-bottom:14px;
 }
 
-/* Button */
-.btn{
+select option{
+  color:#000;
+}
+
+input::placeholder{
+  color:#cbd5f5;
+}
+
+
+button{
   width:100%;
-  margin-top:10px;
   padding:14px;
   border-radius:16px;
   border:none;
+  cursor:pointer;
   font-size:16px;
   font-weight:900;
-  cursor:pointer;
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:0 15px 40px rgba(124,58,237,.45);
+  box-shadow:0 0 40px rgba(139,92,246,.45);
   transition:.25s;
 }
-.btn:hover{
+
+button:hover{
   transform:translateY(-2px);
-  box-shadow:0 20px 50px rgba(236,72,153,.45);
 }
 
-/* Footer */
-.form-footer{
+
+.footer{
   margin-top:18px;
   text-align:center;
-  font-size:14px;
-}
-.form-footer a{
-  color:var(--accent);
-  font-weight:800;
-  text-decoration:none;
-}
-
-/* Signature */
-.signature{
-  margin-top:24px;
-  text-align:center;
-  font-weight:800;
+  font-weight:700;
   color:var(--muted);
 }
 
-/* ===== Responsive ===== */
+
 @media(max-width:900px){
   .page{grid-template-columns:1fr}
   .visual{display:none}
@@ -233,61 +182,87 @@ body{
 
 <div class="page">
 
-  <!-- LEFT VISUAL -->
-  <section class="visual">
-    <div class="visual-content">
-      <h1>✨ Join BeDoctor</h1>
-      <p>
-        Start your medical learning journey with smart content,
-        clinical reasoning, and real progress tracking.
-      </p>
-    </div>
-  </section>
+  <div class="visual">
+    <img src="photo1.svg" alt="Medical illustration">
+  </div>
 
-  <!-- RIGHT FORM -->
-  <section class="form-wrap">
-    <div class="form-card">
+  <div class="form-wrap">
+    <div class="card">
 
       <div class="logo">
-        <img src="logo.svg" alt="BeDoctor Logo">
-        <span>BeDoctor</span>
+        <img src="logo.svg" alt="BeDoctor logo">
+        <strong>BeDoctor</strong>
       </div>
 
-      <h2>Create your account</h2>
-      <p>Start learning like a doctor from day one.</p>
+      <h1>📝 Create your account</h1>
+      <p>Join the smart medical learning platform and choose your specialty.</p>
 
-      <form>
-        <div class="field">
-          <label>Full name</label>
-          <input type="text" placeholder="Your name">
-        </div>
+      <input type="email" id="email" placeholder="Email address" />
+      <input type="password" id="password" placeholder="Password" />
 
-        <div class="field">
-          <label>Email address</label>
-          <input type="email" placeholder="you@email.com">
-        </div>
+      <select id="specialty">
+        <option value="">Choose your specialty</option>
+        <option value="medecine">Medicine</option>
+        <option value="dentistry">Dentistry</option>
+        <option value="pharmacy">Pharmacy</option>
+        <option value="industrial-pharmacy">Industrial Pharmacy</option>
+      </select>
 
-        <div class="field">
-          <label>Password</label>
-          <input type="password" placeholder="••••••••">
-        </div>
+      <button id="signupBtn">Create Account</button>
 
-        <button class="btn">Create Account</button>
-      </form>
-
-      <div class="form-footer">
-        Already have an account?
-        <a href="login.html">Login</a>
-      </div>
-
-      <div class="signature">
+      <div class="footer">
         dr iyad + dr ines
       </div>
 
     </div>
-  </section>
+  </div>
 
 </div>
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+  authDomain: "bedoctor-81569.firebaseapp.com",
+  projectId: "bedoctor-81569",
+  storageBucket: "bedoctor-81569.firebasestorage.app",
+  messagingSenderId: "126611461186",
+  appId: "1:126611461186:web:6755ff737156c3919d09db",
+  measurementId: "G-SX706TG1PM"
+};
+
+const app = initializeApp(firebaseConfig);
+getAnalytics(app);
+const auth = getAuth(app);
+
+document.getElementById("signupBtn").onclick = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const specialty = document.getElementById("specialty").value;
+
+  if(!email || !password || !specialty){
+    alert("Please fill all fields");
+    return;
+  }
+
+  try{
+    await createUserWithEmailAndPassword(auth, email, password);
+
+    window.location.href = specialty + ".html";
+
+    setTimeout(()=>{
+      window.location.href = "profil.html";
+    }, 3500);
+
+  }catch(error){
+    alert(error.message);
+  }
+};
+</script>
 
 </body>
 </html>
