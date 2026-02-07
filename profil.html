@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BeDoctor | Profile Setup</title>
+<title>BeDoctor | Profile</title>
 
 <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root{
@@ -17,7 +19,6 @@
   --accent2:#ec4899;
   --radius:20px;
   --shadow:0 30px 80px rgba(0,0,0,.55);
-  --glow:0 0 40px rgba(139,92,246,.35);
 }
 
 *{box-sizing:border-box}
@@ -28,10 +29,6 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
   background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
 }
 
 body::before{
@@ -46,52 +43,66 @@ body::before{
   z-index:-1;
 }
 
-.card{
-  width:100%;
-  max-width:460px;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px 60px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:28px;
+}
+
+.sidebar{
   background:var(--card);
   border-radius:var(--radius);
-  box-shadow:var(--shadow),var(--glow);
-  padding:32px;
-  animation:fadeUp .8s ease forwards;
+  padding:24px;
+  box-shadow:var(--shadow);
+  text-align:center;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
+.avatar{
+  font-size:80px;
+  margin-bottom:10px;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
+.email{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:16px;
 }
 
-.logo img{width:44px}
-.logo strong{font-size:20px}
+canvas{
+  margin-top:20px;
+}
 
-h1{margin:8px 0;font-size:26px}
-p{margin:0 0 20px;color:var(--muted);font-size:14.5px}
+.main{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:26px;
+  box-shadow:var(--shadow);
+}
+
+h1{
+  margin-top:0;
+}
+
+label{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+}
 
 input,select{
   width:100%;
   padding:14px;
   border-radius:14px;
   border:none;
-  margin-bottom:12px;
   background:#1f2540;
   color:#fff;
-  font-size:15px;
-}
-
-input::placeholder{color:#c7cbea}
-
-small{
-  display:block;
-  margin:-6px 0 12px;
-  font-size:12px;
-  color:var(--muted);
+  margin-bottom:14px;
 }
 
 button{
@@ -101,64 +112,69 @@ button{
   border:none;
   cursor:pointer;
   font-weight:900;
-  font-size:16px;
-  color:#fff;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:0 0 40px rgba(139,92,246,.45);
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.status{
-  margin-top:14px;
-  font-size:13px;
-  font-weight:700;
-  color:var(--muted);
+  color:#fff;
+  margin-top:10px;
 }
 
 .footer{
-  margin-top:18px;
+  margin-top:40px;
   text-align:center;
   color:var(--muted);
   font-weight:700;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="container">
+  <div class="grid">
 
-  <div class="logo">
-    <img src="logo.svg">
-    <strong>BeDoctor</strong>
+    <div class="sidebar">
+      <div class="avatar" id="avatar">👨‍⚕️</div>
+      <div class="email" id="email">email@example.com</div>
+
+      <canvas id="progressChart" width="240" height="240"></canvas>
+    </div>
+
+    <div class="main">
+      <h1>👤 Complete your profile</h1>
+
+      <label>First Name</label>
+      <input id="firstName" placeholder="First name">
+
+      <label>Last Name</label>
+      <input id="lastName" placeholder="Last name">
+
+      <label>Gender</label>
+      <select id="gender">
+        <option value="">Choose gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <label>Faculty</label>
+      <select id="faculty">
+        <option value="">Choose faculty</option>
+        <option value="Algiers">Algiers</option>
+        <option value="Blida">Blida</option>
+        <option value="Annaba">Annaba</option>
+        <option value="Setif">Setif</option>
+      </select>
+
+      <button id="saveBtn">Save Profile</button>
+    </div>
+
   </div>
 
-  <h1>👤 Create your profile</h1>
-  <p>Complete your personal information to continue.</p>
-
-  <input id="firstName" placeholder="First name">
-  <input id="lastName" placeholder="Last name">
-
-  <input id="username" placeholder="Username (unique)">
-  <small id="userHint">Only letters and numbers – must be unique</small>
-
-  <select id="university">
-    <option value="">Select your university</option>
-    <option value="Algiers">Algiers</option>
-    <option value="Blida">Blida</option>
-    <option value="Annaba">Annaba</option>
-    <option value="Setif">Setif</option>
-  </select>
-
-  <button id="saveBtn">Save profile</button>
-
-  <div class="status" id="status"></div>
-
-  <div class="footer">dr iyad + dr ines</div>
+  <div class="footer">
+    dr iyad + dr ines
+  </div>
 </div>
 
 <script type="module">
@@ -169,87 +185,108 @@ import {
   doc,
   setDoc,
   getDoc,
+  collection,
   query,
   where,
-  collection,
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain: "bedoctor-81569.firebaseapp.com",
-  projectId: "bedoctor-81569",
-  storageBucket: "bedoctor-81569.firebasestorage.app",
-  messagingSenderId: "126611461186",
-  appId: "1:126611461186:web:6755ff737156c3919d09db"
+  projectId: "bedoctor-81569"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const statusEl = document.getElementById("status");
-const saveBtn = document.getElementById("saveBtn");
+let currentUser;
 
-let currentUser = null;
+async function generateUsername(first,last){
+  let base = (first + last).toLowerCase();
+  let username = base;
+  let i = 1;
 
-onAuthStateChanged(auth, async (user)=>{
-  if(!user){
-    window.location.href="login.html";
-  }else{
-    currentUser = user;
+  while(true){
+    const q = query(collection(db,"users"), where("username","==",username));
+    const snap = await getDocs(q);
+    if(snap.empty) return username;
+    username = base + i++;
+  }
+}
+
+const ctx = document.getElementById("progressChart");
+const chart = new Chart(ctx,{
+  type:"doughnut",
+  data:{
+    labels:["Completed","Remaining"],
+    datasets:[{
+      data:[0,100],
+      backgroundColor:["#8b5cf6","#1f2540"],
+      borderWidth:0
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    cutout:"70%"
   }
 });
 
-async function isUsernameAvailable(username){
-  const q = query(
-    collection(db,"users"),
-    where("username","==",username)
-  );
-  const snap = await getDocs(q);
-  return snap.empty;
-}
+onAuthStateChanged(auth, async user=>{
+  if(!user){
+    window.location.href="login.html";
+    return;
+  }
+
+  currentUser = user;
+  document.getElementById("email").textContent = user.email;
+
+  const ref = doc(db,"users",user.uid);
+  const snap = await getDoc(ref);
+
+  if(snap.exists()){
+    const data = snap.data();
+    document.getElementById("firstName").value = data.firstName;
+    document.getElementById("lastName").value = data.lastName;
+    document.getElementById("gender").value = data.gender;
+    document.getElementById("faculty").value = data.faculty;
+    document.getElementById("avatar").textContent =
+      data.gender === "female" ? "👩‍⚕️" : "👨‍⚕️";
+
+    chart.data.datasets[0].data = [data.progress,100-data.progress];
+    chart.update();
+  }
+});
 
 saveBtn.onclick = async ()=>{
-  const firstName = firstNameInput.value = document.getElementById("firstName").value.trim();
-  const lastName  = document.getElementById("lastName").value.trim();
-  const username  = document.getElementById("username").value.trim().toLowerCase();
-  const university= document.getElementById("university").value;
+  const first = firstName.value.trim();
+  const last = lastName.value.trim();
+  const gender = document.getElementById("gender").value;
+  const faculty = document.getElementById("faculty").value;
 
-  if(!firstName || !lastName || !username || !university){
-    statusEl.textContent = "⚠️ Please fill all fields.";
+  if(!first || !last || !gender || !faculty){
+    alert("Fill all fields");
     return;
   }
 
-  if(!/^[a-z0-9]+$/.test(username)){
-    statusEl.textContent = "❌ Username must contain only letters and numbers.";
-    return;
-  }
-
-  saveBtn.disabled = true;
-  statusEl.textContent = "⏳ Checking username...";
-
-  const available = await isUsernameAvailable(username);
-  if(!available){
-    statusEl.textContent = "❌ Username already taken.";
-    saveBtn.disabled = false;
-    return;
-  }
-
-  statusEl.textContent = "⏳ Saving profile...";
+  const username = await generateUsername(first,last);
 
   await setDoc(doc(db,"users",currentUser.uid),{
-    uid: currentUser.uid,
-    email: currentUser.email || null,
-    firstName,
-    lastName,
+    email: currentUser.email,
+    firstName:first,
+    lastName:last,
+    gender,
+    faculty,
     username,
-    university,
-    createdAt: new Date()
+    progress:0,
+    createdAt:Date.now()
   });
 
-  statusEl.textContent = "✅ Profile saved successfully!";
-  setTimeout(()=>window.location.href="dashboard.html",1200);
+  document.getElementById("avatar").textContent =
+    gender === "female" ? "👩‍⚕️" : "👨‍⚕️";
+
+  alert("Profile saved successfully ✅");
 };
 </script>
 
