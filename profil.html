@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BeDoctor | Profile</title>
+<title>BeDoctor | Profile Setup</title>
 
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 
@@ -13,10 +13,8 @@
   --card:#141a2a;
   --text:#f5f7ff;
   --muted:#aab2d5;
-
   --accent:#8b5cf6;
   --accent2:#ec4899;
-
   --radius:20px;
   --shadow:0 30px 80px rgba(0,0,0,.55);
   --glow:0 0 40px rgba(139,92,246,.35);
@@ -28,12 +26,14 @@ body{
   margin:0;
   min-height:100vh;
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:
-    radial-gradient(circle at top,#1b2040,#0b0f1a);
+  background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-/* ===== Stars ===== */
 body::before{
   content:"";
   position:fixed;
@@ -46,245 +46,210 @@ body::before{
   z-index:-1;
 }
 
-/* ===== Header ===== */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 26px;
+.card{
+  width:100%;
+  max-width:460px;
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow),var(--glow);
+  padding:32px;
+  animation:fadeUp .8s ease forwards;
 }
 
-.brand{
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.logo{
   display:flex;
   align-items:center;
   gap:12px;
+  margin-bottom:12px;
 }
 
-.brand img{
-  width:42px;
-}
+.logo img{width:44px}
+.logo strong{font-size:20px}
 
-.brand strong{
-  font-size:20px;
-}
+h1{margin:8px 0;font-size:26px}
+p{margin:0 0 20px;color:var(--muted);font-size:14.5px}
 
-.logout{
-  padding:10px 18px;
+input,select{
+  width:100%;
+  padding:14px;
   border-radius:14px;
   border:none;
-  cursor:pointer;
-  font-weight:900;
-  background:rgba(255,255,255,.1);
+  margin-bottom:12px;
+  background:#1f2540;
   color:#fff;
+  font-size:15px;
 }
 
-/* ===== Layout ===== */
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:30px 20px 60px;
-}
+input::placeholder{color:#c7cbea}
 
-.grid{
-  display:grid;
-  grid-template-columns:320px 1fr;
-  gap:28px;
-}
-
-/* ===== Profile Card ===== */
-.profile{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:26px;
-  box-shadow:var(--shadow),var(--glow);
-  text-align:center;
-  animation:fadeUp 1s ease forwards;
-}
-
-.avatar{
-  width:96px;
-  height:96px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:42px;
-  margin:auto;
-}
-
-.profile h2{
-  margin:14px 0 6px;
-}
-
-.profile span{
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* ===== Stats ===== */
-.stats{
-  margin-top:20px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-}
-
-.stat{
-  background:rgba(255,255,255,.06);
-  border-radius:14px;
-  padding:14px;
-}
-
-.stat h3{
-  margin:0;
-  font-size:20px;
-  color:var(--accent);
-}
-
-.stat span{
+small{
+  display:block;
+  margin:-6px 0 12px;
   font-size:12px;
   color:var(--muted);
 }
 
-/* ===== Main Panel ===== */
-.main{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-  animation:fadeUp 1.2s ease forwards;
-}
-
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:26px;
-  box-shadow:var(--shadow);
+button{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  border:none;
   cursor:pointer;
-  transition:.3s;
+  font-weight:900;
+  font-size:16px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 40px rgba(139,92,246,.45);
 }
 
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 40px 90px rgba(139,92,246,.45);
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
-.card h3{
-  margin:0 0 10px;
-}
-
-.card p{
-  margin:0;
+.status{
+  margin-top:14px;
+  font-size:13px;
+  font-weight:700;
   color:var(--muted);
-  font-size:14px;
 }
 
 .footer{
-  margin-top:40px;
+  margin-top:18px;
   text-align:center;
   color:var(--muted);
   font-weight:700;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px)}
-  to{opacity:1; transform:translateY(0)}
-}
-
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-  .main{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-  <div class="brand">
+<div class="card">
+
+  <div class="logo">
     <img src="logo.svg">
     <strong>BeDoctor</strong>
   </div>
-  <button class="logout" onclick="logout()">Logout</button>
-</header>
 
-<div class="container">
-  <div class="grid">
+  <h1>👤 Create your profile</h1>
+  <p>Complete your personal information to continue.</p>
 
-    <div class="profile">
-      <div class="avatar">👨‍⚕️</div>
-      <h2 id="username">Medical Student</h2>
-      <span id="specialty">Specialty</span>
+  <input id="firstName" placeholder="First name">
+  <input id="lastName" placeholder="Last name">
 
-      <div class="stats">
-        <div class="stat">
-          <h3>12</h3>
-          <span>📘 Lessons</span>
-        </div>
-        <div class="stat">
-          <h3>45</h3>
-          <span>📝 QCM</span>
-        </div>
-        <div class="stat">
-          <h3>68%</h3>
-          <span>📊 Progress</span>
-        </div>
-      </div>
-    </div>
+  <input id="username" placeholder="Username (unique)">
+  <small id="userHint">Only letters and numbers – must be unique</small>
 
-    <div class="main">
-      <div class="card" onclick="go('lessons.html')">
-        <h3>📘 My Lessons</h3>
-        <p>Continue learning your medical courses.</p>
-      </div>
+  <select id="university">
+    <option value="">Select your university</option>
+    <option value="Algiers">Algiers</option>
+    <option value="Blida">Blida</option>
+    <option value="Annaba">Annaba</option>
+    <option value="Setif">Setif</option>
+  </select>
 
-      <div class="card" onclick="go('qcm.html')">
-        <h3>📝 QCM Practice</h3>
-        <p>Test your knowledge with smart questions.</p>
-      </div>
+  <button id="saveBtn">Save profile</button>
 
-      <div class="card" onclick="go('progress.html')">
-        <h3>📊 My Progress</h3>
-        <p>Track your learning evolution.</p>
-      </div>
-    </div>
+  <div class="status" id="status"></div>
 
-  </div>
-
-  <div class="footer">
-
-  </div>
+  <div class="footer">dr iyad + dr ines</div>
 </div>
 
 <script type="module">
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  query,
+  where,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain: "bedoctor-81569.firebaseapp.com",
-  projectId: "bedoctor-81569"
+  projectId: "bedoctor-81569",
+  storageBucket: "bedoctor-81569.firebasestorage.app",
+  messagingSenderId: "126611461186",
+  appId: "1:126611461186:web:6755ff737156c3919d09db"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-auth.onAuthStateChanged(user=>{
+const statusEl = document.getElementById("status");
+const saveBtn = document.getElementById("saveBtn");
+
+let currentUser = null;
+
+onAuthStateChanged(auth, async (user)=>{
   if(!user){
     window.location.href="login.html";
   }else{
-    document.getElementById("username").textContent =
-      user.email?.split("@")[0] || "Medical Student";
+    currentUser = user;
   }
 });
 
-window.logout = async ()=>{
-  await signOut(auth);
-  window.location.href="login.html";
-};
+async function isUsernameAvailable(username){
+  const q = query(
+    collection(db,"users"),
+    where("username","==",username)
+  );
+  const snap = await getDocs(q);
+  return snap.empty;
+}
 
-window.go = (page)=>{
-  window.location.href = page;
+saveBtn.onclick = async ()=>{
+  const firstName = firstNameInput.value = document.getElementById("firstName").value.trim();
+  const lastName  = document.getElementById("lastName").value.trim();
+  const username  = document.getElementById("username").value.trim().toLowerCase();
+  const university= document.getElementById("university").value;
+
+  if(!firstName || !lastName || !username || !university){
+    statusEl.textContent = "⚠️ Please fill all fields.";
+    return;
+  }
+
+  if(!/^[a-z0-9]+$/.test(username)){
+    statusEl.textContent = "❌ Username must contain only letters and numbers.";
+    return;
+  }
+
+  saveBtn.disabled = true;
+  statusEl.textContent = "⏳ Checking username...";
+
+  const available = await isUsernameAvailable(username);
+  if(!available){
+    statusEl.textContent = "❌ Username already taken.";
+    saveBtn.disabled = false;
+    return;
+  }
+
+  statusEl.textContent = "⏳ Saving profile...";
+
+  await setDoc(doc(db,"users",currentUser.uid),{
+    uid: currentUser.uid,
+    email: currentUser.email || null,
+    firstName,
+    lastName,
+    username,
+    university,
+    createdAt: new Date()
+  });
+
+  statusEl.textContent = "✅ Profile saved successfully!";
+  setTimeout(()=>window.location.href="dashboard.html",1200);
 };
 </script>
 
