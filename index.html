@@ -38,7 +38,65 @@ body{
 .container{
   max-width:1100px;
   margin:auto;
-  padding:30px 20px 70px;
+  padding:25px 20px 70px;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:35px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:inherit;
+}
+
+.brand img{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+}
+
+.brand span{
+  font-size:22px;
+  font-weight:900;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.btn{
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:700;
+  text-decoration:none;
+  border:1px solid var(--stroke);
+  background:var(--surface);
+  color:var(--text);
+  cursor:pointer;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  border:none;
+}
+
+.ctrl{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--stroke);
+  background:var(--surface);
+  cursor:pointer;
+  font-weight:700;
 }
 
 .cover{
@@ -46,7 +104,7 @@ body{
   border-radius:var(--radius);
   padding:40px;
   box-shadow:var(--shadow);
-  margin-bottom:50px;
+  margin-bottom:45px;
   text-align:center;
 }
 
@@ -55,26 +113,11 @@ body{
   width:100%;
 }
 
-.brand-title{
-  margin-top:10px;
-  font-size:28px;
-  font-weight:900;
-}
-
-.controls{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.ctrl{
-  padding:10px 14px;
-  border-radius:12px;
-  border:1px solid var(--stroke);
-  background:var(--surface);
-  cursor:pointer;
+.cover-title{
+  margin-top:12px;
+  font-size:20px;
   font-weight:700;
+  color:var(--muted);
 }
 
 .hero{
@@ -85,7 +128,7 @@ body{
 }
 
 .hero h1{
-  font-size:42px;
+  font-size:40px;
   margin:0 0 18px;
   min-height:60px;
 }
@@ -126,14 +169,14 @@ body{
 
 .stat{
   background:var(--surface);
-  padding:28px;
+  padding:26px;
   border-radius:var(--radius);
   box-shadow:var(--shadow);
   text-align:center;
 }
 
 .stat h2{
-  font-size:36px;
+  font-size:34px;
   margin:0;
   color:var(--accent2);
 }
@@ -154,8 +197,21 @@ body{
 
 <div class="container">
 
-  <div class="controls">
-    <button class="ctrl" id="themeBtn">🌙</button>
+  <!-- Top Bar -->
+  <div class="topbar">
+    <!-- Logo + Brand (ضع رابطك هنا) -->
+    <a href="https://yourbrand.com" class="brand">
+      <!-- ضع اللوجو هنا -->
+      <img src="logo.svg" alt="BeDoctor Logo">
+      <span>BeDoctor</span>
+    </a>
+
+    <div class="top-actions">
+      <a href="signup.html" class="btn primary">📝 Sign up</a>
+      <a href="login.html" class="btn">🔐 Login</a>
+      <button class="ctrl" id="langBtn">FR</button>
+      <button class="ctrl" id="themeBtn">🌙</button>
+    </div>
   </div>
 
   <section class="cover">
@@ -166,17 +222,17 @@ body{
           <stop offset="100%" stop-color="#2563eb"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="600" height="200" rx="24" fill="url(#g)"/>
+      <rect width="600" height="200" rx="24" fill="url(#g)"/>
       <text x="50%" y="55%" text-anchor="middle"
-            font-size="56"
+            font-size="52"
             font-weight="800"
             fill="white"
             font-family="Segoe UI, Arial">
-        BeDoctor
+        🩺 BeDoctor
       </text>
     </svg>
 
-    <div class="brand-title">Medical Learning Platform</div>
+    <div class="cover-title">Medical Learning Platform</div>
   </section>
 
   <section class="hero">
@@ -184,47 +240,79 @@ body{
       <span id="typing"></span><span class="cursor"></span>
     </h1>
 
-    <p>
-      BeDoctor is a comprehensive e-learning platform designed specifically to support medical and health science students throughout their academic journey.
-      It provides reliable medical content, smart summaries, up-to-date study resources, and interactive learning tools that help students understand deeply,
-      study efficiently, and excel with confidence.
-      <br><br>
-      With BeDoctor, you don’t just study to pass exams — you learn to think like a doctor and prepare for real clinical practice from day one.
-    </p>
+    <p id="desc"></p>
 
-    <div class="tagline">🌟 BeDoctor — Learn Today. Heal Tomorrow.</div>
+    <div class="tagline" id="tagline"></div>
   </section>
 
   <section class="stats">
     <div class="stat">
       <h2>1200+</h2>
-      <span>📘 Smart Questions</span>
+      <span id="s1"></span>
     </div>
     <div class="stat">
       <h2>300+</h2>
-      <span>🩺 Clinical Cases</span>
+      <span id="s2"></span>
     </div>
     <div class="stat">
       <h2>98%</h2>
-      <span>🎯 Student Satisfaction</span>
+      <span id="s3"></span>
     </div>
   </section>
 
 </div>
 
 <script>
-const text = "The Smart Learning Platform for Medical Science Students";
-const el = document.getElementById("typing");
-let i = 0;
-
-function type(){
-  if(i < text.length){
-    el.textContent += text.charAt(i);
-    i++;
-    setTimeout(type, 65);
+const content={
+  en:{
+    title:"🧠📚 The Smart Learning Platform for Medical Science Students",
+    desc:"BeDoctor is a comprehensive e-learning platform designed specifically to support medical and health science students throughout their academic journey. It provides reliable medical content, smart summaries, up-to-date study resources, and interactive learning tools that help students understand deeply, study efficiently, and excel with confidence.<br><br>With BeDoctor, you don’t just study to pass exams — you learn to think like a doctor and prepare for real clinical practice from day one.",
+    tagline:"🌟 BeDoctor — Learn Today. Heal Tomorrow.",
+    s1:"📘 Smart Questions",
+    s2:"🩺 Clinical Cases",
+    s3:"🎯 Student Satisfaction"
+  },
+  fr:{
+    title:"🧠📚 La plateforme intelligente pour les étudiants en sciences médicales",
+    desc:"BeDoctor est une plateforme e-learning complète conçue pour accompagner les étudiants en médecine et sciences de la santé tout au long de leur parcours universitaire. Elle propose un contenu médical fiable, des résumés intelligents, des ressources à jour et des outils interactifs pour comprendre en profondeur, étudier efficacement et réussir avec confiance.<br><br>Avec BeDoctor, vous n’étudiez pas seulement pour réussir les examens — vous apprenez à penser comme un médecin et à vous préparer à la pratique clinique réelle dès le premier jour.",
+    tagline:"🌟 BeDoctor — Apprendre aujourd’hui. Soigner demain.",
+    s1:"📘 Questions intelligentes",
+    s2:"🩺 Cas cliniques",
+    s3:"🎯 Satisfaction étudiante"
   }
+};
+
+let lang="en";
+
+const typingEl=document.getElementById("typing");
+function typeText(text){
+  typingEl.textContent="";
+  let i=0;
+  function step(){
+    if(i<text.length){
+      typingEl.textContent+=text.charAt(i);
+      i++;
+      setTimeout(step,60);
+    }
+  }
+  step();
 }
-type();
+
+function render(){
+  typeText(content[lang].title);
+  document.getElementById("desc").innerHTML=content[lang].desc;
+  document.getElementById("tagline").innerText=content[lang].tagline;
+  document.getElementById("s1").innerText=content[lang].s1;
+  document.getElementById("s2").innerText=content[lang].s2;
+  document.getElementById("s3").innerText=content[lang].s3;
+}
+render();
+
+document.getElementById("langBtn").onclick=()=>{
+  lang=lang==="en"?"fr":"en";
+  document.getElementById("langBtn").innerText=lang==="en"?"FR":"EN";
+  render();
+};
 
 document.getElementById("themeBtn").onclick=()=>{
   const html=document.documentElement;
