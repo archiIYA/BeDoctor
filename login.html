@@ -1,170 +1,476 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>BeDoctor | Login</title>
 
-<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+<meta name="theme-color" content="#8b5cf6"/>
 
 <style>
+
 :root{
   --bg:#0b0f1a;
-  --card:#141a2a;
+  --bg2:#111735;
+  --card:rgba(255,255,255,.08);
+  --card2:rgba(255,255,255,.06);
   --text:#f5f7ff;
   --muted:#aab2d5;
-  --accent:#8b5cf6;
-  --accent2:#ec4899;
-  --radius:18px;
+
+  --accent:#8b5cf6;  
+  --accent2:#ec4899; 
+
+  --stroke:rgba(255,255,255,.16);
+  --radius:20px;
+
+  --shadow:0 30px 90px rgba(0,0,0,.55);
+  --shadow2:0 16px 45px rgba(0,0,0,.35);
+  --glow:0 0 42px rgba(139,92,246,.35),
+          0 0 72px rgba(236,72,153,.22);
+}
+
+html[data-theme="light"]{
+  --bg:#f7f8ff;
+  --bg2:#eef2ff;
+  --card:rgba(255,255,255,.88);
+  --card2:rgba(255,255,255,.70);
+  --text:#0f172a;
+  --muted:#4b5563;
+
+  --stroke:rgba(15,23,42,.12);
+
+  --shadow:0 30px 80px rgba(15,23,42,.12);
+  --shadow2:0 16px 45px rgba(15,23,42,.10);
+  --glow:0 0 36px rgba(139,92,246,.20),
+          0 0 60px rgba(236,72,153,.14);
 }
 
 *{box-sizing:border-box}
-
 body{
   margin:0;
   min-height:100vh;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:radial-gradient(circle at top,#1b2040,#0b0f1a);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
   color:var(--text);
+  background:
+    radial-gradient(900px 520px at 16% 14%, rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 620px at 86% 18%, rgba(236,72,153,.18), transparent 62%),
+    radial-gradient(1200px 820px at 50% 100%, rgba(139,92,246,.14), transparent 62%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  overflow-x:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:18px;
+}
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(236,72,153,.75) 1px, transparent 2px),
+    radial-gradient(circle, rgba(139,92,246,.75) 1px, transparent 2px);
+  background-size:140px 140px;
+  opacity:.42;
+}
+
+.watermark{
+  position:fixed;
+  left:50%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  width:min(560px, 92vw);
+  opacity:.10;
+  z-index:-2;
+  pointer-events:none;
+  filter: drop-shadow(0 30px 90px rgba(0,0,0,.35));
+}
+html[data-theme="light"] .watermark{ opacity:.08; }
+
+.wrapper{
+  width:100%;
+  max-width:1040px;
+  display:grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap:22px;
+  align-items:stretch;
+}
+
+.left{
+  background: var(--card2);
+  border:1px solid var(--stroke);
+  border-radius:var(--radius);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(16px);
+  padding:26px 22px;
+  position:relative;
   overflow:hidden;
 }
 
-body::before{
+.left::before{
   content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle,rgba(236,72,153,.6) 1px,transparent 2px),
-    radial-gradient(circle,rgba(139,92,246,.6) 1px,transparent 2px);
-  background-size:140px 140px;
-  opacity:.35;
-  z-index:-1;
+  position:absolute;
+  width:520px;
+  height:520px;
+  border-radius:50%;
+  background: radial-gradient(circle,
+    rgba(139,92,246,.28),
+    rgba(236,72,153,.18),
+    transparent 68%);
+  filter: blur(90px);
+  left:-170px;
+  top:-210px;
+  pointer-events:none;
 }
 
-.card{
-  width:100%;
-  max-width:420px;
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:34px;
-  box-shadow:0 30px 80px rgba(0,0,0,.55);
-  animation:fadeUp .8s ease forwards;
-}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.logo{
+.brand{
   display:flex;
   align-items:center;
   gap:12px;
-  margin-bottom:16px;
+  text-decoration:none;
+  color:inherit;
 }
-
-.logo img{width:46px}
-.logo strong{font-size:20px;font-weight:900}
-
-h1{
-  margin:8px 0 6px;
-  font-size:26px;
+.brand img{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+  filter: drop-shadow(0 18px 40px rgba(139,92,246,.30));
 }
-
-p{
-  margin:0 0 20px;
+.brand strong{
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:.2px;
+}
+.brand span{
+  display:block;
+  font-size:12px;
   color:var(--muted);
-  font-size:14.5px;
+  font-weight:800;
+  margin-top:2px;
 }
 
-input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  margin-bottom:12px;
-  background:#1f2540;
-  color:#fff;
-  font-size:15px;
+.leftHero{
+  margin-top:18px;
+}
+.leftHero h1{
+  margin:10px 0 10px;
+  font-size: clamp(22px, 2.8vw, 32px);
+  letter-spacing:-.3px;
+}
+.leftHero p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.75;
+  font-size: 14.5px;
 }
 
-input::placeholder{color:#cbd5f5}
+.illustration{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px 0 4px;
+}
+.illustration img{
+  width:min(380px, 92%);
+  max-height: 360px;
+  animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 40px 90px rgba(139,92,246,.38));
+  opacity:.95;
+  mix-blend-mode: screen;
+}
+html[data-theme="light"] .illustration img{ mix-blend-mode: normal; }
 
-button{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  cursor:pointer;
-  font-weight:900;
-  margin-top:8px;
-  font-size:15px;
+@keyframes float{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-14px); }
 }
 
-.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;
-}
-
-.alt{
-  background:#1f2540;
-  color:#fff;
-}
-
-button:hover{
-  filter:brightness(1.05);
-}
-
-.footer{
-  margin-top:16px;
+.sigLeft{
+  margin-top: 12px;
   text-align:center;
   color:var(--muted);
-  font-weight:700;
+  font-weight:800;
   font-size:13px;
 }
 
-.footer a{
-  color:var(--accent2);
-  text-decoration:none;
+.right{
+  background: var(--card);
+  border:1px solid var(--stroke);
+  border-radius:var(--radius);
+  box-shadow: var(--shadow), var(--glow);
+  backdrop-filter: blur(18px);
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+}
+
+.topControls{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-bottom:10px;
+}
+.iconBtn{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  color:var(--text);
+  cursor:pointer;
+  font-weight:950;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+html[data-theme="light"] .iconBtn{
+  background: rgba(15,23,42,.06);
+}
+.iconBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow2), var(--glow);
+}
+
+.formTitle{
+  margin: 4px 0 6px;
+  font-size: 26px;
+  font-weight: 950;
+}
+.formSub{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-size: 14.5px;
+  line-height:1.65;
+}
+
+/* Fields */
+.field{
+  margin-bottom:12px;
+}
+input{
+  width:100%;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  outline:none;
+  font-size:15px;
+}
+html[data-theme="light"] input{
+  background: rgba(15,23,42,.06);
+}
+input::placeholder{ color: rgba(170,178,213,.95); }
+html[data-theme="light"] input::placeholder{ color: rgba(75,85,99,.75); }
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:6px;
+  margin-bottom:10px;
+}
+.link{
+  color: var(--muted);
   font-weight:800;
+  font-size:13px;
+  text-decoration:none;
+}
+.link:hover{ text-decoration:underline; }
+
+.btn{
+  width:100%;
+  padding:14px 14px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  font-weight: 950;
+  cursor:pointer;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+html[data-theme="light"] .btn{
+  background: rgba(15,23,42,.06);
+}
+
+.btn:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow2), var(--glow);
+}
+
+.btn.primary{
+  border:none;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 40px rgba(139,92,246,.35);
+}
+.btn.primary:hover{
+  box-shadow: var(--shadow2), 0 0 55px rgba(139,92,246,.42), 0 0 85px rgba(236,72,153,.24);
+}
+
+.divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-weight:900;
+  font-size:12px;
+}
+.divider::before,.divider::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background: var(--stroke);
+}
+
+.otpBox{
+  margin-top:10px;
+  padding:12px;
+  border-radius:16px;
+  border:1px dashed var(--stroke);
+  background: rgba(255,255,255,.04);
+  display:none;
+}
+html[data-theme="light"] .otpBox{
+  background: rgba(15,23,42,.04);
+}
+.otpRow{
+  display:flex;
+  gap:10px;
+}
+.otpRow input{ margin:0; }
+.otpRow .btn{ width:auto; padding:14px 16px; }
+
+.status{
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--stroke);
+  background: rgba(0,0,0,.18);
+  color: var(--muted);
+  font-weight:800;
+  font-size:13px;
+  display:none;
+}
+html[data-theme="light"] .status{
+  background: rgba(15,23,42,.06);
+}
+
+.footer{
+  margin-top: 14px;
+  text-align:center;
+  color: var(--muted);
+  font-weight: 850;
+  font-size: 13px;
+}
+
+@media (max-width: 920px){
+  .wrapper{ grid-template-columns: 1fr; }
+  .left{ order: 2; }
+  .right{ order: 1; }
+}
+@media (max-width: 520px){
+  body{ padding:14px; }
+  .right, .left{ padding:18px; }
+  .otpRow{ flex-direction:column; }
+  .otpRow .btn{ width:100%; }
 }
 </style>
 </head>
 
 <body>
+  <div class="stars"></div>
+  <img class="watermark" src="logo.svg" alt="" aria-hidden="true"/>
 
-<div class="card">
+  <div class="wrapper">
 
-  <div class="logo">
-    <img src="logo.svg" alt="BeDoctor logo">
-    <strong>BeDoctor</strong>
+    <section class="left">
+      <a class="brand" href="index.html" aria-label="BeDoctor Home">
+        <img src="logo.svg" alt="BeDoctor logo">
+        <div>
+          <strong>BeDoctor</strong>
+          <span data-i18n="leftTag">Learn Today. Heal Tomorrow.</span>
+        </div>
+      </a>
+
+      <div class="leftHero">
+        <h1 data-i18n="leftTitle">✨ Welcome back</h1>
+        <p data-i18n="leftDesc">
+          Log in to continue your medical journey. Access your lessons, QCM, and progress in seconds.
+        </p>
+      </div>
+
+      <div class="illustration">
+        <img src="photo1.svg" alt="Medical illustration">
+      </div>
+
+      <div class="sigLeft">dr iyad + dr ines</div>
+    </section>
+
+    <section class="right">
+
+      <div class="topControls">
+        <button class="iconBtn" id="langBtn" title="Language">EN</button>
+        <button class="iconBtn" id="themeBtn" title="Theme">☀️</button>
+      </div>
+
+      <div class="formTitle" data-i18n="title">🔐 Log in</div>
+      <div class="formSub" data-i18n="subtitle">Choose a method to access your account.</div>
+
+      <div class="field">
+        <input id="email" type="email" placeholder="📧 Email" autocomplete="email">
+      </div>
+      <div class="field">
+        <input id="password" type="password" placeholder="🔒 Password" autocomplete="current-password">
+      </div>
+
+      <div class="row">
+        <a class="link" href="signup.html" data-i18n="toSignup">No account? Create one</a>
+        <a class="link" href="#" id="resetBtn" data-i18n="forgot">Forgot password?</a>
+      </div>
+
+      <button class="btn primary" id="emailLoginBtn" type="button" data-i18n="emailBtn">
+        🔐 Sign in with Email
+      </button>
+
+      <div class="divider" data-i18n="or">OR</div>
+
+      <button class="btn" id="googleLoginBtn" type="button" data-i18n="googleBtn">
+        🟢 Continue with Google
+      </button>
+
+      <div class="field" style="margin-top:12px;">
+        <input id="phone" type="tel" placeholder="📱 Phone (ex: +213...)" autocomplete="tel">
+      </div>
+
+      <button class="btn" id="phoneSendBtn" type="button" data-i18n="phoneBtn">
+        📱 Send SMS code
+      </button>
+
+      <div id="recaptcha-container"></div>
+
+      <div class="otpBox" id="otpBox">
+        <div style="color:var(--muted); font-weight:900; font-size:13px; margin-bottom:10px;" data-i18n="otpHint">
+          ✅ Enter the verification code you received:
+        </div>
+        <div class="otpRow">
+          <input id="otp" type="text" placeholder="🔢 SMS code">
+          <button class="btn primary" id="otpVerifyBtn" type="button" data-i18n="verifyBtn">✅ Verify</button>
+        </div>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="footer">dr iyad + dr ines</div>
+    </section>
+
   </div>
-
-  <h1>🔐 Welcome back</h1>
-  <p>Login to continue your medical learning journey</p>
-
-  <input id="email" type="email" placeholder="📧 Email address">
-  <input id="password" type="password" placeholder="🔒 Password">
-
-  <button class="primary" id="emailLogin">➡️ Login with Email</button>
-
-  <button class="alt" id="googleLogin">🟢 Continue with Google</button>
-
-  <input id="phone" type="tel" placeholder="📱 Phone number">
-  <button class="alt" id="phoneLogin">📲 Login with Phone</button>
-
-  <div id="recaptcha-container"></div>
-
-  <div class="footer">
-    New here? <a href="signup.html">Create an account</a><br>
-    dr iyad + dr ines
-  </div>
-
-</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
@@ -174,7 +480,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPhoneNumber,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
 const firebaseConfig = {
@@ -183,36 +490,241 @@ const firebaseConfig = {
   projectId: "bedoctor-81569",
   storageBucket: "bedoctor-81569.firebasestorage.app",
   messagingSenderId: "126611461186",
-  appId: "1:126611461186:web:6755ff737156c3919d09db"
+  appId: "1:126611461186:web:6755ff737156c3919d09db",
+  measurementId: "G-SX706TG1PM"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-emailLogin.onclick = async ()=>{
-  try{
-    await signInWithEmailAndPassword(auth,email.value,password.value);
-    location.href="profil.html";
-  }catch(e){alert(e.message)}
+const els = {
+  langBtn: document.getElementById("langBtn"),
+  themeBtn: document.getElementById("themeBtn"),
+  status: document.getElementById("status"),
+
+  email: document.getElementById("email"),
+  password: document.getElementById("password"),
+  phone: document.getElementById("phone"),
+
+  emailLoginBtn: document.getElementById("emailLoginBtn"),
+  googleLoginBtn: document.getElementById("googleLoginBtn"),
+  phoneSendBtn: document.getElementById("phoneSendBtn"),
+
+  otpBox: document.getElementById("otpBox"),
+  otp: document.getElementById("otp"),
+  otpVerifyBtn: document.getElementById("otpVerifyBtn"),
+
+  resetBtn: document.getElementById("resetBtn"),
 };
 
-googleLogin.onclick = async ()=>{
+function setStatus(msg, type="info"){
+  els.status.style.display = "block";
+  els.status.style.borderColor = "rgba(255,255,255,.18)";
+  els.status.style.color = "var(--muted)";
+  if(type === "ok"){
+    els.status.style.borderColor = "rgba(16,185,129,.35)";
+    els.status.style.color = "rgba(16,185,129,.95)";
+  }
+  if(type === "err"){
+    els.status.style.borderColor = "rgba(239,68,68,.40)";
+    els.status.style.color = "rgba(239,68,68,.95)";
+  }
+  els.status.textContent = msg;
+}
+
+function setBusy(isBusy){
+  [els.emailLoginBtn, els.googleLoginBtn, els.phoneSendBtn, els.otpVerifyBtn].forEach(b => b.disabled = isBusy);
+  const opacity = isBusy ? .7 : 1;
+  [els.emailLoginBtn, els.googleLoginBtn, els.phoneSendBtn, els.otpVerifyBtn].forEach(b => b.style.opacity = opacity);
+}
+
+function goProfile(){
+  setStatus("✅ Success! Redirecting…", "ok");
+  setTimeout(()=> window.location.href = "profil.html", 900);
+}
+
+function setTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("bedoctor_theme", theme);
+  els.themeBtn.textContent = (theme === "dark") ? "☀️" : "🌙";
+}
+setTheme(localStorage.getItem("bedoctor_theme") || "dark");
+els.themeBtn.addEventListener("click", ()=>{
+  const cur = document.documentElement.getAttribute("data-theme");
+  setTheme(cur === "dark" ? "light" : "dark");
+});
+
+const I18N = {
+  en:{
+    leftTag:"Learn Today. Heal Tomorrow.",
+    leftTitle:"✨ Welcome back",
+    leftDesc:"Log in to continue your medical journey. Access your lessons, QCM, and progress in seconds.",
+    title:"🔐 Log in",
+    subtitle:"Choose a method to access your account.",
+    toSignup:"No account? Create one",
+    forgot:"Forgot password?",
+    emailBtn:"🔐 Sign in with Email",
+    or:"OR",
+    googleBtn:"🟢 Continue with Google",
+    phoneBtn:"📱 Send SMS code",
+    otpHint:"✅ Enter the verification code you received:",
+    verifyBtn:"✅ Verify",
+  },
+  fr:{
+    leftTag:"Apprendre aujourd’hui. Soigner demain.",
+    leftTitle:"✨ Bon retour",
+    leftDesc:"Connectez-vous pour continuer. Accédez à vos cours, QCM et progression en quelques secondes.",
+    title:"🔐 Connexion",
+    subtitle:"Choisissez une méthode pour accéder à votre compte.",
+    toSignup:"Pas de compte ? Inscription",
+    forgot:"Mot de passe oublié ?",
+    emailBtn:"🔐 Se connecter (Email)",
+    or:"OU",
+    googleBtn:"🟢 Continuer avec Google",
+    phoneBtn:"📱 Envoyer le code SMS",
+    otpHint:"✅ Entrez le code reçu par SMS :",
+    verifyBtn:"✅ Vérifier",
+  }
+};
+
+let currentLang = localStorage.getItem("bedoctor_lang") || "en";
+function applyLang(lang){
+  currentLang = lang;
+  localStorage.setItem("bedoctor_lang", lang);
+  els.langBtn.textContent = lang.toUpperCase();
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(I18N[lang][key]) el.textContent = I18N[lang][key];
+  });
+
+  els.email.placeholder = (lang==="fr") ? "📧 E-mail" : "📧 Email";
+  els.password.placeholder = (lang==="fr") ? "🔒 Mot de passe" : "🔒 Password";
+  els.phone.placeholder = (lang==="fr") ? "📱 Téléphone (ex: +213...)" : "📱 Phone (ex: +213...)";
+  els.otp.placeholder = (lang==="fr") ? "🔢 Code SMS" : "🔢 SMS code";
+}
+applyLang(currentLang);
+els.langBtn.addEventListener("click", ()=> applyLang(currentLang==="en" ? "fr" : "en"));
+
+
+els.emailLoginBtn.addEventListener("click", async ()=>{
+  const email = els.email.value.trim();
+  const pass = els.password.value;
+
+  if(!email || !pass){
+    setStatus("⚠️ Please enter email & password.", "err");
+    return;
+  }
+
   try{
+    setBusy(true);
+    setStatus("⏳ Signing in…");
+    await signInWithEmailAndPassword(auth, email, pass);
+    goProfile();
+  }catch(e){
+    setStatus("❌ " + (e?.message || "Login failed"), "err");
+  }finally{
+    setBusy(false);
+  }
+});
+
+els.googleLoginBtn.addEventListener("click", async ()=>{
+  try{
+    setBusy(true);
+    setStatus("⏳ Connecting with Google…");
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth,provider);
-    location.href="profil.html";
-  }catch(e){alert(e.message)}
-};
+    await signInWithPopup(auth, provider);
+    goProfile();
+  }catch(e){
+    setStatus("❌ " + (e?.message || "Google login failed"), "err");
+  }finally{
+    setBusy(false);
+  }
+});
 
-window.recaptchaVerifier = new RecaptchaVerifier(auth,"recaptcha-container",{size:"invisible"});
-phoneLogin.onclick = async ()=>{
+els.resetBtn.addEventListener("click", async (ev)=>{
+  ev.preventDefault();
+  const email = els.email.value.trim();
+  if(!email){
+    setStatus("⚠️ Enter your email first, then click reset.", "err");
+    return;
+  }
   try{
-    const conf = await signInWithPhoneNumber(auth,phone.value,window.recaptchaVerifier);
-    const code = prompt("Enter SMS code");
-    await conf.confirm(code);
-    location.href="profil.html";
-  }catch(e){alert(e.message)}
-};
+    setBusy(true);
+    await sendPasswordResetEmail(auth, email);
+    setStatus("✅ Reset link sent to your email.", "ok");
+  }catch(e){
+    setStatus("❌ " + (e?.message || "Reset failed"), "err");
+  }finally{
+    setBusy(false);
+  }
+});
+
+let recaptchaVerifier = null;
+let confirmationResult = null;
+
+async function initRecaptcha(){
+  if(recaptchaVerifier) return;
+  recaptchaVerifier = new RecaptchaVerifier(
+    "recaptcha-container",
+    { size: "invisible" },
+    auth
+  );
+  await recaptchaVerifier.render();
+}
+
+els.phoneSendBtn.addEventListener("click", async ()=>{
+  const phone = els.phone.value.trim();
+  if(!phone){
+    setStatus("⚠️ Enter phone number in +Country format (ex: +213...).", "err");
+    return;
+  }
+
+  try{
+    setBusy(true);
+    setStatus("⏳ Sending SMS code…");
+
+    await initRecaptcha();
+    confirmationResult = await signInWithPhoneNumber(auth, phone, recaptchaVerifier);
+
+    els.otpBox.style.display = "block";
+    setStatus("✅ Code sent. Please enter the SMS code.", "ok");
+    els.otp.focus();
+  }catch(e){
+    setStatus("❌ " + (e?.message || "Phone login failed"), "err");
+  }finally{
+    setBusy(false);
+  }
+});
+
+els.otpVerifyBtn.addEventListener("click", async ()=>{
+  const code = els.otp.value.trim();
+  if(!confirmationResult){
+    setStatus("⚠️ Please send the SMS code first.", "err");
+    return;
+  }
+  if(!code){
+    setStatus("⚠️ Enter the SMS verification code.", "err");
+    return;
+  }
+
+  try{
+    setBusy(true);
+    setStatus("⏳ Verifying code…");
+    await confirmationResult.confirm(code);
+    goProfile();
+  }catch(e){
+    setStatus("❌ " + (e?.message || "Invalid code"), "err");
+  }finally{
+    setBusy(false);
+  }
+});
+
+document.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter" && document.activeElement && ["email","password"].includes(document.activeElement.id)){
+    els.emailLoginBtn.click();
+  }
+});
 </script>
 
 </body>
