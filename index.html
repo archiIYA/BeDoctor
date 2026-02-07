@@ -1,91 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BeDoctor – Medical Learning Platform</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeDoctor – Medical Learning Platform</title>
+
+  <meta name="description" content="BeDoctor is a smart e-learning platform for medical and health science students. Learn deeply, study efficiently, and excel with confidence." />
+  <meta name="theme-color" content="#0fb9b1" />
+  <meta property="og:title" content="BeDoctor – Medical Learning Platform" />
+  <meta property="og:description" content="Smart learning for medical students: content, summaries, resources, and interactive tools." />
+  <meta property="og:image" content="banner.svg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="apple-touch-icon" href="logo.svg" />
 
 <style>
-  
+
 :root{
   --bg:#f7fbff;
-  --surface:rgba(255,255,255,0.92);
-  --surface2:rgba(255,255,255,0.82);
+  --surface:rgba(255,255,255,.86);
+  --surface2:#ffffff;
   --text:#0f172a;
-  --muted:#475569;
+  --muted:#42566f;
+
   --accent:#0fb9b1;
   --accent2:#2563eb;
-  --stroke:rgba(15,23,42,0.10);
-  --radius:18px;
-  --shadow:0 24px 70px rgba(15,23,42,.10);
-  --glow:0 0 34px rgba(15,185,177,.20), 0 0 46px rgba(37,99,235,.12);
+
+  --stroke:rgba(15,23,42,.10);
+  --radius:20px;
+
+  --shadow: 0 28px 70px rgba(15,23,42,.10);
+  --shadow2: 0 14px 35px rgba(15,23,42,.10);
+  --glow: 0 0 30px rgba(15,185,177,.18), 0 0 55px rgba(37,99,235,.12);
+
+  --star: rgba(15,23,42,.14);
 }
 
 html[data-theme="dark"]{
-  --bg:#0a1020;
-  --surface:rgba(16,26,45,0.82);
-  --surface2:rgba(16,26,45,0.70);
+  --bg:#070e1a;
+  --surface:rgba(16,26,45,.70);
+  --surface2:#101a2d;
   --text:#eef4ff;
-  --muted:#b6c3d6;
-  --stroke:rgba(255,255,255,0.12);
-  --shadow:0 34px 90px rgba(0,0,0,.45);
-  --glow:0 0 42px rgba(15,185,177,.22), 0 0 60px rgba(37,99,235,.18);
+  --muted:#b8c6da;
+
+  --stroke:rgba(255,255,255,.14);
+  --shadow: 0 36px 90px rgba(0,0,0,.55);
+  --shadow2: 0 18px 45px rgba(0,0,0,.45);
+  --glow: 0 0 36px rgba(15,185,177,.22), 0 0 70px rgba(37,99,235,.18);
+
+  --star: rgba(255,255,255,.16);
 }
 
 *{ box-sizing:border-box; }
 body{
   margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   color:var(--text);
   background: var(--bg);
   overflow-x:hidden;
 }
 
-.bg{
-  position:fixed; inset:0;
-  pointer-events:none;
-  z-index:-3;
-  background:
-    radial-gradient(900px 600px at 12% 12%, rgba(15,185,177,.14), transparent 65%),
-    radial-gradient(900px 650px at 88% 18%, rgba(37,99,235,.14), transparent 70%),
-    radial-gradient(900px 650px at 50% 95%, rgba(15,185,177,.10), transparent 70%),
-    linear-gradient(180deg, transparent, transparent);
-}
 .stars{
-  position:fixed; inset:0;
+  position:fixed; inset:0; z-index:-3; pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 20%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 25% 65%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 38% 30%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 50% 80%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 66% 18%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 78% 58%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 90% 28%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 8% 85%,  var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 92% 85%, var(--star) 1px, transparent 2px),
+    radial-gradient(circle at 55% 10%, var(--star) 1px, transparent 2px);
+  background-size: 140px 140px;
+  opacity:.55;
+}
+
+.ambient{
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 14% 16%, rgba(15,185,177,.12), transparent 60%),
+    radial-gradient(900px 650px at 86% 18%, rgba(37,99,235,.14), transparent 62%),
+    radial-gradient(1000px 650px at 50% 90%, rgba(15,185,177,.10), transparent 60%);
+}
+
+.watermark{
+  position:fixed;
+  inset:auto auto 8% 50%;
+  transform: translateX(-50%);
+  width:min(780px, 92vw);
+  opacity:.18; 
+  z-index:-1;
   pointer-events:none;
-  z-index:-2;
-  background-image: radial-gradient(rgba(255,255,255,0.75) 1px, transparent 1px);
-  background-size: 26px 26px;
-  opacity: .22;
-  mask-image: radial-gradient(circle at 50% 35%, #000 0 55%, transparent 78%);
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,.15));
 }
-html[data-theme="light"] .stars{
-  background-image: radial-gradient(rgba(15,23,42,0.50) 1px, transparent 1px);
-  opacity:.18;
-}
+html[data-theme="dark"] .watermark{ opacity:.22; }
 
 .container{
   max-width:1100px;
   margin:0 auto;
-  padding:22px 16px 70px;
+  padding:22px 18px 38px;
 }
 
 .topbar{
+  position:sticky; top:0;
+  z-index:10;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
-  padding:12px 10px;
-  position:sticky;
-  top:0;
-  z-index:10;
-  background: linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.15));
+  gap:14px;
+  padding:14px 10px;
+  margin:0 -10px 16px;
   backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35));
   border-bottom:1px solid var(--stroke);
 }
 html[data-theme="dark"] .topbar{
-  background: linear-gradient(180deg, rgba(10,16,32,0.62), rgba(10,16,32,0.18));
+  background: linear-gradient(180deg, rgba(10,15,25,.70), rgba(10,15,25,.35));
 }
 
 .brand{
@@ -94,17 +127,35 @@ html[data-theme="dark"] .topbar{
   gap:12px;
   text-decoration:none;
   color:inherit;
+  min-width: 190px;
 }
-.brand-logo{
-  width:44px;
-  height:44px;
+.brand .logo{
+  width:54px; height:54px;
+  border-radius:16px;
+  background: var(--surface2);
+  border:1px solid var(--stroke);
+  box-shadow: var(--shadow2), var(--glow);
+  display:grid; place-items:center;
+  overflow:hidden;
+}
+.brand .logo img{
+  width:78%;
+  height:78%;
   object-fit:contain;
-  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.20));
 }
-.brand-name{
+.brand .name{
+  display:flex; flex-direction:column;
+  line-height:1.05;
+}
+.brand .name strong{
+  font-size:18px;
   font-weight:950;
   letter-spacing:.2px;
-  font-size:20px;
+}
+.brand .name span{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
 }
 
 .controls{
@@ -112,54 +163,60 @@ html[data-theme="dark"] .topbar{
   align-items:center;
   gap:10px;
   flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
-.pill{
+.iconBtn{
+  padding:10px 12px;
+  border-radius:14px;
   border:1px solid var(--stroke);
-  background: var(--surface2);
-  color:var(--text);
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:850;
+  background: var(--surface);
+  box-shadow: var(--shadow2);
   cursor:pointer;
-  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+  font-weight:900;
+  color:var(--text);
+  transition: transform .22s ease, box-shadow .22s ease;
 }
-.pill:hover{
+.iconBtn:hover{
   transform: translateY(-2px);
   box-shadow: var(--shadow), var(--glow);
 }
 
-.auth{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-.btn{
-  border:1px solid var(--stroke);
-  background: var(--surface2);
-  color:var(--text);
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:900;
-  text-decoration:none;
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+.navBtn{
   display:inline-flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  background: var(--surface);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:900;
+  box-shadow: var(--shadow2);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+  position:relative;
+  overflow:hidden;
 }
-.btn:hover{
+.navBtn::before{
+  content:"";
+  position:absolute; inset:-2px;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.20), transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .65s ease;
+}
+.navBtn:hover::before{ transform: translateX(120%); }
+.navBtn:hover{
   transform: translateY(-2px);
   box-shadow: var(--shadow), var(--glow);
 }
-.btn.primary{
+.navBtn.primary{
   border:none;
   color:#fff;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
-  box-shadow: 0 14px 34px rgba(37,99,235,.20);
+}
+.navBtn.primary:hover{
+  box-shadow: var(--shadow), 0 0 45px rgba(15,185,177,.26), 0 0 75px rgba(37,99,235,.18);
 }
 
 .card{
@@ -168,313 +225,351 @@ html[data-theme="dark"] .topbar{
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow:hidden;
-  position:relative;
-  margin-top: 22px;
 }
 
-.watermark{
-  position:absolute;
-  inset:auto -60px -80px auto;
-  width:min(520px, 70vw);
-  opacity:0.07;
-  transform: rotate(-10deg);
-  pointer-events:none;
-  filter: blur(0.2px);
+.bannerWrap{
+  padding:18px;
 }
-html[data-theme="light"] .watermark{
-  opacity:0.06;
-}
-
 .banner{
   position:relative;
-  padding:24px 18px 18px;
-  border-bottom:1px solid var(--stroke);
-  background:
-    radial-gradient(600px 220px at 18% 30%, rgba(15,185,177,.18), transparent 60%),
-    radial-gradient(600px 220px at 82% 20%, rgba(37,99,235,.18), transparent 60%);
+  border-radius: 18px;
+  border:1px solid var(--stroke);
+  background: var(--surface2);
+  box-shadow: var(--shadow2);
+  overflow:hidden;
 }
-.banner-inner{
-  display:flex;
+.banner img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  display:block;
+}
+.banner::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(90deg, rgba(15,185,177,.18), rgba(37,99,235,.16));
+  mix-blend-mode: multiply;
+  opacity:.85;
+  pointer-events:none;
+}
+.banner .label{
+  position:absolute;
+  left:18px; bottom:16px;
+  display:inline-flex;
+  gap:10px;
   align-items:center;
-  justify-content:center;
-  padding:12px;
-}
-.banner-img{
-  width:min(720px, 100%);
-  max-height:180px;
-  object-fit:contain;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,0.15));
-}
-
-.content{
-  padding:34px 28px 26px;
-  position:relative;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(12px);
+  font-weight:900;
+  letter-spacing:.2px;
 }
 
-h1{
-  margin:0 0 14px;
-  font-size: clamp(24px, 3.2vw, 44px);
-  line-height:1.15;
+.hero{
+  padding:26px 22px 28px;
+}
+.heroTitle{
+  margin:0;
+  font-size: clamp(26px, 3.6vw, 44px);
   font-weight:950;
+  letter-spacing:-.4px;
+  line-height:1.08;
+  min-height: 64px;
 }
-.type{
+.typeRow{
   display:inline;
 }
 .cursor{
   display:inline-block;
   width:2px;
   height:1em;
-  background: currentColor;
   margin-left:6px;
+  background: currentColor;
+  opacity:.9;
   animation: blink 1s infinite;
   vertical-align: -2px;
 }
-@keyframes blink{ 0%,50%,100%{opacity:1} 25%,75%{opacity:0} }
+@keyframes blink{
+  0%,50%,100%{opacity:1}
+  25%,75%{opacity:0}
+}
 
-p{
-  margin:0;
+.desc{
+  margin: 14px 0 0;
+  color: var(--muted);
   font-size: 16.5px;
   line-height: 1.85;
-  color: var(--muted);
   max-width: 92ch;
 }
 
 .tagline{
-  margin-top:18px;
-  font-size: 18px;
-  font-weight:900;
+  margin-top: 16px;
+  font-weight: 950;
   color: var(--accent);
 }
 
 .stats{
-  margin-top:22px;
   display:grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap:12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap:14px;
+  padding: 0 18px 18px;
 }
 .stat{
-  background: var(--surface2);
+  padding:16px;
+  border-radius:18px;
   border:1px solid var(--stroke);
-  border-radius: 16px;
-  padding:14px 14px;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+  background: rgba(255,255,255,.42);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(12px);
+  text-align:center;
 }
-.stat-num{
-  font-size: 24px;
-  font-weight:950;
+html[data-theme="dark"] .stat{
+  background: rgba(16,26,45,.65);
+}
+.stat .num{
+  font-size: 26px;
+  font-weight: 950;
+  letter-spacing:-.3px;
   background: linear-gradient(90deg, var(--accent), var(--accent2));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
-.stat-label{
+.stat .lab{
   margin-top:6px;
   color: var(--muted);
-  font-weight:700;
-  font-size: 13px;
+  font-weight:800;
+  font-size: 12.5px;
 }
 
 .footer{
-  margin-top:18px;
-  padding: 16px 4px 0;
-  display:flex;
-  justify-content:flex-end;
+  margin-top: 18px;
+  padding: 14px 6px 0;
   color: var(--muted);
-  font-style: italic;
-  font-weight:700;
+  text-align:center;
+  font-weight:800;
+}
+.signature{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--stroke);
+  background: var(--surface);
+  box-shadow: var(--shadow2);
 }
 
-@keyframes fadeUp{
-  from{ opacity:0; transform: translateY(18px); }
-  to{ opacity:1; transform: translateY(0); }
+@media (max-width: 920px){
+  .stats{ grid-template-columns: repeat(2, 1fr); }
+  .brand{ min-width: 160px; }
 }
-.card{ animation: fadeUp .7s ease both; }
-.banner-img{ animation: fadeUp .9s ease both; }
-.content{ animation: fadeUp 1.0s ease both; }
-
-@media (max-width: 820px){
-  .auth{ display:none; } 
-  .content{ padding:26px 18px 22px; }
+@media (max-width: 560px){
+  .topbar{ align-items:flex-start; }
+  .controls{ gap:8px; }
+  .navBtn{ width:100%; justify-content:center; }
   .stats{ grid-template-columns: 1fr; }
-}
-.mobile-auth{
-  display:none;
-  margin-top:16px;
-  gap:10px;
-  flex-wrap:wrap;
-}
-@media (max-width: 820px){
-  .mobile-auth{ display:flex; }
+  .banner img{ height:190px; }
 }
 </style>
 </head>
 
 <body>
-<div class="bg"></div>
-<div class="stars"></div>
+  <div class="stars"></div>
+  <div class="ambient"></div>
 
-<div class="container">
-  <div class="topbar">
-    <a class="brand" href="https://yourbrand.com" title="BeDoctor">
-      <img class="brand-logo" src="logo.svg" alt="BeDoctor Logo">
-      <div class="brand-name">BeDoctor</div>
-    </a>
+  <img class="watermark" src="logo.svg" alt="" aria-hidden="true">
 
-    <div class="controls">
-      <div class="auth">
-        <a class="btn primary" href="signup.html" id="signupTop">📝 <span data-i18n="signup">Sign up</span></a>
-        <a class="btn" href="login.html" id="loginTop">🔐 <span data-i18n="login">Log in</span></a>
+  <div class="container">
+
+    <header class="topbar">
+
+      <a class="brand" href="https://yourbrand.com" aria-label="BeDoctor home">
+        <div class="logo" title="Logo: logo.svg">
+          <img src="logo.svg" alt="BeDoctor Logo">
+        </div>
+        <div class="name">
+          <strong>BeDoctor</strong>
+          <span data-i18n="brandLine">Medical Learning Platform</span>
+        </div>
+      </a>
+
+      <div class="controls">
+        <button class="iconBtn" id="langBtn" title="Language">EN</button>
+
+        <button class="iconBtn" id="themeBtn" title="Theme">🌙</button>
+
+        <a class="navBtn" href="login.html" id="loginLink" data-i18n="loginBtn">🔐 Login</a>
+        <a class="navBtn primary" href="signup.html" id="signupLink" data-i18n="signupBtn">📝 Create Account</a>
+      </div>
+    </header>
+
+    <section class="card">
+
+      <div class="bannerWrap">
+        <div class="banner" title="Banner: banner.svg">
+          <img src="banner.svg" alt="BeDoctor Banner">
+          <div class="label" data-i18n="bannerLabel">✨ Smart Medical Learning</div>
+        </div>
       </div>
 
-      <button class="pill" id="langBtn" title="Language">🌍 <span id="langLabel">EN</span></button>
-      <button class="pill" id="themeBtn" title="Theme">🌙 <span data-i18n="mode">Night</span></button>
-    </div>
+      <div class="hero">
+        <h1 class="heroTitle">
+          <span class="typeRow" id="typing"></span><span class="cursor"></span>
+        </h1>
+
+        <p class="desc" id="desc"></p>
+
+        <div class="tagline" id="tagline"></div>
+      </div>
+
+ 
+      <div class="stats" aria-label="Platform statistics">
+        <div class="stat">
+          <div class="num" data-count="1200">0</div>
+          <div class="lab" id="s1"></div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="340">0</div>
+          <div class="lab" id="s2"></div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="500">0</div>
+          <div class="lab" id="s3"></div>
+        </div>
+        <div class="stat">
+          <div class="num" data-count="95">0</div>
+          <div class="lab" id="s4"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="signature">dr iyad + dr ines</div>
+    </footer>
+
   </div>
-
-  <section class="card">
-    <img class="watermark" src="logo.svg" alt="" aria-hidden="true">
-
-    <div class="banner">
-      <div class="banner-inner">
-        <img class="banner-img" src="banner.svg" alt="BeDoctor Banner">
-      </div>
-    </div>
-
-    <div class="content">
-      <h1>
-        <span class="type" id="typing"></span><span class="cursor"></span>
-      </h1>
-
-      <p id="desc"></p>
-
-      <div class="tagline" id="tagline"></div>
-
-      <div class="mobile-auth">
-        <a class="btn primary" href="signup.html">📝 <span data-i18n="signup">Sign up</span></a>
-        <a class="btn" href="login.html">🔐 <span data-i18n="login">Log in</span></a>
-      </div>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-num" id="qcmNum">0</div>
-          <div class="stat-label" data-i18n="qcm">📘 QCM (MCQ) Questions</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" id="lessonsNum">0</div>
-          <div class="stat-label" data-i18n="lessons">🎥 Lessons Follow-up</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" id="casesNum">0</div>
-          <div class="stat-label" data-i18n="cases">🩺 Clinical Cases</div>
-        </div>
-      </div>
-
-      <div class="footer">dr iyad + dr ines ✍️</div>
-    </div>
-  </section>
-</div>
 
 <script>
 
-const html = document.documentElement;
-const langBtn = document.getElementById("langBtn");
-const langLabel = document.getElementById("langLabel");
-const themeBtn = document.getElementById("themeBtn");
-
-const descEl = document.getElementById("desc");
-const taglineEl = document.getElementById("tagline");
-const typingEl = document.getElementById("typing");
-
-const stats = { qcm: 1200, lessons: 240, cases: 320 };
-
-
 const I18N = {
   en: {
-    title: "🧠📚 The Smart Learning Platform for Medical Science Students 🩺",
+    brandLine: "Medical Learning Platform",
+    bannerLabel: "✨ Smart Medical Learning",
+    loginBtn: "🔐 Login",
+    signupBtn: "📝 Create Account",
+
+    typing: "🧠📚 The Smart Learning Platform for Medical Science Students 🩺",
+
     desc:
-      "🧬 <strong>BeDoctor</strong> is a comprehensive e-learning platform designed specifically to support <strong>medical and health science students</strong> throughout their academic journey 👩‍⚕️👨‍⚕️." +
-      "<br><br>📖 It provides <strong>reliable medical content</strong>, ✨ <strong>smart summaries</strong>, 🔬 <strong>up-to-date study resources</strong>, and 🧪 <strong>interactive learning tools</strong> that help students <strong>understand deeply</strong>, <strong>study efficiently</strong>, and <strong>excel with confidence</strong> 🚀." +
-      "<br><br>🏥 With BeDoctor, you don’t just study to pass exams ❌📝 — you <strong>learn to think like a doctor</strong> 🧠🩺 and prepare for <strong>real clinical practice</strong> from day one ✅.",
+      "BeDoctor is a comprehensive e-learning platform designed specifically to support medical and health science students throughout their academic journey. 🧑‍⚕️👩‍⚕️<br><br>" +
+      "It provides reliable medical content 📖, smart summaries ✨, up-to-date study resources 🔬, and interactive learning tools 🧪 that help students understand deeply, study efficiently, and excel with confidence 🚀.<br><br>" +
+      "With BeDoctor, you don’t just study to pass exams 📝 — you learn to think like a doctor 🧠🩺 and prepare for real clinical practice 🏥 from day one.",
     tagline: "🌟 BeDoctor — Learn Today. Heal Tomorrow.",
-    signup: "Sign up",
-    login: "Log in",
-    mode: (t) => (t === "dark" ? "Night" : "Day"),
-    qcm: "📘 QCM (MCQ) Questions",
-    lessons: "🎥 Lessons Follow-up",
-    cases: "🩺 Clinical Cases"
+    s1: "📘 QCM Questions",
+    s2: "🩺 Clinical Cases",
+    s3: "🎥 Lessons Tracked",
+    s4: "📈 Progress Score"
   },
   fr: {
-    title: "🧠📚 La plateforme intelligente pour les étudiants en sciences médicales 🩺",
+    brandLine: "Plateforme d’apprentissage médical",
+    bannerLabel: "✨ Apprentissage médical intelligent",
+    loginBtn: "🔐 Connexion",
+    signupBtn: "📝 Inscription",
+    typing: "🧠📚 La plateforme intelligente pour les étudiants en sciences médicales 🩺",
     desc:
-      "🧬 <strong>BeDoctor</strong> est une plateforme e-learning complète, conçue spécialement pour accompagner les <strong>étudiants en médecine et sciences de la santé</strong> tout au long de leur parcours 👩‍⚕️👨‍⚕️." +
-      "<br><br>📖 Elle propose un <strong>contenu médical fiable</strong>, ✨ des <strong>résumés intelligents</strong>, 🔬 des <strong>ressources à jour</strong>, et 🧪 des <strong>outils interactifs</strong> pour <strong>comprendre en profondeur</strong>, <strong>étudier efficacement</strong> et <strong>réussir avec confiance</strong> 🚀." +
-      "<br><br>🏥 Avec BeDoctor, tu ne travailles pas فقط pour réussir les examens ❌📝 — tu <strong>apprends à penser comme un médecin</strong> 🧠🩺 et tu te prépares à la <strong>pratique clinique réelle</strong> dès le premier jour ✅.",
+      "BeDoctor est une plateforme e-learning complète conçue spécialement pour accompagner les étudiants en médecine et sciences de la santé tout au long de leur parcours universitaire. 🧑‍⚕️👩‍⚕️<br><br>" +
+      "Elle propose un contenu médical fiable 📖, des résumés intelligents ✨, des ressources à jour 🔬 et des outils interactifs 🧪 pour comprendre en profondeur, étudier efficacement et réussir avec confiance 🚀.<br><br>" +
+      "Avec BeDoctor, tu n’étudies pas seulement pour réussir les examens 📝 — tu apprends à penser comme un médecin 🧠🩺 et à te préparer à la pratique clinique réelle 🏥 dès le premier jour.",
     tagline: "🌟 BeDoctor — Apprendre aujourd’hui. Soigner demain.",
-    signup: "Inscription",
-    login: "Connexion",
-    mode: (t) => (t === "dark" ? "Nuit" : "Jour"),
-    qcm: "📘 Questions QCM",
-    lessons: "🎥 Suivi des cours",
-    cases: "🩺 Cas cliniques"
+    s1: "📘 Questions QCM",
+    s2: "🩺 Cas cliniques",
+    s3: "🎥 Suivi des cours",
+    s4: "📈 Score de progression"
   }
 };
 
-let lang = localStorage.getItem("bedoctor_lang") || "en";
+let currentLang = localStorage.getItem("bedoctor_lang") || "en";
+let currentTheme = localStorage.getItem("bedoctor_theme") || document.documentElement.getAttribute("data-theme") || "light";
 
+function setTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("bedoctor_theme", theme);
+  document.getElementById("themeBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+}
 
-function renderText(){
-  const t = I18N[lang];
-  descEl.innerHTML = t.desc;
-  taglineEl.textContent = t.tagline;
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem("bedoctor_lang", lang);
+  document.getElementById("langBtn").textContent = lang.toUpperCase();
 
+  document.querySelector("[data-i18n='brandLine']").textContent = I18N[lang].brandLine;
+  document.querySelector("[data-i18n='bannerLabel']").textContent = I18N[lang].bannerLabel;
+  document.querySelector("[data-i18n='loginBtn']").textContent = I18N[lang].loginBtn;
+  document.querySelector("[data-i18n='signupBtn']").textContent = I18N[lang].signupBtn;
 
-  document.querySelectorAll("[data-i18n='signup']").forEach(el => el.textContent = t.signup);
-  document.querySelectorAll("[data-i18n='login']").forEach(el => el.textContent = t.login);
-  document.querySelectorAll("[data-i18n='qcm']").forEach(el => el.textContent = t.qcm);
-  document.querySelectorAll("[data-i18n='lessons']").forEach(el => el.textContent = t.lessons);
-  document.querySelectorAll("[data-i18n='cases']").forEach(el => el.textContent = t.cases);
+  document.getElementById("desc").innerHTML = I18N[lang].desc;
+  document.getElementById("tagline").textContent = I18N[lang].tagline;
 
-  document.querySelectorAll("[data-i18n='mode']").forEach(el => el.textContent = t.mode(html.getAttribute("data-theme")));
+  document.getElementById("s1").textContent = I18N[lang].s1;
+  document.getElementById("s2").textContent = I18N[lang].s2;
+  document.getElementById("s3").textContent = I18N[lang].s3;
+  document.getElementById("s4").textContent = I18N[lang].s4;
 
-  langLabel.textContent = lang.toUpperCase();
+  startTypingLoop(I18N[lang].typing);
 }
 
 
 let typingTimer = null;
+let typingText = "";
+let tIndex = 0;
 let deleting = false;
-let idx = 0;
 
-function startTyping(){
-  const t = I18N[lang].title;
-  clearTimeout(typingTimer);
+function clearTyping(){
+  if(typingTimer) clearTimeout(typingTimer);
+  typingTimer = null;
+  tIndex = 0;
+  deleting = false;
+  document.getElementById("typing").textContent = "";
+}
+
+function startTypingLoop(text){
+  clearTyping();
+  typingText = text;
+
+  const speedType = 45;
+  const speedDelete = 22;
+  const pauseAfterType = 1200;
+  const pauseAfterDelete = 450;
 
   function tick(){
-    const full = t;
+    const out = document.getElementById("typing");
+
     if(!deleting){
-      idx++;
-      typingEl.textContent = full.slice(0, idx);
-      if(idx >= full.length){
+      out.textContent = typingText.slice(0, tIndex++);
+      if(tIndex <= typingText.length){
+        typingTimer = setTimeout(tick, speedType);
+      }else{
         deleting = true;
-        typingTimer = setTimeout(tick, 900);
-        return;
+        typingTimer = setTimeout(tick, pauseAfterType);
       }
     }else{
-      idx--;
-      typingEl.textContent = full.slice(0, idx);
-      if(idx <= 0){
+      out.textContent = typingText.slice(0, tIndex--);
+      if(tIndex >= 0){
+        typingTimer = setTimeout(tick, speedDelete);
+      }else{
         deleting = false;
-        typingTimer = setTimeout(tick, 350);
-        return;
+        tIndex = 0;
+        typingTimer = setTimeout(tick, pauseAfterDelete);
       }
     }
-    typingTimer = setTimeout(tick, deleting ? 25 : 55);
   }
   tick();
 }
 
 
-function animateCount(id, target){
-  const el = document.getElementById(id);
+function animateCount(el, target){
   const duration = 1100;
   const start = performance.now();
   const from = 0;
@@ -482,45 +577,31 @@ function animateCount(id, target){
   function frame(now){
     const p = Math.min(1, (now - start) / duration);
     const val = Math.floor(from + (target - from) * (1 - Math.pow(1 - p, 3)));
-    el.textContent = val.toLocaleString() + "+";
+    el.textContent = val.toLocaleString();
     if(p < 1) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
 
-function runStats(){
-  animateCount("qcmNum", stats.qcm);
-  animateCount("lessonsNum", stats.lessons);
-  animateCount("casesNum", stats.cases);
+function runCounters(){
+  document.querySelectorAll(".num[data-count]").forEach(n=>{
+    animateCount(n, Number(n.dataset.count));
+  });
 }
 
 
-function setTheme(theme){
-  html.setAttribute("data-theme", theme);
-  localStorage.setItem("bedoctor_theme", theme);
-  themeBtn.innerHTML = (theme === "dark" ? "🌙" : "☀️") + " <span data-i18n='mode'></span>";
-  renderText();
-}
-setTheme(localStorage.getItem("bedoctor_theme") || "light");
-
-themeBtn.addEventListener("click", ()=>{
-  const current = html.getAttribute("data-theme");
-  setTheme(current === "light" ? "dark" : "light");
+document.getElementById("langBtn").addEventListener("click", ()=>{
+  setLang(currentLang === "en" ? "fr" : "en");
 });
 
-
-langBtn.addEventListener("click", ()=>{
-  lang = (lang === "en") ? "fr" : "en";
-  localStorage.setItem("bedoctor_lang", lang);
-  renderText();
-  idx = 0; deleting = false;
-  startTyping();
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  const next = (document.documentElement.getAttribute("data-theme") === "dark") ? "light" : "dark";
+  setTheme(next);
 });
 
-
-renderText();
-startTyping();
-runStats();
+setTheme(currentTheme);
+setLang(currentLang);
+runCounters();
 </script>
 
 </body>
