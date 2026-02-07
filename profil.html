@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 
 <style>
-
 :root{
   --bg:#0b0f1a;
   --card:#141a2a;
@@ -19,23 +18,8 @@
   --accent2:#ec4899;
 
   --radius:20px;
-  --stroke:rgba(255,255,255,.14);
-
-  --shadow:0 30px 90px rgba(0,0,0,.55);
-  --glow:0 0 40px rgba(139,92,246,.35),
-          0 0 70px rgba(236,72,153,.25);
-}
-
-html[data-theme="light"]{
-  --bg:#f7f8ff;
-  --card:#ffffff;
-  --text:#0f172a;
-  --muted:#4b5563;
-
-  --stroke:rgba(15,23,42,.12);
-
-  --shadow:0 30px 80px rgba(15,23,42,.12);
-  --glow:0 0 30px rgba(139,92,246,.20);
+  --shadow:0 30px 80px rgba(0,0,0,.55);
+  --glow:0 0 40px rgba(139,92,246,.35);
 }
 
 *{box-sizing:border-box}
@@ -45,30 +29,29 @@ body{
   min-height:100vh;
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
   background:
-    radial-gradient(800px 500px at 10% 10%, rgba(139,92,246,.25), transparent 60%),
-    radial-gradient(800px 600px at 90% 20%, rgba(236,72,153,.22), transparent 60%),
-    var(--bg);
+    radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
 }
 
+/* ===== Stars ===== */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle, rgba(236,72,153,.6) 1px, transparent 2px),
-    radial-gradient(circle, rgba(139,92,246,.6) 1px, transparent 2px);
+    radial-gradient(circle,rgba(236,72,153,.6) 1px,transparent 2px),
+    radial-gradient(circle,rgba(139,92,246,.6) 1px,transparent 2px);
   background-size:140px 140px;
   opacity:.35;
   z-index:-1;
 }
 
-
+/* ===== Header ===== */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px 24px;
+  padding:18px 26px;
 }
 
 .brand{
@@ -78,143 +61,139 @@ body::before{
 }
 
 .brand img{
-  width:46px;
+  width:42px;
 }
 
 .brand strong{
   font-size:20px;
 }
 
-.controls{
-  display:flex;
-  gap:10px;
-}
-
-.iconBtn{
-  padding:10px 12px;
+.logout{
+  padding:10px 18px;
   border-radius:14px;
-  border:1px solid var(--stroke);
-  background:var(--card);
+  border:none;
   cursor:pointer;
   font-weight:900;
+  background:rgba(255,255,255,.1);
+  color:#fff;
 }
 
-
+/* ===== Layout ===== */
 .container{
-  max-width:1200px;
+  max-width:1100px;
   margin:auto;
-  padding:20px;
-  display:grid;
-  grid-template-columns:1fr 1.4fr;
-  gap:30px;
+  padding:30px 20px 60px;
 }
 
+.grid{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:28px;
+}
 
+/* ===== Profile Card ===== */
 .profile{
   background:var(--card);
   border-radius:var(--radius);
+  padding:26px;
   box-shadow:var(--shadow),var(--glow);
-  padding:30px;
   text-align:center;
+  animation:fadeUp 1s ease forwards;
 }
 
 .avatar{
-  width:110px;
-  height:110px;
-  margin:auto;
+  width:96px;
+  height:96px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:42px;
-  font-weight:900;
+  margin:auto;
 }
 
 .profile h2{
-  margin:16px 0 6px;
+  margin:14px 0 6px;
 }
 
 .profile span{
   color:var(--muted);
+  font-size:14px;
 }
 
-
+/* ===== Stats ===== */
 .stats{
+  margin-top:20px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:26px;
+  gap:14px;
 }
 
 .stat{
   background:rgba(255,255,255,.06);
-  border-radius:16px;
-  padding:20px;
+  border-radius:14px;
+  padding:14px;
 }
 
 .stat h3{
   margin:0;
-  font-size:26px;
-  color:var(--accent2);
+  font-size:20px;
+  color:var(--accent);
 }
 
-.stat p{
-  margin:4px 0 0;
-  font-size:13px;
+.stat span{
+  font-size:12px;
   color:var(--muted);
 }
 
-
-.content{
+/* ===== Main Panel ===== */
+.main{
   display:grid;
-  gap:20px;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  animation:fadeUp 1.2s ease forwards;
 }
 
 .card{
   background:var(--card);
   border-radius:var(--radius);
+  padding:26px;
   box-shadow:var(--shadow);
-  padding:24px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 40px 90px rgba(139,92,246,.45);
 }
 
 .card h3{
-  margin-top:0;
+  margin:0 0 10px;
 }
 
-
-.actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
 }
-
-.action{
-  padding:20px;
-  border-radius:18px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  font-weight:900;
-  text-align:center;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.action:hover{
-  transform:translateY(-4px);
-}
-
 
 .footer{
-  margin:30px 0 10px;
+  margin-top:40px;
   text-align:center;
   color:var(--muted);
   font-weight:700;
 }
 
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(30px)}
+  to{opacity:1; transform:translateY(0)}
+}
 
 @media(max-width:900px){
-  .container{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .main{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -226,96 +205,86 @@ body::before{
     <img src="logo.svg">
     <strong>BeDoctor</strong>
   </div>
-
-  <div class="controls">
-    <button class="iconBtn" id="themeBtn">🌙</button>
-    <button class="iconBtn" id="logoutBtn">🚪 Logout</button>
-  </div>
+  <button class="logout" onclick="logout()">Logout</button>
 </header>
 
 <div class="container">
+  <div class="grid">
 
-  <section class="profile">
-    <div class="avatar">👤</div>
-    <h2 id="userName">Medical Student</h2>
-    <span id="userEmail">student@bedoctor.com</span>
+    <div class="profile">
+      <div class="avatar">👨‍⚕️</div>
+      <h2 id="username">Medical Student</h2>
+      <span id="specialty">Specialty</span>
 
-    <div class="stats">
-      <div class="stat">
-        <h3>120</h3>
-        <p>QCM Completed</p>
+      <div class="stats">
+        <div class="stat">
+          <h3>12</h3>
+          <span>📘 Lessons</span>
+        </div>
+        <div class="stat">
+          <h3>45</h3>
+          <span>📝 QCM</span>
+        </div>
+        <div class="stat">
+          <h3>68%</h3>
+          <span>📊 Progress</span>
+        </div>
       </div>
-      <div class="stat">
-        <h3>45</h3>
-        <p>Lessons Followed</p>
+    </div>
+
+    <div class="main">
+      <div class="card" onclick="go('lessons.html')">
+        <h3>📘 My Lessons</h3>
+        <p>Continue learning your medical courses.</p>
       </div>
-      <div class="stat">
-        <h3>78%</h3>
-        <p>Progress</p>
+
+      <div class="card" onclick="go('qcm.html')">
+        <h3>📝 QCM Practice</h3>
+        <p>Test your knowledge with smart questions.</p>
+      </div>
+
+      <div class="card" onclick="go('progress.html')">
+        <h3>📊 My Progress</h3>
+        <p>Track your learning evolution.</p>
       </div>
     </div>
-  </section>
 
-  <section class="content">
+  </div>
 
-    <div class="card">
-      <h3>📚 Continue Learning</h3>
-      <p>Resume your last lesson and keep progressing.</p>
-    </div>
+  <div class="footer">
 
-    <div class="card">
-      <h3>🧠 Practice QCM</h3>
-      <p>Test your knowledge with smart questions.</p>
-    </div>
-
-    <div class="actions">
-      <div class="action">▶ Start QCM</div>
-      <div class="action">📖 My Courses</div>
-      <div class="action">⚙ Edit Profile</div>
-    </div>
-
-  </section>
-
-</div>
-
-<div class="footer">
-  dr iyad + dr ines
+  </div>
 </div>
 
 <script type="module">
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain: "bedoctor-81569.firebaseapp.com",
-  projectId: "bedoctor-81569",
-  storageBucket: "bedoctor-81569.firebasestorage.app",
-  messagingSenderId: "126611461186",
-  appId: "1:126611461186:web:6755ff737156c3919d09db"
+  projectId: "bedoctor-81569"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, user=>{
+auth.onAuthStateChanged(user=>{
   if(!user){
-    location.href="login.html";
+    window.location.href="login.html";
   }else{
-    document.getElementById("userEmail").textContent=user.email || "Phone user";
-    document.getElementById("userName").textContent=user.displayName || "Medical Student";
+    document.getElementById("username").textContent =
+      user.email?.split("@")[0] || "Medical Student";
   }
 });
 
-logoutBtn.onclick=async()=>{
+window.logout = async ()=>{
   await signOut(auth);
-  location.href="login.html";
+  window.location.href="login.html";
 };
 
-themeBtn.onclick=()=>{
-  const html=document.documentElement;
-  html.setAttribute("data-theme",
-    html.getAttribute("data-theme")==="dark"?"light":"dark");
+window.go = (page)=>{
+  window.location.href = page;
 };
 </script>
 
