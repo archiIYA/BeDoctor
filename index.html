@@ -1,301 +1,527 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BeDoctor – Medical Learning Platform</title>
 
 <style>
+
+
 :root{
-  --bg:#f8fbfd;
-  --surface:#ffffff;
+  --bg:#f7fbff;
+  --surface:rgba(255,255,255,0.92);
+  --surface2:rgba(255,255,255,0.82);
   --text:#0f172a;
   --muted:#475569;
   --accent:#0fb9b1;
   --accent2:#2563eb;
-  --stroke:#e2e8f0;
+  --stroke:rgba(15,23,42,0.10);
   --radius:18px;
-  --shadow:0 25px 60px rgba(15,23,42,.1);
+  --shadow:0 24px 70px rgba(15,23,42,.10);
+  --glow:0 0 34px rgba(15,185,177,.20), 0 0 46px rgba(37,99,235,.12);
 }
 
 html[data-theme="dark"]{
-  --bg:#0b1220;
-  --surface:#101a2d;
+  --bg:#0a1020;
+  --surface:rgba(16,26,45,0.82);
+  --surface2:rgba(16,26,45,0.70);
   --text:#eef4ff;
   --muted:#b6c3d6;
-  --stroke:rgba(255,255,255,.12);
-  --shadow:0 30px 80px rgba(0,0,0,.45);
+  --stroke:rgba(255,255,255,0.12);
+  --shadow:0 34px 90px rgba(0,0,0,.45);
+  --glow:0 0 42px rgba(15,185,177,.22), 0 0 60px rgba(37,99,235,.18);
 }
 
-*{box-sizing:border-box}
+*{ box-sizing:border-box; }
 body{
   margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
-  background:var(--bg);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
   color:var(--text);
+  background: var(--bg);
+  overflow-x:hidden;
+}
+
+.bg{
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:-3;
+  background:
+    radial-gradient(900px 600px at 12% 12%, rgba(15,185,177,.14), transparent 65%),
+    radial-gradient(900px 650px at 88% 18%, rgba(37,99,235,.14), transparent 70%),
+    radial-gradient(900px 650px at 50% 95%, rgba(15,185,177,.10), transparent 70%),
+    linear-gradient(180deg, transparent, transparent);
+}
+.stars{
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:-2;
+  background-image: radial-gradient(rgba(255,255,255,0.75) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: .22;
+  mask-image: radial-gradient(circle at 50% 35%, #000 0 55%, transparent 78%);
+}
+html[data-theme="light"] .stars{
+  background-image: radial-gradient(rgba(15,23,42,0.50) 1px, transparent 1px);
+  opacity:.18;
 }
 
 .container{
   max-width:1100px;
-  margin:auto;
-  padding:20px 20px 80px;
-  position:relative;
-}
-
-.watermark{
-  position:fixed;
-  inset:0;
-  background:url("logo.svg") center/380px no-repeat;
-  opacity:.03;
-  pointer-events:none;
-  z-index:-1;
+  margin:0 auto;
+  padding:22px 16px 70px;
 }
 
 .topbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:30px;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 10px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background: linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.15));
+  backdrop-filter: blur(14px);
+  border-bottom:1px solid var(--stroke);
+}
+html[data-theme="dark"] .topbar{
+  background: linear-gradient(180deg, rgba(10,16,32,0.62), rgba(10,16,32,0.18));
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   text-decoration:none;
   color:inherit;
 }
-
-.brand img{
-  width:46px;
-  height:46px;
+.brand-logo{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.20));
+}
+.brand-name{
+  font-weight:950;
+  letter-spacing:.2px;
+  font-size:20px;
 }
 
 .controls{
   display:flex;
+  align-items:center;
   gap:10px;
+  flex-wrap:wrap;
 }
 
-.ctrl{
-  padding:10px 14px;
-  border-radius:12px;
+.pill{
   border:1px solid var(--stroke);
-  background:var(--surface);
+  background: var(--surface2);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:850;
   cursor:pointer;
-  font-weight:700;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.pill:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow), var(--glow);
+}
+
+.auth{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.btn{
+  border:1px solid var(--stroke);
+  background: var(--surface2);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:900;
+  text-decoration:none;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow), var(--glow);
+}
+.btn.primary{
+  border:none;
+  color:#fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 14px 34px rgba(37,99,235,.20);
+}
+
+.card{
+  background: var(--surface);
+  border:1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  position:relative;
+  margin-top: 22px;
+}
+
+.watermark{
+  position:absolute;
+  inset:auto -60px -80px auto;
+  width:min(520px, 70vw);
+  opacity:0.07;
+  transform: rotate(-10deg);
+  pointer-events:none;
+  filter: blur(0.2px);
+}
+html[data-theme="light"] .watermark{
+  opacity:0.06;
 }
 
 .banner{
-  margin-bottom:30px;
+  position:relative;
+  padding:24px 18px 18px;
+  border-bottom:1px solid var(--stroke);
+  background:
+    radial-gradient(600px 220px at 18% 30%, rgba(15,185,177,.18), transparent 60%),
+    radial-gradient(600px 220px at 82% 20%, rgba(37,99,235,.18), transparent 60%);
+}
+.banner-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
+}
+.banner-img{
+  width:min(720px, 100%);
+  max-height:180px;
+  object-fit:contain;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,0.15));
 }
 
-.banner img{
-  width:100%;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-}
-
-.paper{
-  background:var(--surface);
-  padding:50px;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
+.content{
+  padding:34px 28px 26px;
+  position:relative;
 }
 
 h1{
-  font-size:42px;
-  min-height:60px;
+  margin:0 0 14px;
+  font-size: clamp(24px, 3.2vw, 44px);
+  line-height:1.15;
+  font-weight:950;
 }
-
+.type{
+  display:inline;
+}
 .cursor{
   display:inline-block;
   width:2px;
   height:1em;
-  background:currentColor;
+  background: currentColor;
   margin-left:6px;
-  animation:blink 1s infinite;
+  animation: blink 1s infinite;
+  vertical-align: -2px;
 }
+@keyframes blink{ 0%,50%,100%{opacity:1} 25%,75%{opacity:0} }
 
-@keyframes blink{
-  0%,50%,100%{opacity:1}
-  25%,75%{opacity:0}
-}
-
-.paper p{
-  font-size:18px;
-  line-height:1.8;
-  color:var(--muted);
+p{
+  margin:0;
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 92ch;
 }
 
 .tagline{
-  margin-top:20px;
-  font-size:20px;
-  font-weight:800;
-  color:var(--accent);
-}
-
-.actions{
-  margin-top:30px;
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:14px 22px;
-  border-radius:14px;
-  font-weight:800;
-  border:1px solid var(--stroke);
-  text-decoration:none;
-  color:var(--text);
-  transition:.25s;
-}
-
-.btn.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  border:none;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 35px rgba(37,99,235,.25);
+  margin-top:18px;
+  font-size: 18px;
+  font-weight:900;
+  color: var(--accent);
 }
 
 .stats{
-  margin-top:60px;
+  margin-top:22px;
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:12px;
 }
-
 .stat{
-  background:var(--surface);
-  padding:28px;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  text-align:center;
+  background: var(--surface2);
+  border:1px solid var(--stroke);
+  border-radius: 16px;
+  padding:14px 14px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+}
+.stat-num{
+  font-size: 24px;
+  font-weight:950;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.stat-label{
+  margin-top:6px;
+  color: var(--muted);
+  font-weight:700;
+  font-size: 13px;
 }
 
-.stat h2{
-  margin:0;
-  font-size:36px;
-  color:var(--accent2);
+.footer{
+  margin-top:18px;
+  padding: 16px 4px 0;
+  display:flex;
+  justify-content:flex-end;
+  color: var(--muted);
+  font-style: italic;
+  font-weight:700;
 }
 
-.stat span{
-  color:var(--muted);
-  font-weight:600;
+@keyframes fadeUp{
+  from{ opacity:0; transform: translateY(18px); }
+  to{ opacity:1; transform: translateY(0); }
 }
+.card{ animation: fadeUp .7s ease both; }
+.banner-img{ animation: fadeUp .9s ease both; }
+.content{ animation: fadeUp 1.0s ease both; }
 
-.signature{
-  margin-top:40px;
-  text-align:right;
-  font-style:italic;
-  color:var(--muted);
+@media (max-width: 820px){
+  .auth{ display:none; } 
+  .content{ padding:26px 18px 22px; }
+  .stats{ grid-template-columns: 1fr; }
 }
-
-@media(max-width:900px){
-  h1{font-size:30px}
-  .paper{padding:35px}
-  .stats{grid-template-columns:1fr}
+.mobile-auth{
+  display:none;
+  margin-top:16px;
+  gap:10px;
+  flex-wrap:wrap;
+}
+@media (max-width: 820px){
+  .mobile-auth{ display:flex; }
 }
 </style>
 </head>
 
 <body>
-
-<div class="watermark"></div>
+<div class="bg"></div>
+<div class="stars"></div>
 
 <div class="container">
-
   <div class="topbar">
-    <a href="https://yourbrand.com" class="brand">
-      <img src="logo.svg" alt="Logo">
-      <strong>BeDoctor</strong>
+    <a class="brand" href="https://yourbrand.com" title="BeDoctor">
+      <img class="brand-logo" src="logo.svg" alt="BeDoctor Logo">
+      <div class="brand-name">BeDoctor</div>
     </a>
 
     <div class="controls">
-      <button class="ctrl" id="langBtn">FR</button>
-      <button class="ctrl" id="themeBtn">🌙</button>
-      <a href="#" class="ctrl">Login</a>
-      <a href="#" class="ctrl">Sign up</a>
+      <div class="auth">
+        <a class="btn primary" href="signup.html" id="signupTop">📝 <span data-i18n="signup">Sign up</span></a>
+        <a class="btn" href="login.html" id="loginTop">🔐 <span data-i18n="login">Log in</span></a>
+      </div>
+
+      <button class="pill" id="langBtn" title="Language">🌍 <span id="langLabel">EN</span></button>
+      <button class="pill" id="themeBtn" title="Theme">🌙 <span data-i18n="mode">Night</span></button>
     </div>
   </div>
 
-  <div class="banner">
-    <a href="https://yourbannerlink.com">
-      <img src="banner.svg" alt="Banner">
-    </a>
-  </div>
+  <section class="card">
+    <img class="watermark" src="logo.svg" alt="" aria-hidden="true">
 
-  <section class="paper">
-    <h1><span id="typing"></span><span class="cursor"></span></h1>
-
-    <p data-i18n="desc">
-      BeDoctor is a comprehensive e-learning platform designed specifically to support medical and health science students throughout their academic journey.
-      It provides reliable medical content, smart summaries, up-to-date study resources, and interactive learning tools that help students understand deeply,
-      study efficiently, and excel with confidence.
-      <br><br>
-      With BeDoctor, you don’t just study to pass exams — you learn to think like a doctor and prepare for real clinical practice from day one.
-    </p>
-
-    <div class="tagline" data-i18n="tag">🌟 BeDoctor — Learn Today. Heal Tomorrow.</div>
-
-    <div class="actions">
-      <a href="#" class="btn primary">📝 Sign up</a>
-      <a href="#" class="btn">🔐 Login</a>
+    <div class="banner">
+      <div class="banner-inner">
+        <img class="banner-img" src="banner.svg" alt="BeDoctor Banner">
+      </div>
     </div>
 
-    <div class="signature">
-      iyad + dr ines
-    </div>
-  </section>
+    <div class="content">
+      <h1>
+        <span class="type" id="typing"></span><span class="cursor"></span>
+      </h1>
 
-  <section class="stats">
-    <div class="stat">
-      <h2>1500+</h2>
-      <span>📘 QCM </span>
-    </div>
-    <div class="stat">
-      <h2>420+</h2>
-      <span>🩺 Cas cliniques</span>
-    </div>
-    <div class="stat">
-      <h2>95%</h2>
-      <span>📊 Suivi des cours</span>
+      <p id="desc"></p>
+
+      <div class="tagline" id="tagline"></div>
+
+      <div class="mobile-auth">
+        <a class="btn primary" href="signup.html">📝 <span data-i18n="signup">Sign up</span></a>
+        <a class="btn" href="login.html">🔐 <span data-i18n="login">Log in</span></a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num" id="qcmNum">0</div>
+          <div class="stat-label" data-i18n="qcm">📘 QCM (MCQ) Questions</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="lessonsNum">0</div>
+          <div class="stat-label" data-i18n="lessons">🎥 Lessons Follow-up</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="casesNum">0</div>
+          <div class="stat-label" data-i18n="cases">🩺 Clinical Cases</div>
+        </div>
+      </div>
+
+      <div class="footer">dr iyad + dr ines ✍️</div>
     </div>
   </section>
-
 </div>
 
 <script>
-const texts={
-  en:"The Smart Learning Platform for Medical Science Students",
-  fr:"La plateforme intelligente pour les étudiants en sciences médicales"
-};
-let lang="en",i=0,el=document.getElementById("typing");
 
-function typeLoop(){
-  if(i<=texts[lang].length){
-    el.textContent=texts[lang].slice(0,i++);
-    setTimeout(typeLoop,70);
-  }else{
-    setTimeout(()=>{i=0;el.textContent="";typeLoop()},1500);
+const html = document.documentElement;
+const langBtn = document.getElementById("langBtn");
+const langLabel = document.getElementById("langLabel");
+const themeBtn = document.getElementById("themeBtn");
+
+const descEl = document.getElementById("desc");
+const taglineEl = document.getElementById("tagline");
+const typingEl = document.getElementById("typing");
+
+const stats = { qcm: 1200, lessons: 240, cases: 320 };
+
+
+const I18N = {
+  en: {
+    title: "🧠📚 The Smart Learning Platform for Medical Science Students 🩺",
+    desc:
+      "🧬 <strong>BeDoctor</strong> is a comprehensive e-learning platform designed specifically to support <strong>medical and health science students</strong> throughout their academic journey 👩‍⚕️👨‍⚕️." +
+      "<br><br>📖 It provides <strong>reliable medical content</strong>, ✨ <strong>smart summaries</strong>, 🔬 <strong>up-to-date study resources</strong>, and 🧪 <strong>interactive learning tools</strong> that help students <strong>understand deeply</strong>, <strong>study efficiently</strong>, and <strong>excel with confidence</strong> 🚀." +
+      "<br><br>🏥 With BeDoctor, you don’t just study to pass exams ❌📝 — you <strong>learn to think like a doctor</strong> 🧠🩺 and prepare for <strong>real clinical practice</strong> from day one ✅.",
+    tagline: "🌟 BeDoctor — Learn Today. Heal Tomorrow.",
+    signup: "Sign up",
+    login: "Log in",
+    mode: (t) => (t === "dark" ? "Night" : "Day"),
+    qcm: "📘 QCM (MCQ) Questions",
+    lessons: "🎥 Lessons Follow-up",
+    cases: "🩺 Clinical Cases"
+  },
+  fr: {
+    title: "🧠📚 La plateforme intelligente pour les étudiants en sciences médicales 🩺",
+    desc:
+      "🧬 <strong>BeDoctor</strong> est une plateforme e-learning complète, conçue spécialement pour accompagner les <strong>étudiants en médecine et sciences de la santé</strong> tout au long de leur parcours 👩‍⚕️👨‍⚕️." +
+      "<br><br>📖 Elle propose un <strong>contenu médical fiable</strong>, ✨ des <strong>résumés intelligents</strong>, 🔬 des <strong>ressources à jour</strong>, et 🧪 des <strong>outils interactifs</strong> pour <strong>comprendre en profondeur</strong>, <strong>étudier efficacement</strong> et <strong>réussir avec confiance</strong> 🚀." +
+      "<br><br>🏥 Avec BeDoctor, tu ne travailles pas فقط pour réussir les examens ❌📝 — tu <strong>apprends à penser comme un médecin</strong> 🧠🩺 et tu te prépares à la <strong>pratique clinique réelle</strong> dès le premier jour ✅.",
+    tagline: "🌟 BeDoctor — Apprendre aujourd’hui. Soigner demain.",
+    signup: "Inscription",
+    login: "Connexion",
+    mode: (t) => (t === "dark" ? "Nuit" : "Jour"),
+    qcm: "📘 Questions QCM",
+    lessons: "🎥 Suivi des cours",
+    cases: "🩺 Cas cliniques"
   }
+};
+
+let lang = localStorage.getItem("bedoctor_lang") || "en";
+
+
+function renderText(){
+  const t = I18N[lang];
+  descEl.innerHTML = t.desc;
+  taglineEl.textContent = t.tagline;
+
+
+  document.querySelectorAll("[data-i18n='signup']").forEach(el => el.textContent = t.signup);
+  document.querySelectorAll("[data-i18n='login']").forEach(el => el.textContent = t.login);
+  document.querySelectorAll("[data-i18n='qcm']").forEach(el => el.textContent = t.qcm);
+  document.querySelectorAll("[data-i18n='lessons']").forEach(el => el.textContent = t.lessons);
+  document.querySelectorAll("[data-i18n='cases']").forEach(el => el.textContent = t.cases);
+
+  document.querySelectorAll("[data-i18n='mode']").forEach(el => el.textContent = t.mode(html.getAttribute("data-theme")));
+
+  langLabel.textContent = lang.toUpperCase();
 }
-typeLoop();
 
-document.getElementById("langBtn").onclick=()=>{
-  lang=lang==="en"?"fr":"en";
-  document.getElementById("langBtn").innerText=lang.toUpperCase();
-};
 
-document.getElementById("themeBtn").onclick=()=>{
-  const html=document.documentElement;
-  html.setAttribute("data-theme",
-    html.getAttribute("data-theme")==="light"?"dark":"light");
-};
+let typingTimer = null;
+let deleting = false;
+let idx = 0;
+
+function startTyping(){
+  const t = I18N[lang].title;
+  clearTimeout(typingTimer);
+
+  function tick(){
+    const full = t;
+    if(!deleting){
+      idx++;
+      typingEl.textContent = full.slice(0, idx);
+      if(idx >= full.length){
+        deleting = true;
+        typingTimer = setTimeout(tick, 900);
+        return;
+      }
+    }else{
+      idx--;
+      typingEl.textContent = full.slice(0, idx);
+      if(idx <= 0){
+        deleting = false;
+        typingTimer = setTimeout(tick, 350);
+        return;
+      }
+    }
+    typingTimer = setTimeout(tick, deleting ? 25 : 55);
+  }
+  tick();
+}
+
+
+function animateCount(id, target){
+  const el = document.getElementById(id);
+  const duration = 1100;
+  const start = performance.now();
+  const from = 0;
+
+  function frame(now){
+    const p = Math.min(1, (now - start) / duration);
+    const val = Math.floor(from + (target - from) * (1 - Math.pow(1 - p, 3)));
+    el.textContent = val.toLocaleString() + "+";
+    if(p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+function runStats(){
+  animateCount("qcmNum", stats.qcm);
+  animateCount("lessonsNum", stats.lessons);
+  animateCount("casesNum", stats.cases);
+}
+
+
+function setTheme(theme){
+  html.setAttribute("data-theme", theme);
+  localStorage.setItem("bedoctor_theme", theme);
+  themeBtn.innerHTML = (theme === "dark" ? "🌙" : "☀️") + " <span data-i18n='mode'></span>";
+  renderText();
+}
+setTheme(localStorage.getItem("bedoctor_theme") || "light");
+
+themeBtn.addEventListener("click", ()=>{
+  const current = html.getAttribute("data-theme");
+  setTheme(current === "light" ? "dark" : "light");
+});
+
+
+langBtn.addEventListener("click", ()=>{
+  lang = (lang === "en") ? "fr" : "en";
+  localStorage.setItem("bedoctor_lang", lang);
+  renderText();
+  idx = 0; deleting = false;
+  startTyping();
+});
+
+
+renderText();
+startTyping();
+runStats();
 </script>
 
 </body>
