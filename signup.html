@@ -15,8 +15,8 @@
   --text:#eef4ff;
   --muted:#b6c3d6;
 
-  --accent:#8b5cf6;      
-  --accent2:#ec4899;     
+  --accent:#8b5cf6;
+  --accent2:#ec4899;
 
   --stroke:rgba(255,255,255,.16);
   --radius:20px;
@@ -37,18 +37,16 @@ body{
   overflow:hidden;
 }
 
+
 .stars{
   position:fixed;
   inset:0;
   z-index:-2;
   background:
-    radial-gradient(circle at 10% 20%, rgba(236,72,153,.9) 1.2px, transparent 2px),
-    radial-gradient(circle at 30% 80%, rgba(139,92,246,.9) 1.2px, transparent 2px),
-    radial-gradient(circle at 70% 25%, rgba(236,72,153,.9) 1.2px, transparent 2px),
-    radial-gradient(circle at 85% 70%, rgba(139,92,246,.9) 1.2px, transparent 2px),
-    radial-gradient(circle at 50% 50%, rgba(236,72,153,.9) 1.2px, transparent 2px);
-  background-size:160px 160px;
-  opacity:.55;
+    radial-gradient(circle, rgba(236,72,153,.7) 1px, transparent 2px),
+    radial-gradient(circle, rgba(139,92,246,.7) 1px, transparent 2px);
+  background-size:140px 140px;
+  opacity:.45;
 }
 
 
@@ -60,16 +58,40 @@ body{
 
 
 .visual{
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:40px;
+  overflow:hidden;
+}
+
+.visual::before{
+  content:"";
+  position:absolute;
+  width:520px;
+  height:520px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,
+      rgba(139,92,246,.35),
+      rgba(236,72,153,.25),
+      transparent 70%);
+  filter:blur(90px);
+  z-index:0;
 }
 
 .visual img{
+  position:relative;
+  z-index:1;
   max-width:100%;
   max-height:80vh;
-  filter:drop-shadow(0 40px 100px rgba(139,92,246,.45));
+  opacity:.92;
+  filter:
+    drop-shadow(0 40px 100px rgba(139,92,246,.45))
+    saturate(1.05)
+    brightness(0.95);
+  mix-blend-mode:screen;
 }
 
 
@@ -97,49 +119,22 @@ body{
   gap:12px;
   margin-bottom:20px;
 }
+.logo img{width:52px;height:52px}
+.logo strong{font-size:22px;font-weight:900}
 
-.logo img{
-  width:52px;
-  height:52px;
-}
+h1{margin:10px 0 6px;font-size:28px}
+p{margin:0 0 20px;color:var(--muted);font-size:14.5px}
 
-.logo strong{
-  font-size:22px;
-  font-weight:900;
-}
-
-h1{
-  margin:10px 0 6px;
-  font-size:28px;
-}
-
-p{
-  margin:0 0 20px;
-  color:var(--muted);
-  font-size:14.5px;
-  line-height:1.7;
-}
-
-
-input, select{
+input,select{
   width:100%;
   padding:14px 16px;
   border-radius:14px;
   border:1px solid var(--stroke);
   background:rgba(255,255,255,.06);
   color:var(--text);
-  font-size:15px;
-  outline:none;
   margin-bottom:14px;
 }
-
-select option{
-  color:#000;
-}
-
-input::placeholder{
-  color:#cbd5f5;
-}
+select option{color:#000}
 
 
 button{
@@ -153,19 +148,19 @@ button{
   color:#fff;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   box-shadow:0 0 40px rgba(139,92,246,.45);
-  transition:.25s;
+  margin-top:6px;
 }
 
-button:hover{
-  transform:translateY(-2px);
+.alt{
+  background:rgba(255,255,255,.1);
+  margin-top:10px;
 }
-
 
 .footer{
-  margin-top:18px;
+  margin-top:16px;
   text-align:center;
-  font-weight:700;
   color:var(--muted);
+  font-weight:700;
 }
 
 
@@ -195,10 +190,12 @@ button:hover{
       </div>
 
       <h1>📝 Create your account</h1>
-      <p>Join the smart medical learning platform and choose your specialty.</p>
+      <p>Choose how you want to register and select your specialty.</p>
 
-      <input type="email" id="email" placeholder="Email address" />
-      <input type="password" id="password" placeholder="Password" />
+      <input type="email" id="email" placeholder="Email address">
+      <input type="password" id="password" placeholder="Password">
+
+      <input type="tel" id="phone" placeholder="+213 6xx xxx xxx">
 
       <select id="specialty">
         <option value="">Choose your specialty</option>
@@ -208,7 +205,11 @@ button:hover{
         <option value="industrial-pharmacy">Industrial Pharmacy</option>
       </select>
 
-      <button id="signupBtn">Create Account</button>
+      <button id="emailSignup">Create Account</button>
+      <button class="alt" id="googleSignup">Continue with Google</button>
+      <button class="alt" id="phoneSignup">Continue with Phone</button>
+
+      <div id="recaptcha-container"></div>
 
       <div class="footer">
         dr iyad + dr ines
@@ -222,8 +223,12 @@ button:hover{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  RecaptchaVerifier,
+  signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
@@ -236,31 +241,38 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-getAnalytics(app);
 const auth = getAuth(app);
 
-document.getElementById("signupBtn").onclick = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const specialty = document.getElementById("specialty").value;
+function redirectFlow(){
+  const sp = document.getElementById("specialty").value;
+  if(!sp){ alert("Choose specialty"); return; }
+  window.location.href = sp + ".html";
+  setTimeout(()=>window.location.href="profil.html",3500);
+}
 
-  if(!email || !password || !specialty){
-    alert("Please fill all fields");
-    return;
-  }
+emailSignup.onclick = async ()=>{
+  const email = email.value;
+  const pass = password.value;
+  if(!email || !pass){alert("Fill email & password");return;}
+  await createUserWithEmailAndPassword(auth,email,pass);
+  redirectFlow();
+};
 
-  try{
-    await createUserWithEmailAndPassword(auth, email, password);
+googleSignup.onclick = async ()=>{
+  const provider = new GoogleAuthProvider();
+  await signInWithPopup(auth,provider);
+  redirectFlow();
+};
 
-    window.location.href = specialty + ".html";
+window.recaptchaVerifier = new RecaptchaVerifier(auth,"recaptcha-container",{size:"invisible"});
 
-    setTimeout(()=>{
-      window.location.href = "profil.html";
-    }, 3500);
-
-  }catch(error){
-    alert(error.message);
-  }
+phoneSignup.onclick = async ()=>{
+  const phone = document.getElementById("phone").value;
+  if(!phone){alert("Enter phone number");return;}
+  const confirmation = await signInWithPhoneNumber(auth,phone,window.recaptchaVerifier);
+  const code = prompt("Enter verification code");
+  await confirmation.confirm(code);
+  redirectFlow();
 };
 </script>
 
