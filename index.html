@@ -6,14 +6,13 @@
 <title>BeDoctor – Medical Learning Platform</title>
 
 <style>
-
 :root{
   --bg:#f8fbfd;
   --surface:#ffffff;
   --text:#0f172a;
   --muted:#475569;
-  --accent:#0fb9b1;     /* Medical Teal */
-  --accent2:#2563eb;    /* Clinical Blue */
+  --accent:#0fb9b1;
+  --accent2:#2563eb;
   --stroke:#e2e8f0;
   --radius:18px;
   --shadow:0 25px 60px rgba(15,23,42,.08);
@@ -34,12 +33,6 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
   background:var(--bg);
   color:var(--text);
-  overflow-x:hidden;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px)}
-  to{opacity:1; transform:translateY(0)}
 }
 
 .container{
@@ -48,36 +41,31 @@ body{
   padding:30px 20px 70px;
 }
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:60px;
-  animation:fadeUp .8s ease forwards;
+.cover{
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:40px;
+  box-shadow:var(--shadow);
+  margin-bottom:50px;
+  text-align:center;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-  color:inherit;
+.cover svg{
+  max-width:520px;
+  width:100%;
 }
 
-.brand img{
-  width:48px;
-  height:48px;
-  object-fit:contain;
-}
-
-.brand span{
-  font-size:24px;
+.brand-title{
+  margin-top:10px;
+  font-size:28px;
   font-weight:900;
 }
 
 .controls{
   display:flex;
+  justify-content:flex-end;
   gap:10px;
+  margin-bottom:20px;
 }
 
 .ctrl{
@@ -94,12 +82,26 @@ body{
   border-radius:var(--radius);
   padding:50px;
   box-shadow:var(--shadow);
-  animation:fadeUp 1s ease forwards;
 }
 
 .hero h1{
-  font-size:44px;
+  font-size:42px;
   margin:0 0 18px;
+  min-height:60px;
+}
+
+.cursor{
+  display:inline-block;
+  width:2px;
+  height:1em;
+  background:currentColor;
+  margin-left:6px;
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:1}
+  25%,75%{opacity:0}
 }
 
 .hero p{
@@ -115,39 +117,11 @@ body{
   color:var(--accent);
 }
 
-.actions{
-  margin-top:30px;
-  display:flex;
-  gap:14px;
-}
-
-.btn{
-  padding:14px 22px;
-  border-radius:14px;
-  font-weight:800;
-  text-decoration:none;
-  border:1px solid var(--stroke);
-  color:var(--text);
-  transition:.25s;
-}
-
-.btn.primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:white;
-  border:none;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 35px rgba(37,99,235,.25);
-}
-
 .stats{
   margin-top:60px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  animation:fadeUp 1.2s ease forwards;
 }
 
 .stat{
@@ -170,7 +144,7 @@ body{
 }
 
 @media(max-width:900px){
-  .hero h1{font-size:34px}
+  .hero h1{font-size:30px}
   .stats{grid-template-columns:1fr}
 }
 </style>
@@ -180,22 +154,37 @@ body{
 
 <div class="container">
 
-  <header class="header">
-    <a href="https://yourbrand.com" class="brand">
-      <img src="logo.png" alt="BeDoctor Logo">
-      <span>BeDoctor</span>
-    </a>
+  <div class="controls">
+    <button class="ctrl" id="themeBtn">🌙</button>
+  </div>
 
-    <div class="controls">
-      <button class="ctrl" id="langBtn">EN</button>
-      <button class="ctrl" id="themeBtn">🌙</button>
-    </div>
-  </header>
+  <section class="cover">
+    <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#0fb9b1"/>
+          <stop offset="100%" stop-color="#2563eb"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="600" height="200" rx="24" fill="url(#g)"/>
+      <text x="50%" y="55%" text-anchor="middle"
+            font-size="56"
+            font-weight="800"
+            fill="white"
+            font-family="Segoe UI, Arial">
+        BeDoctor
+      </text>
+    </svg>
+
+    <div class="brand-title">Medical Learning Platform</div>
+  </section>
 
   <section class="hero">
-    <h1 data-i18n="title">🧠📚 The Smart Learning Platform for Medical Science Students 🩺</h1>
+    <h1>
+      <span id="typing"></span><span class="cursor"></span>
+    </h1>
 
-    <p data-i18n="desc">
+    <p>
       BeDoctor is a comprehensive e-learning platform designed specifically to support medical and health science students throughout their academic journey.
       It provides reliable medical content, smart summaries, up-to-date study resources, and interactive learning tools that help students understand deeply,
       study efficiently, and excel with confidence.
@@ -204,11 +193,6 @@ body{
     </p>
 
     <div class="tagline">🌟 BeDoctor — Learn Today. Heal Tomorrow.</div>
-
-    <div class="actions">
-      <a href="#" class="btn primary">📝 Create Account</a>
-      <a href="#" class="btn">🔐 Login</a>
-    </div>
   </section>
 
   <section class="stats">
@@ -229,14 +213,23 @@ body{
 </div>
 
 <script>
+const text = "The Smart Learning Platform for Medical Science Students";
+const el = document.getElementById("typing");
+let i = 0;
+
+function type(){
+  if(i < text.length){
+    el.textContent += text.charAt(i);
+    i++;
+    setTimeout(type, 65);
+  }
+}
+type();
+
 document.getElementById("themeBtn").onclick=()=>{
   const html=document.documentElement;
   html.setAttribute("data-theme",
     html.getAttribute("data-theme")==="light"?"dark":"light");
-};
-
-document.getElementById("langBtn").onclick=()=>{
-  alert("Language switch ready – can expand EN/FR fully next.");
 };
 </script>
 
