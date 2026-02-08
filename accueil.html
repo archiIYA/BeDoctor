@@ -16,14 +16,18 @@
   --accent:#ff5fd2;
   --accent2:#9b5cff;
   --radius:18px;
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+  --border:rgba(255,255,255,.10);
 }
 
-[data-theme="light"]{
+html[data-theme="light"]{
   --bg:#f6f7fb;
   --card:#ffffff;
   --soft:#eef1ff;
   --text:#0f172a;
   --muted:#475569;
+  --shadow:0 18px 45px rgba(15,23,42,.12);
+  --border:rgba(15,23,42,.10);
 }
 
 *{box-sizing:border-box}
@@ -38,21 +42,22 @@ body{
   overflow-x:hidden;
 }
 
-.stars,
-.menuStars{
+.stars{
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:-3;
+  pointer-events:none;
   background:
-    radial-gradient(circle, rgba(255,95,210,.6) 1px, transparent 2px),
-    radial-gradient(circle, rgba(155,92,255,.6) 1px, transparent 2px);
+    radial-gradient(circle, rgba(255,95,210,.55) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.55) 1px, transparent 2px);
   background-size:160px 160px;
-  opacity:.35;
+  opacity:.33;
 }
-.menuStars{
-  position:absolute;
-  z-index:0;
-  opacity:.25;
+html[data-theme="light"] .stars{
+  opacity:.22;
+  background:
+    radial-gradient(circle, rgba(255,95,210,.45) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.45) 1px, transparent 2px);
 }
 
 .watermark{
@@ -60,31 +65,52 @@ body{
   inset:0;
   display:grid;
   place-items:center;
-  z-index:-1;
+  z-index:-2;
   pointer-events:none;
 }
 .watermark img{
-  width:70vw;
-  max-width:700px;
+  width:min(72vw, 760px);
+  opacity:.10;
+  filter: drop-shadow(0 30px 90px rgba(0,0,0,.25));
+}
+html[data-theme="light"] .watermark img{
   opacity:.08;
+  filter: drop-shadow(0 30px 90px rgba(155,92,255,.18));
 }
 
 .menu{
   width:270px;
   background:var(--card);
-  border-right:1px solid rgba(255,255,255,.08);
+  border-right:1px solid var(--border);
   padding:20px;
   display:flex;
   flex-direction:column;
   position:relative;
+  overflow:hidden;
 }
+
+.menuStars{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle, rgba(255,95,210,.45) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.45) 1px, transparent 2px);
+  background-size:180px 180px;
+  opacity:.18;
+}
+html[data-theme="light"] .menuStars{opacity:.12;}
+
+.menu > *{position:relative; z-index:1;}
+
 .menuTop{
   display:flex;
   gap:10px;
   align-items:center;
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
-.menuTop img{width:42px}
+.menuTop img{width:42px;height:42px;object-fit:contain}
 
 .menu a,
 .menu button{
@@ -96,113 +122,171 @@ body{
   margin-bottom:8px;
   border-radius:14px;
   cursor:pointer;
-  font-weight:800;
+  font-weight:850;
+  transition:.15s;
 }
 .menu a:hover,
 .menu button:hover{
   background:var(--soft);
+  transform: translateX(2px);
 }
 
 .dropdown-content{
   display:none;
-  padding-left:14px;
+  padding-left:12px;
+  margin-bottom:8px;
 }
-.dropdown.open .dropdown-content{
-  display:block;
-}
+.dropdown.open .dropdown-content{display:block;}
 
 .menuUser{
   margin-top:auto;
-  padding:12px;
-  border-radius:14px;
-  background:var(--soft);
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
 }
-.menuUser strong{display:block}
-.menuUser small{color:var(--muted)}
+html[data-theme="light"] .menuUser{
+  background:rgba(15,23,42,.03);
+}
+.menuUser .av{
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  border-radius:14px;
+  font-size:22px;
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+}
+.menuUser .meta{min-width:0}
+.menuUser .meta .u{
+  font-weight:950;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.menuUser .meta .e{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
 .controls{
   display:flex;
-  gap:8px;
+  gap:10px;
   margin-top:10px;
 }
 .ctrl{
   flex:1;
-  padding:10px;
-  border-radius:12px;
+  padding:10px 12px;
+  border-radius:14px;
   background:var(--soft);
-  font-weight:900;
+  border:1px solid var(--border);
+  font-weight:950;
   text-align:center;
   cursor:pointer;
+  user-select:none;
+  transition:.15s;
 }
+.ctrl:hover{ transform: translateY(-1px); }
 
 .container{
   flex:1;
-  padding:20px;
+  padding:20px 20px 60px;
 }
 
 .banner{
   max-width:1100px;
   margin:0 auto;
-  border-radius:22px;
+  border-radius:24px;
   overflow:hidden;
   position:relative;
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  background:linear-gradient(135deg, rgba(155,92,255,.18), rgba(255,95,210,.16));
 }
 .banner img{
   width:100%;
-  height:220px;
+  height:240px;
+  display:block;
   object-fit:cover;
+  filter:saturate(1.05) contrast(1.05);
 }
 .banner::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(90deg, rgba(155,92,255,.25), rgba(255,95,210,.25));
+  background:
+    radial-gradient(900px 280px at 20% 30%, rgba(155,92,255,.24), transparent 65%),
+    radial-gradient(900px 280px at 85% 35%, rgba(255,95,210,.22), transparent 65%),
+    linear-gradient(90deg, rgba(0,0,0,.08), rgba(0,0,0,.12));
+  pointer-events:none;
+}
+html[data-theme="light"] .banner::after{
+  background:
+    radial-gradient(900px 280px at 20% 30%, rgba(155,92,255,.20), transparent 65%),
+    radial-gradient(900px 280px at 85% 35%, rgba(255,95,210,.18), transparent 65%),
+    linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.10));
 }
 
 .hero{
   max-width:900px;
-  margin:50px auto 0;
+  margin:48px auto 0;
   text-align:center;
 }
 .hero h1{
-  font-size:40px;
+  font-size:42px;
   margin:0;
+  line-height:1.15;
 }
-.hero h1 span{
+.hero h1 .brand{
   color:var(--accent);
-  animation: glow 2s infinite alternate;
+  font-weight:1000;
+  animation: glow 1.8s ease-in-out infinite alternate;
 }
 @keyframes glow{
-  from{text-shadow:0 0 8px rgba(255,95,210,.4)}
-  to{text-shadow:0 0 22px rgba(255,95,210,.8)}
+  from{ text-shadow:0 0 10px rgba(255,95,210,.35), 0 0 18px rgba(155,92,255,.25); }
+  to{ text-shadow:0 0 18px rgba(255,95,210,.65), 0 0 30px rgba(155,92,255,.45); }
 }
 .hero p{
-  margin-top:16px;
+  margin:16px auto 0;
   color:var(--muted);
   font-size:18px;
+  line-height:1.7;
+  max-width:720px;
 }
 
 .grid{
-  margin-top:50px;
+  margin-top:46px;
   max-width:1100px;
   margin-left:auto;
   margin-right:auto;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
+  gap:22px;
 }
 .card{
-  padding:26px;
+  padding:24px;
   border-radius:var(--radius);
   background:linear-gradient(135deg,var(--soft),var(--card));
+  border:1px solid var(--border);
   text-decoration:none;
   color:inherit;
-  transition:.3s;
+  transition:.22s;
+  box-shadow: var(--shadow);
 }
-.card:hover{transform:translateY(-6px)}
+.card:hover{ transform: translateY(-6px); }
+.card h3{margin:0 0 8px;font-size:20px;font-weight:950}
+.card p{margin:0;color:var(--muted);line-height:1.6}
 
 @media(max-width:900px){
   .menu{display:none}
+  .container{padding-top:14px}
+  .banner img{height:210px}
+  .hero h1{font-size:34px}
 }
 </style>
 </head>
@@ -210,113 +294,252 @@ body{
 <body>
 
 <div class="stars"></div>
-<div class="watermark"><img src="logo.svg"></div>
+<div class="watermark"><img src="logo.svg" alt=""></div>
 
 <div class="menu">
   <div class="menuStars"></div>
 
   <div class="menuTop">
-    <img src="logo.svg">
+    <img src="logo.svg" alt="BeDoctor">
     <strong>BeDoctor</strong>
   </div>
 
   <div class="dropdown" id="parcours">
-    <button onclick="toggleDropdown()">🎓 Parcours Médical</button>
+    <button id="btnParcours">🎓 Parcours Médical</button>
     <div class="dropdown-content">
-      <a href="level1.html">🧬 1ère Année</a>
-      <a href="level2.html">❤️ 2ème Année</a>
-      <a href="level3.html">🩺 3ème Année</a>
+      <a id="y1Link" href="level1.html">🧬 1ère Année</a>
+      <a id="y2Link" href="level2.html">❤️ 2ème Année</a>
+      <a id="y3Link" href="level3.html">🩺 3ème Année</a>
     </div>
   </div>
 
-  <a href="#">📚 Cours</a>
-  <a href="#">🧠 Anatomie 3D</a>
-  <a href="#">📝 Examens</a>
-  <a href="#">🗒️ Notes</a>
-  <a href="#">📊 Statistiques</a>
-  <a href="#">⏱️ Pomodoro</a>
-  <a href="profil.html">👤 Profil</a>
-
-  <div class="menuUser">
-    <strong id="menuUser">username</strong>
-    <small id="menuEmail">email</small>
-  </div>
+  <a id="navCourses" href="courses.html">📚 Cours</a>
+  <a id="navAnat" href="anatomie3d.html">🧠 Anatomie 3D</a>
+  <a id="navExams" href="examens.html">📝 Examens</a>
+  <a id="navNotes" href="notes.html">🗒️ Notes</a>
+  <a id="navStats" href="stats.html">📊 Statistiques</a>
+  <a id="navPomo" href="pomodoro.html">⏱️ Pomodoro</a>
+  <a id="navProfile" href="profil.html">👤 Profil</a>
 
   <div class="controls">
-    <div class="ctrl" onclick="toggleLang()">🌍</div>
-    <div class="ctrl" onclick="toggleTheme()">🌙</div>
+    <div class="ctrl" id="langBtn">🌍 FR</div>
+    <div class="ctrl" id="themeBtn">🌙</div>
+  </div>
+
+  <div class="menuUser">
+    <div class="av" id="miniAvatar">👨‍⚕️</div>
+    <div class="meta">
+      <div class="u" id="miniUser">@username</div>
+      <div class="e" id="miniEmail">email@example.com</div>
+    </div>
   </div>
 </div>
 
 <div class="container">
 
   <div class="banner">
-    <img src="banner.svg">
+    <img src="banner.svg" alt="Banner">
   </div>
 
   <section class="hero">
     <h1 id="typeText"></h1>
-    <p id="heroDesc">Learn today. Heal tomorrow.</p>
+    <p id="tagline">Learn today. Heal tomorrow.</p>
+  </section>
+
+  <section class="grid">
+    <a id="card1" href="level1.html" class="card">
+      <h3 id="c1t">🧬 Première Année</h3>
+      <p id="c1d">Fondements essentiels des sciences médicales.</p>
+    </a>
+    <a id="card2" href="level2.html" class="card">
+      <h3 id="c2t">❤️ Deuxième Année</h3>
+      <p id="c2d">Systèmes du corps humain et physiologie.</p>
+    </a>
+    <a id="card3" href="level3.html" class="card">
+      <h3 id="c3t">🩺 Troisième Année</h3>
+      <p id="c3d">Approche clinique et pathologies.</p>
+    </a>
   </section>
 
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain:"bedoctor-81569.firebaseapp.com",
   projectId:"bedoctor-81569"
 });
-const auth=getAuth(app);
-const db=getFirestore(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-onAuthStateChanged(auth, async u=>{
-  if(!u) location.href="login.html";
-  menuEmail.textContent=u.email;
-  const snap=await getDoc(doc(db,"users",u.uid));
-  if(snap.exists()) menuUser.textContent="@"+snap.data().username;
+const themeBtn = document.getElementById("themeBtn");
+const langBtn = document.getElementById("langBtn");
+const btnParcours = document.getElementById("btnParcours");
+const parcours = document.getElementById("parcours");
+
+btnParcours.addEventListener("click", ()=> parcours.classList.toggle("open"));
+
+themeBtn.addEventListener("click", ()=>{
+  const html = document.documentElement;
+  html.setAttribute("data-theme", html.getAttribute("data-theme")==="dark" ? "light" : "dark");
+  themeBtn.textContent = html.getAttribute("data-theme")==="dark" ? "🌙" : "☀️";
 });
 
-function toggleDropdown(){
-  document.getElementById("parcours").classList.toggle("open");
-}
-
-function toggleTheme(){
-  document.documentElement.dataset.theme =
-    document.documentElement.dataset.theme==="dark"?"light":"dark";
-}
-
-let lang="fr";
-function toggleLang(){
-  lang=lang==="fr"?"en":"fr";
-  heroDesc.textContent =
-    lang==="fr"
-    ?"Apprenez aujourd’hui. Soignez demain."
-    :"Learn today. Heal tomorrow.";
-}
-
-const phrases=[
-  "Votre parcours médical commence avec ",
-  "Construisez votre avenir avec "
-];
-let i=0,j=0,del=false,hold=0;
-const el=document.getElementById("typeText");
-
-setInterval(()=>{
-  const p=phrases[i];
-  if(!del){
-    el.innerHTML=p.slice(0,j++)+"<span>BeDoctor</span>";
-    if(j>p.length){hold++; if(hold>15){del=true;hold=0}}
-  }else{
-    j--;
-    el.innerHTML=p.slice(0,j)+"<span>BeDoctor</span>";
-    if(j===0){del=false;i=(i+1)%phrases.length}
+let lang = "fr";
+const i18n = {
+  fr:{
+    parcours:"🎓 Parcours Médical",
+    courses:"📚 Cours",
+    anat:"🧠 Anatomie 3D",
+    exams:"📝 Examens",
+    notes:"🗒️ Notes",
+    stats:"📊 Statistiques",
+    pomo:"⏱️ Pomodoro",
+    profile:"👤 Profil",
+    y1:"🧬 1ère Année",
+    y2:"❤️ 2ème Année",
+    y3:"🩺 3ème Année",
+    tagline:"Learn today. Heal tomorrow.",
+    c1t:"🧬 Première Année",
+    c1d:"Fondements essentiels des sciences médicales.",
+    c2t:"❤️ Deuxième Année",
+    c2d:"Systèmes du corps humain et physiologie.",
+    c3t:"🩺 Troisième Année",
+    c3d:"Approche clinique et pathologies."
+  },
+  en:{
+    parcours:"🎓 Medical Pathway",
+    courses:"📚 Courses",
+    anat:"🧠 3D Anatomy",
+    exams:"📝 Exams",
+    notes:"🗒️ Notes",
+    stats:"📊 Statistics",
+    pomo:"⏱️ Pomodoro",
+    profile:"👤 Profile",
+    y1:"🧬 Year 1",
+    y2:"❤️ Year 2",
+    y3:"🩺 Year 3",
+    tagline:"Learn today. Heal tomorrow.",
+    c1t:"🧬 First Year",
+    c1d:"Core foundations of medical sciences.",
+    c2t:"❤️ Second Year",
+    c2d:"Human body systems and physiology.",
+    c3t:"🩺 Third Year",
+    c3d:"Clinical approach and pathologies."
   }
-},120);
+};
+
+function applyLang(){
+  const t = i18n[lang];
+  document.getElementById("btnParcours").textContent = t.parcours;
+  document.getElementById("navCourses").textContent = t.courses;
+  document.getElementById("navAnat").textContent = t.anat;
+  document.getElementById("navExams").textContent = t.exams;
+  document.getElementById("navNotes").textContent = t.notes;
+  document.getElementById("navStats").textContent = t.stats;
+  document.getElementById("navPomo").textContent = t.pomo;
+  document.getElementById("navProfile").textContent = t.profile;
+
+  document.getElementById("y1Link").textContent = t.y1;
+  document.getElementById("y2Link").textContent = t.y2;
+  document.getElementById("y3Link").textContent = t.y3;
+
+  document.getElementById("tagline").textContent = t.tagline;
+
+  document.getElementById("c1t").textContent = t.c1t;
+  document.getElementById("c1d").textContent = t.c1d;
+  document.getElementById("c2t").textContent = t.c2t;
+  document.getElementById("c2d").textContent = t.c2d;
+  document.getElementById("c3t").textContent = t.c3t;
+  document.getElementById("c3d").textContent = t.c3d;
+
+  langBtn.textContent = lang==="fr" ? "🌍 FR" : "🌍 EN";
+}
+
+langBtn.addEventListener("click", ()=>{
+  lang = (lang==="fr") ? "en" : "fr";
+  applyLang();
+  restartTypewriter();
+});
+
+applyLang();
+
+onAuthStateChanged(auth, async (user)=>{
+  if(!user){ location.href="login.html"; return; }
+
+  document.getElementById("miniEmail").textContent = user.email || "";
+
+  const uref = doc(db,"users", user.uid);
+  const usnap = await getDoc(uref);
+
+  if(usnap.exists()){
+    const d = usnap.data();
+    document.getElementById("miniUser").textContent = "@"+(d.username || "user");
+    const av = (d.gender==="female") ? "👩‍⚕️" : "👨‍⚕️";
+    document.getElementById("miniAvatar").textContent = av;
+  }else{
+    document.getElementById("miniUser").textContent = "@new_user";
+  }
+});
+
+const typeEl = document.getElementById("typeText");
+
+const phrases = [
+  { fr:"Votre parcours médical commence avec ", en:"Your medical journey starts with " },
+  { fr:"BeDoctor — Learn Today. Heal Tomorrow. ", en:"BeDoctor — Learn Today. Heal Tomorrow. " }
+];
+
+let tw = { pi:0, ci:0, del:false, timer:null, pause:0 };
+
+function getPhrase(){
+  return (lang==="fr") ? phrases[tw.pi].fr : phrases[tw.pi].en;
+}
+
+function renderTyped(str){
+  const brand = "<span class='brand'>BeDoctor</span>";
+  if(str.includes("BeDoctor")){
+    const parts = str.split("BeDoctor");
+    typeEl.innerHTML = parts[0] + brand + parts.slice(1).join("BeDoctor");
+  }else{
+    typeEl.textContent = str;
+  }
+}
+
+function step(){
+  const p = getPhrase();
+  if(tw.pause>0){ tw.pause -= 1; return; }
+
+  if(!tw.del){
+    tw.ci++;
+    const out = p.slice(0, tw.ci) + "BeDoctor";
+    renderTyped(out);
+    if(tw.ci >= p.length){
+      tw.del = true;
+      tw.pause = 18;
+    }
+  }else{
+    tw.ci--;
+    const out = p.slice(0, Math.max(tw.ci,0)) + (tw.ci>0 ? "BeDoctor" : "");
+    renderTyped(out);
+    if(tw.ci <= 0){
+      tw.del = false;
+      tw.pi = (tw.pi + 1) % phrases.length;
+      tw.pause = 10;
+    }
+  }
+}
+
+function restartTypewriter(){
+  if(tw.timer) clearInterval(tw.timer);
+  tw = { pi:0, ci:0, del:false, timer:null, pause:0 };
+  typeEl.innerHTML = "";
+  tw.timer = setInterval(step, 85);
+}
+restartTypewriter();
 </script>
 
 </body>
