@@ -31,21 +31,36 @@ body{
   background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
   display:flex;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 2px);
+  background-size:120px 120px;
+  opacity:.15;
+  z-index:-1;
 }
 
 .menu{
-  width:220px;
+  width:230px;
   background:#0b0f1a;
   border-right:1px solid #1f2540;
-  padding:30px 20px;
+  padding:20px;
   position:fixed;
   inset:0 auto 0 0;
+  display:flex;
+  flex-direction:column;
 }
 
-.menu .logo{
+.menu .platform-logo{
   font-size:22px;
   font-weight:900;
-  margin-bottom:40px;
+  text-align:center;
+  margin-bottom:30px;
 }
 
 .menu a{
@@ -55,24 +70,51 @@ body{
   padding:12px 14px;
   border-radius:12px;
   font-weight:700;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .menu a:hover{
   background:#1f2540;
 }
 
+.menu-user{
+  margin-top:auto;
+  background:#141a2a;
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+}
+
+.menu-user .avatar{
+  font-size:40px;
+}
+
+.menu-user .username{
+  font-weight:900;
+  margin-top:6px;
+  font-size:14px;
+}
+
 .container{
-  margin-left:220px;
-  max-width:1100px;
-  padding:40px;
+  margin-left:230px;
   width:100%;
+}
+
+.cover{
+  height:160px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border-radius:0 0 30px 30px;
+}
+
+.content{
+  padding:40px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:320px 1fr;
   gap:30px;
+  margin-top:-80px;
 }
 
 .sidebar{
@@ -108,9 +150,7 @@ body{
   font-weight:900;
 }
 
-canvas{
-  margin-top:20px;
-}
+canvas{margin-top:20px}
 
 .main{
   background:var(--card);
@@ -118,8 +158,6 @@ canvas{
   padding:30px;
   box-shadow:var(--shadow);
 }
-
-h2{margin-top:0}
 
 label{
   font-size:13px;
@@ -150,18 +188,20 @@ button{
 
 .save{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;
 }
 
 .delete{
   background:var(--danger);
-  color:#fff;
 }
 
-@media(max-width:900px){
-  .menu{display:none}
-  .container{margin-left:0}
-  .grid{grid-template-columns:1fr}
+.success{
+  background:#22c55e;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
+  margin-top:14px;
+  display:none;
 }
 </style>
 </head>
@@ -169,89 +209,86 @@ button{
 <body>
 
 <div class="menu">
-  <div class="logo" id="logo">👨‍⚕️ BeDoctor</div>
-  <a href="index.html">🏠 Home</a>
+  <div class="platform-logo">🩺 BeDoctor</div>
+
+  <a href="accueil.html">🏠 Home</a>
   <a href="profile.html">👤 Profile</a>
   <a href="courses.html">📚 Courses</a>
+
+  <div class="menu-user">
+    <div class="avatar" id="menuAvatar">👨‍⚕️</div>
+    <div class="username" id="menuUsername">@username</div>
+  </div>
 </div>
 
 <div class="container">
-  <div class="grid">
+  <div class="cover"></div>
 
-    <div class="sidebar">
-      <div class="avatar" id="avatar">👨‍⚕️</div>
+  <div class="content">
+    <div class="grid">
 
-      <div class="infoBox">
-        <div class="infoItem">📧 Email: <span id="email"></span></div>
-        <div class="infoItem">📱 Phone: <span id="phone">—</span></div>
-        <div class="infoItem">👤 Username: <span id="username"></span></div>
+      <div class="sidebar">
+        <div class="avatar" id="avatar">👨‍⚕️</div>
+
+        <div class="infoBox">
+          <div class="infoItem">📧 Email: <span id="email"></span></div>
+          <div class="infoItem">📱 Phone: <span id="phone">—</span></div>
+          <div class="infoItem">👤 Username: <span id="username"></span></div>
+        </div>
+
+        <canvas id="progressChart" width="220" height="220"></canvas>
       </div>
 
-      <canvas id="progressChart" width="220" height="220"></canvas>
+      <div class="main">
+        <h2>👤 Profile Information</h2>
+
+        <label>First Name</label>
+        <input id="firstName">
+
+        <label>Last Name</label>
+        <input id="lastName">
+
+        <label>Gender</label>
+        <select id="gender">
+          <option value="">Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <label>Faculty</label>
+        <select id="faculty">
+          <option value="">Faculty</option>
+          <option>Algiers</option>
+          <option>Blida</option>
+          <option>Annaba</option>
+          <option>Setif</option>
+        </select>
+
+        <label>Level</label>
+        <select id="level">
+          <option value="">Level</option>
+          <option>1st Year</option><option>2nd Year</option>
+          <option>3rd Year</option><option>4th Year</option>
+          <option>5th Year</option><option>6th Year</option>
+          <option>7th Year</option><option>Resident</option>
+        </select>
+
+        <button class="save" id="saveBtn">💾 Save Profile</button>
+        <button class="delete" id="deleteBtn">🗑️ Delete Account</button>
+
+        <div class="success" id="successMsg">✅ Profile saved successfully</div>
+      </div>
+
     </div>
-
-    <div class="main">
-      <h2>👤 Profile Information</h2>
-
-      <label>First Name</label>
-      <input id="firstName" placeholder="First name">
-
-      <label>Last Name</label>
-      <input id="lastName" placeholder="Last name">
-
-      <label>Gender</label>
-      <select id="gender">
-        <option value="">Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-
-      <label>Faculty</label>
-      <select id="faculty">
-        <option value="">Faculty</option>
-        <option>Algiers</option>
-        <option>Blida</option>
-        <option>Annaba</option>
-        <option>Setif</option>
-      </select>
-
-      <label>Level</label>
-      <select id="level">
-        <option value="">Level</option>
-        <option>1st Year</option>
-        <option>2nd Year</option>
-        <option>3rd Year</option>
-        <option>4th Year</option>
-        <option>5th Year</option>
-        <option>6th Year</option>
-        <option>7th Year</option>
-        <option>Resident</option>
-      </select>
-
-      <button class="save" id="saveBtn">💾 Save Profile</button>
-      <button class="delete" id="deleteBtn">🗑️ Delete Account</button>
-    </div>
-
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged,deleteUser,signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth,onAuthStateChanged,deleteUser } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import {
-  getFirestore,doc,setDoc,getDoc,deleteDoc,
-  collection,query,where,getDocs
+  getFirestore,doc,setDoc,getDoc,deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-function getDeviceId(){
-  let id = localStorage.getItem("deviceId");
-  if(!id){
-    id = crypto.randomUUID();
-    localStorage.setItem("deviceId", id);
-  }
-  return id;
-}
-const deviceId = getDeviceId();
 
 const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
@@ -261,66 +298,25 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser;
-
 const chart = new Chart(progressChart,{
   type:"doughnut",
   data:{datasets:[{data:[0,100],backgroundColor:["#8b5cf6","#1f2540"],borderWidth:0}]},
   options:{cutout:"70%",plugins:{legend:{display:false}}}
 });
 
-gender.onchange = ()=>{
-  const g = gender.value;
-  avatar.textContent = g==="female"?"👩‍⚕️":"👨‍⚕️";
-  logo.textContent = (g==="female"?"👩‍⚕️ ":"👨‍⚕️ ")+"BeDoctor";
-};
-
-function calcProgress(d){
-  let f=0;
-  ["firstName","lastName","gender","faculty","level"].forEach(k=>d[k]&&f++);
-  return Math.round((f/5)*100);
-}
-
-async function generateUsername(first,last){
-  const base=(first+last).toLowerCase();
-  let u=base,i=1;
-  while(true){
-    const q=query(collection(db,"users"),where("username","==",u));
-    if((await getDocs(q)).empty) return u;
-    u=base+i++;
-  }
-}
-
 onAuthStateChanged(auth, async user=>{
   if(!user) return location.href="login.html";
-  currentUser=user;
 
-  const sessionRef = doc(db,"sessions",user.uid);
-  const sessionSnap = await getDoc(sessionRef);
-
-  if(sessionSnap.exists()){
-    const activeDevice = sessionSnap.data().deviceId;
-    if(activeDevice !== deviceId){
-      alert("Your account was opened on another device");
-      await signOut(auth);
-      return;
-    }
-  }
-
-  await setDoc(sessionRef,{
-    deviceId,
-    lastLogin: Date.now()
-  });
-
-  const ref=doc(db,"users",user.uid);
-  const snap=await getDoc(ref);
-
-  email.textContent=user.email;
-
+  const snap = await getDoc(doc(db,"users",user.uid));
   if(snap.exists()){
     const d=snap.data();
-    phone.textContent=d.phone || "—";
+    email.textContent=d.email;
+    phone.textContent=d.phone||"—";
     username.textContent="@"+d.username;
+    menuUsername.textContent="@"+d.username;
+
+    avatar.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
+    menuAvatar.textContent=avatar.textContent;
 
     firstName.value=d.firstName;
     lastName.value=d.lastName;
@@ -328,59 +324,36 @@ onAuthStateChanged(auth, async user=>{
     faculty.value=d.faculty;
     level.value=d.level;
 
-    avatar.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
-    logo.textContent=(d.gender==="female"?"👩‍⚕️ ":"👨‍⚕️ ")+"BeDoctor";
-
     chart.data.datasets[0].data=[d.progress,100-d.progress];
     chart.update();
   }
 });
 
 saveBtn.onclick = async ()=>{
-  const data={
-    firstName:firstName.value.trim(),
-    lastName:lastName.value.trim(),
+  const ref=doc(db,"users",auth.currentUser.uid);
+  const snap=await getDoc(ref);
+  const d=snap.data();
+
+  await setDoc(ref,{
+    ...d,
+    firstName:firstName.value,
+    lastName:lastName.value,
     gender:gender.value,
     faculty:faculty.value,
     level:level.value
-  };
-  if(Object.values(data).includes("")) return alert("Fill all fields");
-
-  const ref=doc(db,"users",currentUser.uid);
-  const snap=await getDoc(ref);
-
-  const usernameValue = snap.exists()
-    ? snap.data().username
-    : await generateUsername(data.firstName,data.lastName);
-
-  const progress=calcProgress(data);
-
-  await setDoc(ref,{
-    ...data,
-    email:currentUser.email,
-    phone:snap.exists()?snap.data().phone:"",
-    username:usernameValue,
-    progress,
-    createdAt:snap.exists()?snap.data().createdAt:Date.now()
   });
 
-  alert("Profile updated ✅");
+  successMsg.style.display="block";
+  setTimeout(()=>location.href="accueil.html",600);
 };
 
 deleteBtn.onclick = async ()=>{
   if(!confirm("Delete account?")) return;
-  await deleteDoc(doc(db,"users",currentUser.uid));
-  await deleteUser(currentUser);
+  await deleteDoc(doc(db,"users",auth.currentUser.uid));
+  await deleteUser(auth.currentUser);
   location.href="register.html";
 };
-
-window.addEventListener("beforeunload", async ()=>{
-  if(currentUser){
-    await deleteDoc(doc(db,"sessions",currentUser.uid));
-  }
-});
 </script>
 
 </body>
 </html>
-
