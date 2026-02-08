@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeDoctor | Home</title>
+
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#141a2a;
+  --soft:#1a2140;
+  --text:#f5f7ff;
+  --muted:#aab2d5;
+  --accent:#8b5cf6;
+  --accent2:#ec4899;
+  --radius:18px;
+  --shadow:0 25px 60px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui;
+  color:var(--text);
+  display:flex;
+  background:
+    radial-gradient(900px 500px at 18% 16%, rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 600px at 86% 18%, rgba(236,72,153,.18), transparent 62%),
+    radial-gradient(circle at top,#1b2040,#0b0f1a);
+}
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(circle, rgba(236,72,153,.8) 1px, transparent 2px),
+    radial-gradient(circle, rgba(139,92,246,.8) 1px, transparent 2px);
+  background-size:140px 140px;
+  opacity:.35;
+}
+
+.watermark{
+  position:fixed;
+  right:-120px;
+  bottom:-120px;
+  width:520px;
+  opacity:.12;
+  z-index:-2;
+}
+
+/* MENU */
+.menu{
+  width:240px;
+  background:rgba(11,15,26,.92);
+  border-right:1px solid #1f2540;
+  padding:22px 18px;
+  position:fixed;
+  inset:0 auto 0 0;
+  backdrop-filter: blur(14px);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.menuTop{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+}
+
+.menuTop img{width:44px}
+
+.menuLinks a{
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.menuLinks a:hover{background:#1f2540}
+
+.menuUser{
+  margin-top:auto;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+}
+
+.menuUser .av{
+  width:44px;height:44px;
+  display:grid;place-items:center;
+  border-radius:14px;
+  font-size:22px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+.container{
+  margin-left:240px;
+  padding:28px;
+  width:100%;
+  max-width:1200px;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg, rgba(139,92,246,.18), rgba(236,72,153,.18));
+  border-radius:22px;
+  padding:40px;
+  box-shadow:var(--shadow);
+  animation:fadeUp .8s ease both;
+}
+
+.hero h1{
+  margin:0;
+  font-size:34px;
+  font-weight:950;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:600px;
+  margin:12px 0 0;
+}
+
+/* STATS */
+.stats{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:var(--card);
+  padding:22px;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  animation:fadeUp 1s ease both;
+}
+
+.card h2{
+  margin:0;
+  font-size:28px;
+  color:var(--accent);
+}
+
+.card span{
+  color:var(--muted);
+  font-weight:800;
+}
+
+/* COURSES */
+.courses{
+  margin-top:28px;
+}
+
+.course{
+  background:var(--soft);
+  padding:18px;
+  border-radius:16px;
+  margin-bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:.2s;
+}
+
+.course:hover{
+  transform:translateY(-2px);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.course button{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:900px){
+  .menu{display:none}
+  .container{margin-left:0}
+  .stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<img class="watermark" src="logo.svg">
+
+<div class="menu">
+  <div class="menuTop">
+    <img src="logo.svg">
+    <div>
+      <strong>BeDoctor</strong><br>
+      <small style="color:#aab2d5">Medical Learning</small>
+    </div>
+  </div>
+
+  <div class="menuLinks">
+    <a href="accueil.html">🏠 Home</a>
+    <a href="profil.html">👤 Profile</a>
+    <a href="courses.html">📚 Courses</a>
+  </div>
+
+  <div class="menuUser">
+    <div class="av" id="av">👨‍⚕️</div>
+    <div>
+      <div id="u">@username</div>
+      <small id="e" style="color:#aab2d5"></small>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>🧠 Welcome back to BeDoctor</h1>
+    <p>Continue your medical journey with smart courses, QCM training and real progress tracking.</p>
+  </section>
+
+  <section class="stats">
+    <div class="card">
+      <h2 id="p">0%</h2>
+      <span>📈 Overall Progress</span>
+    </div>
+    <div class="card">
+      <h2>120+</h2>
+      <span>📝 QCM Completed</span>
+    </div>
+    <div class="card">
+      <h2>32</h2>
+      <span>📚 Active Courses</span>
+    </div>
+  </section>
+
+  <section class="courses">
+    <div class="course">
+      <div>🫀 Cardiovascular System</div>
+      <button>Continue</button>
+    </div>
+    <div class="course">
+      <div>🧠 Neurology Basics</div>
+      <button>Continue</button>
+    </div>
+    <div class="course">
+      <div>🦠 Microbiology</div>
+      <button>Continue</button>
+    </div>
+  </section>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+  authDomain:"bedoctor-81569.firebaseapp.com",
+  projectId:"bedoctor-81569"
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async user=>{
+  if(!user) return location.href="login.html";
+
+  document.getElementById("e").textContent = user.email;
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(snap.exists()){
+    const d = snap.data();
+    document.getElementById("u").textContent = "@"+d.username;
+    document.getElementById("p").textContent = d.progress+"%";
+    document.getElementById("av").textContent = d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
+  }
+});
+</script>
+
+</body>
+</html>
