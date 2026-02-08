@@ -16,75 +16,155 @@
   --muted:#aab2d5;
   --accent:#8b5cf6;
   --accent2:#ec4899;
-  --radius:20px;
-  --shadow:0 30px 80px rgba(0,0,0,.55);
+  --danger:#ef4444;
+  --radius:18px;
+  --shadow:0 25px 60px rgba(0,0,0,.5);
 }
+
 *{box-sizing:border-box}
+
 body{
   margin:0;
   min-height:100vh;
   font-family:system-ui;
   background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
+  display:flex;
 }
-.container{max-width:1100px;margin:auto;padding:100px 20px 60px}
-.grid{display:grid;grid-template-columns:300px 1fr;gap:28px}
-.sidebar,.main{
+
+.menu{
+  width:220px;
+  background:#0b0f1a;
+  border-right:1px solid #1f2540;
+  padding:30px 20px;
+  position:fixed;
+  inset:0 auto 0 0;
+}
+
+.menu .logo{
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:40px;
+}
+
+.menu a{
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  padding:12px 14px;
+  border-radius:12px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.menu a:hover{
+  background:#1f2540;
+}
+
+.container{
+  margin-left:220px;
+  max-width:1100px;
+  padding:40px;
+  width:100%;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:30px;
+}
+
+.sidebar{
   background:var(--card);
   border-radius:var(--radius);
-  padding:24px;
+  padding:26px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+.avatar{
+  font-size:90px;
+  margin-bottom:10px;
+}
+
+.user-email{
+  font-size:14px;
+  font-weight:800;
+}
+
+.user-info{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+canvas{margin-top:20px}
+
+.main{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:30px;
   box-shadow:var(--shadow);
 }
-.avatar{font-size:80px}
-.email{font-size:13px;color:var(--muted);margin:6px 0}
-input,select,button{
+
+h2{margin-top:0}
+
+input,select{
   width:100%;
   padding:14px;
   border-radius:14px;
   border:none;
-  margin-bottom:12px;
+  background:#1f2540;
+  color:#fff;
+  margin-bottom:14px;
 }
-input,select{background:#1f2540;color:#fff}
+
 button{
-  font-weight:900;
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  border:none;
   cursor:pointer;
+  font-weight:900;
+  margin-top:10px;
+  font-size:16px;
+}
+
+.save{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:#fff;
 }
-.delete{background:#ef4444}
-nav{
-  position:fixed;top:0;left:0;right:0;height:70px;
-  background:#0b0f1a;
-  display:flex;align-items:center;gap:20px;
-  padding:0 24px;z-index:100;
+
+.delete{
+  background:var(--danger);
+  color:#fff;
 }
-nav .logo{font-weight:900;font-size:20px}
-nav a{color:#fff;text-decoration:none;font-weight:700}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 
 <body>
 
-<nav>
+<div class="menu">
   <div class="logo" id="logo">👨‍⚕️ BeDoctor</div>
-  <a href="index.html">Home</a>
-  <a href="profile.html">Profile</a>
-</nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="profile.html">👤 Profile</a>
+  <a href="courses.html">📚 Courses</a>
+</div>
 
 <div class="container">
   <div class="grid">
 
     <div class="sidebar">
       <div class="avatar" id="avatar">👨‍⚕️</div>
-      <div class="email" id="email"></div>
-      <div class="email" id="phone"></div>
-      <div class="email" id="username"></div>
+      <div class="user-email" id="email"></div>
+      <div class="user-info" id="phone"></div>
+      <div class="user-info" id="username"></div>
+
       <canvas id="progressChart" width="220" height="220"></canvas>
     </div>
 
     <div class="main">
-      <h2>Complete your profile</h2>
+      <h2>👤 Profile Information</h2>
 
       <input id="firstName" placeholder="First name">
       <input id="lastName" placeholder="Last name">
@@ -105,14 +185,18 @@ nav a{color:#fff;text-decoration:none;font-weight:700}
 
       <select id="level">
         <option value="">Level</option>
-        <option>1st Year</option><option>2nd Year</option>
-        <option>3rd Year</option><option>4th Year</option>
-        <option>5th Year</option><option>6th Year</option>
-        <option>7th Year</option><option>Resident</option>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>4th Year</option>
+        <option>5th Year</option>
+        <option>6th Year</option>
+        <option>7th Year</option>
+        <option>Resident</option>
       </select>
 
-      <button id="saveBtn">Save Profile</button>
-      <button class="delete" id="deleteBtn">Delete Account</button>
+      <button class="save" id="saveBtn">💾 Save Profile</button>
+      <button class="delete" id="deleteBtn">🗑️ Delete Account</button>
     </div>
 
   </div>
@@ -135,11 +219,18 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 let currentUser;
+
 const chart = new Chart(progressChart,{
   type:"doughnut",
   data:{datasets:[{data:[0,100],backgroundColor:["#8b5cf6","#1f2540"],borderWidth:0}]},
   options:{cutout:"70%",plugins:{legend:{display:false}}}
 });
+
+gender.onchange = ()=>{
+  const g = gender.value;
+  avatar.textContent = g==="female"?"👩‍⚕️":"👨‍⚕️";
+  logo.textContent = (g==="female"?"👩‍⚕️ ":"👨‍⚕️ ")+"BeDoctor";
+};
 
 function calcProgress(d){
   let f=0;
@@ -161,9 +252,7 @@ onAuthStateChanged(auth, async user=>{
   if(!user) return location.href="login.html";
   currentUser=user;
 
-  const ref=doc(db,"users",user.uid);
-  const snap=await getDoc(ref);
-
+  const snap = await getDoc(doc(db,"users",user.uid));
   if(snap.exists()){
     const d=snap.data();
     email.textContent=d.email;
@@ -174,14 +263,16 @@ onAuthStateChanged(auth, async user=>{
     gender.value=d.gender;
     faculty.value=d.faculty;
     level.value=d.level;
+
     avatar.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
     logo.textContent=(d.gender==="female"?"👩‍⚕️ ":"👨‍⚕️ ")+"BeDoctor";
+
     chart.data.datasets[0].data=[d.progress,100-d.progress];
     chart.update();
   }
 });
 
-saveBtn.onclick=async()=>{
+saveBtn.onclick = async ()=>{
   const data={
     firstName:firstName.value.trim(),
     lastName:lastName.value.trim(),
@@ -194,8 +285,9 @@ saveBtn.onclick=async()=>{
   const ref=doc(db,"users",currentUser.uid);
   const snap=await getDoc(ref);
 
-  let usernameValue=snap.exists()?snap.data().username:
-    await generateUsername(data.firstName,data.lastName);
+  const usernameValue = snap.exists()
+    ? snap.data().username
+    : await generateUsername(data.firstName,data.lastName);
 
   const progress=calcProgress(data);
 
@@ -211,7 +303,7 @@ saveBtn.onclick=async()=>{
   location.href="index.html";
 };
 
-deleteBtn.onclick=async()=>{
+deleteBtn.onclick = async ()=>{
   if(!confirm("Delete account?")) return;
   await deleteDoc(doc(db,"users",currentUser.uid));
   await deleteUser(currentUser);
