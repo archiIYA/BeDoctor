@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeDoctor | 1ère Année Médecine</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#141a2a;
+  --soft:#1a2140;
+  --text:#f5f7ff;
+  --muted:#b8c0e0;
+  --accent:#00e676;
+  --radius:18px;
+  --border:rgba(255,255,255,.12);
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui;
+  color:var(--text);
+  background:radial-gradient(circle at top,#1b2040,#0b0f1a);
+}
+
+/* STARS */
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle, rgba(0,230,118,.55) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.45) 1px, transparent 2px);
+  background-size:160px 160px;
+  opacity:.35;
+}
+
+/* WATERMARK */
+.watermark{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  z-index:-1;
+  pointer-events:none;
+}
+.watermark img{
+  width:min(70vw,700px);
+  opacity:.08;
+}
+
+/* HEADER */
+.header{
+  max-width:1100px;
+  margin:50px auto 20px;
+  padding:0 20px;
+}
+.header h1{
+  margin:0;
+  font-size:42px;
+  color:var(--accent);
+}
+.header p{
+  margin-top:12px;
+  max-width:720px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* GRID */
+.grid{
+  max-width:1100px;
+  margin:50px auto 80px;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:26px;
+}
+
+/* CARD */
+.card{
+  background:linear-gradient(135deg,var(--soft),var(--card));
+  border-radius:var(--radius);
+  padding:22px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:.25s;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.icon{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+}
+.icon img{
+  width:42px;
+  height:42px;
+}
+
+.card h3{
+  margin:0;
+  font-size:20px;
+  font-weight:900;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:14.5px;
+  line-height:1.6;
+}
+
+.badge{
+  align-self:flex-start;
+  margin-top:auto;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(0,230,118,.15);
+  color:var(--accent);
+  font-size:12px;
+  font-weight:800;
+}
+
+@media(max-width:600px){
+  .header h1{font-size:32px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="watermark"><img src="logo.svg"></div>
+
+<div class="header">
+  <h1>🧬 Première Année Médecine</h1>
+  <p>
+    La première année de médecine constitue la base fondamentale de la formation médicale.
+    Elle permet à l’étudiant d’acquérir les connaissances essentielles sur le corps humain,
+    les mécanismes biologiques et les principes scientifiques indispensables à la pratique médicale.
+  </p>
+</div>
+
+<div class="grid">
+
+  <a href="anatomie.html" class="card">
+    <div class="icon"><img src="anatomie.svg"></div>
+    <h3>Anatomie</h3>
+    <p>Étude détaillée de la morphologie du corps humain, des organes et de leurs rapports anatomiques.</p>
+    <span class="badge">31 cours</span>
+  </a>
+
+  <a href="biochimie.html" class="card">
+    <div class="icon"><img src="biochimie.svg"></div>
+    <h3>Biochimie</h3>
+    <p>Analyse des réactions chimiques et des mécanismes moléculaires nécessaires au fonctionnement cellulaire.</p>
+    <span class="badge">21 cours</span>
+  </a>
+
+  <a href="biophysique.html" class="card">
+    <div class="icon"><img src="biophysique.svg"></div>
+    <h3>Biophysique</h3>
+    <p>Application des principes physiques à l’étude des phénomènes biologiques et médicaux.</p>
+    <span class="badge">11 cours</span>
+  </a>
+
+  <a href="biostatistique.html" class="card">
+    <div class="icon"><img src="biostatistique.svg"></div>
+    <h3>Biostatistique</h3>
+    <p>Utilisation des méthodes statistiques pour analyser et interpréter les données biomédicales.</p>
+    <span class="badge">5 cours</span>
+  </a>
+
+  <a href="chimie.html" class="card">
+    <div class="icon"><img src="chimie.svg"></div>
+    <h3>Chimie</h3>
+    <p>Étude des éléments chimiques et de leurs interactions fondamentales dans le vivant.</p>
+    <span class="badge">10 cours</span>
+  </a>
+
+  <a href="cytologie.html" class="card">
+    <div class="icon"><img src="cytologie.svg"></div>
+    <h3>Cytologie</h3>
+    <p>Exploration de la structure, de l’organisation et des fonctions des cellules.</p>
+    <span class="badge">10 cours</span>
+  </a>
+
+  <a href="embryologie.html" class="card">
+    <div class="icon"><img src="embryologie.svg"></div>
+    <h3>Embryologie</h3>
+    <p>Étude du développement embryonnaire humain de la fécondation à l’organogenèse.</p>
+    <span class="badge">13 cours</span>
+  </a>
+
+  <a href="histologie.html" class="card">
+    <div class="icon"><img src="histologie.svg"></div>
+    <h3>Histologie</h3>
+    <p>Analyse microscopique des tissus biologiques pour comprendre leur structure et leur fonction.</p>
+    <span class="badge">8 cours</span>
+  </a>
+
+  <a href="physiologie.html" class="card">
+    <div class="icon"><img src="physiologie.svg"></div>
+    <h3>Physiologie</h3>
+    <p>Étude du fonctionnement normal des organes et des systèmes du corps humain.</p>
+    <span class="badge">11 cours</span>
+  </a>
+
+  <a href="ssh.html" class="card">
+    <div class="icon"><img src="ssh.svg"></div>
+    <h3>SSH – Sciences Sociales et Humaines</h3>
+    <p>Approche éthique, sociale et humaine indispensable à la relation médecin–patient.</p>
+    <span class="badge">4 cours</span>
+  </a>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+  authDomain:"bedoctor-81569.firebaseapp.com",
+  projectId:"bedoctor-81569"
+});
+
+const auth = getAuth(app);
+onAuthStateChanged(auth, user=>{
+  if(!user) location.href="login.html";
+});
+</script>
+
+</body>
+</html>
