@@ -57,7 +57,7 @@ body{
   top:52%;
   transform:translate(-50%,-50%);
   width:min(780px, 92vw);
-  opacity:.14; 
+  opacity:.14;
   z-index:-2;
   pointer-events:none;
   filter: drop-shadow(0 30px 90px rgba(0,0,0,.40));
@@ -465,8 +465,7 @@ button{
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getAuth,onAuthStateChanged,deleteUser,signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import {
-  getFirestore,doc,setDoc,getDoc,deleteDoc,
-  collection,query,where,getDocs
+  getFirestore,doc,setDoc,getDoc,deleteDoc,runTransaction
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
 function getDeviceId(){
@@ -479,7 +478,7 @@ function getDeviceId(){
 }
 const deviceId = getDeviceId();
 
-  const app = initializeApp({
+const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain:"bedoctor-81569.firebaseapp.com",
   projectId:"bedoctor-81569"
@@ -515,7 +514,7 @@ gender.onchange = ()=>{
   const g = gender.value;
   avatar.textContent = g==="female"?"👩‍⚕️":"👨‍⚕️";
   document.getElementById("miniAvatar").textContent = avatar.textContent;
-  document.getElementById("logoText").textContent = "BeDoctor"; // ثابت
+  document.getElementById("logoText").textContent = "BeDoctor";
 };
 
 function calcProgress(d){
@@ -527,10 +526,22 @@ function calcProgress(d){
 async function generateUsername(first,last){
   const base=(first+last).toLowerCase().replace(/\s+/g,"");
   let u=base,i=1;
+
   while(true){
-    const q=query(collection(db,"users"),where("username","==",u));
-    if((await getDocs(q)).empty) return u;
-    u=base+i++;
+    try{
+      const reserved = await runTransaction(db, async (tx)=>{
+        const r = doc(db,"usernames",u);
+        const s = await tx.get(r);
+        if(s.exists()) return false;
+        tx.set(r,{ uid: currentUser.uid, createdAt: Date.now() });
+        return true;
+      });
+
+      if(reserved) return u;
+      u=base+i++;
+    }catch(e){
+      u=base+i++;
+    }
   }
 }
 
@@ -550,24 +561,28 @@ onAuthStateChanged(auth, async user=>{
     }
   }
 
-  await setDoc(sessionRef,{
-    deviceId,
-    lastLogin: Date.now()
-  });
+  try{
+    await setDoc(sessionRef,{
+      deviceId,
+      lastLogin: Date.now()
+    });
+  }catch(e){
+    showToast("err","❌ Failed", e?.message || "Session error.");
+    return;
+  }
 
   const ref=doc(db,"users",user.uid);
   const snap=await getDoc(ref);
 
-  email.textContent=user.email;
-  document.getElementById("miniEmail").textContent = user.email;
+  email.textContent=user.email || "";
+  document.getElementById("miniEmail").textContent = user.email || "";
 
   if(snap.exists()){
     const d=snap.data();
 
-    phone.textContent=d.phone || "—";
-    username.textContent="@"+d.username;
-
-    document.getElementById("miniUser").textContent = "@"+d.username;
+    phone.textContent = d.phone || (user.phoneNumber || "—");
+    username.textContent="@"+(d.username || "");
+    document.getElementById("miniUser").textContent = "@"+(d.username || "user");
 
     firstName.value=d.firstName || "";
     lastName.value=d.lastName || "";
@@ -583,6 +598,7 @@ onAuthStateChanged(auth, async user=>{
     chart.data.datasets[0].data=[prog,100-prog];
     chart.update();
   }else{
+    phone.textContent = user.phoneNumber || "—";
     document.getElementById("miniUser").textContent = "@new_user";
   }
 });
@@ -611,28 +627,31 @@ saveBtn.onclick = async ()=>{
     const snap=await getDoc(ref);
 
     const usernameValue = snap.exists()
-      ? snap.data().username
+      ? (snap.data().username || "")
       : await generateUsername(data.firstName,data.lastName);
 
     const progress=calcProgress(data);
 
     await setDoc(ref,{
       ...data,
-      email:currentUser.email,
-      phone:snap.exists()? (snap.data().phone || "") : "",
+      email:currentUser.email || "",
+      phone: snap.exists() ? (snap.data().phone || (currentUser.phoneNumber || "")) : (currentUser.phoneNumber || ""),
       username:usernameValue,
       progress,
-      createdAt:snap.exists()?snap.data().createdAt:Date.now()
+      createdAt:snap.exists()? (snap.data().createdAt || Date.now()) : Date.now()
     });
 
     username.textContent="@"+usernameValue;
     document.getElementById("miniUser").textContent="@"+usernameValue;
 
+    const av = (data.gender==="female") ? "👩‍⚕️" : "👨‍⚕️";
+    avatar.textContent = av;
+    document.getElementById("miniAvatar").textContent = av;
+
     chart.data.datasets[0].data=[progress,100-progress];
     chart.update();
 
     showToast("ok","✅ Saved","Profile updated successfully.");
-
     setTimeout(()=> location.href="accueil.html", 450);
 
   }catch(err){
@@ -657,7 +676,6 @@ deleteBtn.onclick = async ()=>{
 };
 
 window.addEventListener("beforeunload", ()=>{
-
   if(currentUser){
     try{ deleteDoc(doc(db,"sessions",currentUser.uid)); }catch(e){}
   }
