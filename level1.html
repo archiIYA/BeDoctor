@@ -18,7 +18,6 @@
   --border:rgba(255,255,255,.12);
   --shadow:0 20px 60px rgba(0,0,0,.45);
 }
-
 [data-theme="light"]{
   --bg:#f6f7fb;
   --card:#ffffff;
@@ -27,9 +26,7 @@
   --muted:#475569;
   --border:rgba(15,23,42,.12);
 }
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
   min-height:100vh;
@@ -38,7 +35,6 @@ body{
   color:var(--text);
   display:flex;
 }
-
 .stars{
   position:fixed;
   inset:0;
@@ -49,7 +45,6 @@ body{
   background-size:160px 160px;
   opacity:.35;
 }
-
 .watermark{
   position:fixed;
   inset:0;
@@ -62,7 +57,6 @@ body{
   width:min(70vw,700px);
   opacity:.08;
 }
-
 .menu{
   width:260px;
   padding:20px;
@@ -70,51 +64,35 @@ body{
   border-right:1px solid var(--border);
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:6px;
 }
-
 .menuTop{
   display:flex;
-  gap:10px;
   align-items:center;
+  gap:10px;
   margin-bottom:10px;
 }
 .menuTop img{width:42px}
-.menuTop strong{font-size:18px}
-
-.menu a{
+.menu a, .menu button{
   display:flex;
   gap:10px;
   align-items:center;
   padding:12px 14px;
   border-radius:14px;
-  text-decoration:none;
+  background:none;
+  border:none;
   color:inherit;
   font-weight:800;
-}
-.menu a:hover{background:var(--soft)}
-
-.dropdown button{
-  width:100%;
-  padding:12px 14px;
-  border-radius:14px;
-  border:none;
-  background:var(--soft);
-  color:inherit;
-  font-weight:900;
+  text-decoration:none;
   cursor:pointer;
 }
-
+.menu a:hover, .menu button:hover{background:var(--soft)}
 .dropdown-content{
   display:none;
-  margin-top:6px;
-}
-.dropdown-content a{
+  flex-direction:column;
   margin-left:10px;
-  font-size:14px;
 }
-.dropdown.open .dropdown-content{display:block}
-
+.dropdown.open .dropdown-content{display:flex}
 .controls{
   margin-top:auto;
   display:flex;
@@ -129,31 +107,28 @@ body{
   cursor:pointer;
   font-weight:900;
 }
-
 .menuUser{
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  background:var(--soft);
   display:flex;
   gap:10px;
   align-items:center;
-  margin-top:10px;
-  padding:10px;
-  border-radius:14px;
-  background:var(--soft);
 }
-.menuUser .av{
-  width:40px;height:40px;
-  display:grid;place-items:center;
+.av{
+  width:42px;
+  height:42px;
   border-radius:12px;
-  font-size:20px;
-  background:linear-gradient(135deg,#00e676,#9b5cff);
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  background:linear-gradient(135deg,#00e676,#7c4dff);
 }
-.menuUser .u{font-weight:900}
-.menuUser .e{font-size:12px;color:var(--muted)}
-
 .container{
   flex:1;
   padding:40px 20px 80px;
 }
-
 .header{
   max-width:1100px;
   margin:auto;
@@ -168,7 +143,6 @@ body{
   color:var(--muted);
   line-height:1.7;
 }
-
 .grid{
   max-width:1100px;
   margin:50px auto 0;
@@ -176,7 +150,6 @@ body{
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:26px;
 }
-
 .card{
   background:linear-gradient(135deg,var(--soft),var(--card));
   border-radius:var(--radius);
@@ -191,15 +164,18 @@ body{
   gap:14px;
 }
 .card:hover{transform:translateY(-6px)}
-
 .icon{
-  width:64px;height:64px;
+  width:64px;
+  height:64px;
   border-radius:18px;
-  display:grid;place-items:center;
   background:rgba(255,255,255,.08);
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
 }
-.icon img{width:42px}
-
+.icon img{width:42px;height:42px}
+.card h3{margin:0;font-size:20px;font-weight:900}
+.card p{margin:0;color:var(--muted);line-height:1.6}
 @media(max-width:900px){
   .menu{display:none}
   .header h1{font-size:32px}
@@ -227,13 +203,13 @@ body{
     </div>
   </div>
 
-  <a id="navCourses">📚 Cours</a>
-  <a id="navAnat">🧠 Anatomie 3D</a>
-  <a id="navExams">📝 Examens</a>
-  <a id="navNotes">🗒️ Notes</a>
-  <a id="navStats">📊 Statistiques</a>
-  <a id="navPomo">⏱️ Pomodoro</a>
-  <a id="navProfile">👤 Profil</a>
+  <a id="navCourses" href="courses.html">📚 Cours</a>
+  <a href="anatomie3d.html">🧠 Anatomie 3D</a>
+  <a href="examens.html">📝 Examens</a>
+  <a href="notes.html">🗒️ Notes</a>
+  <a href="stats.html">📊 Statistiques</a>
+  <a href="pomodoro.html">⏱️ Pomodoro</a>
+  <a href="profil.html">👤 Profil</a>
 
   <div class="controls">
     <div class="ctrl" id="langBtn">🌍 FR</div>
@@ -243,8 +219,8 @@ body{
   <div class="menuUser">
     <div class="av" id="miniAvatar">👨‍⚕️</div>
     <div>
-      <div class="u" id="miniUser">@username</div>
-      <div class="e" id="miniEmail">email@example.com</div>
+      <div id="miniUser">@username</div>
+      <small id="miniEmail"></small>
     </div>
   </div>
 </div>
@@ -261,14 +237,25 @@ body{
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-initializeApp({
+const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain:"bedoctor-81569.firebaseapp.com",
   projectId:"bedoctor-81569"
 });
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-onAuthStateChanged(getAuth(),u=>{ if(!u) location.href="login.html"; });
+onAuthStateChanged(auth, async u=>{
+  if(!u) return location.href="login.html";
+  miniEmail.textContent=u.email;
+  const s=await getDoc(doc(db,"users",u.uid));
+  if(s.exists()){
+    miniUser.textContent="@"+s.data().username;
+    miniAvatar.textContent=s.data().gender==="female"?"👩‍⚕️":"👨‍⚕️";
+  }
+});
 
 btnParcours.onclick=()=>parcours.classList.toggle("open");
 
@@ -277,41 +264,75 @@ themeBtn.onclick=()=>{
     document.documentElement.dataset.theme==="dark"?"light":"dark";
 };
 
-const texts={
-fr:{
- title:"🧬 Première Année Médecine",
- desc:"La première année de médecine constitue la base fondamentale de la formation médicale."
-},
-en:{
- title:"🧬 First Year of Medicine",
- desc:"The first year of medicine forms the fundamental basis of medical education."
-}
+let lang="fr";
+const data={
+  fr:{
+    title:"🧬 Première Année Médecine",
+    desc:"La première année de médecine constitue la base fondamentale de la formation médicale.",
+    modules:[
+      ["Anatomie","Étude détaillée de la morphologie du corps humain.","Anatomie.svg","anatomie.html"],
+      ["Biochimie","Analyse des réactions chimiques du vivant.","Biochimie.svg","biochimie.html"],
+      ["Biophysique","Principes physiques appliqués à la biologie.","Biophysique.svg","biophysique.html"],
+      ["Biostatistique","Analyse statistique des données médicales.","Biostatistique.svg","biostatistique.html"],
+      ["Chimie","Étude des éléments chimiques et interactions.","Chimie.svg","chimie.html"],
+      ["Cytologie","Structure et fonctions cellulaires.","Cytologie.svg","cytologie.html"],
+      ["Embryologie","Développement embryonnaire humain.","Embryologie.svg","embryologie.html"],
+      ["Histologie","Analyse microscopique des tissus.","Histologie.svg","histologie.html"],
+      ["Physiologie","Fonctionnement des organes.","Physiologie.svg","physiologie.html"],
+      ["SSH","Approche humaine et sociale de la médecine.","SSH.svg","ssh.html"]
+    ]
+  },
+  en:{
+    title:"🧬 First Year of Medicine",
+    desc:"The first year of medicine forms the fundamental basis of medical education.",
+    modules:[
+      ["Anatomy","Study of human body structure.","Anatomie.svg","anatomie.html"],
+      ["Biochemistry","Chemical reactions of living systems.","Biochimie.svg","biochimie.html"],
+      ["Biophysics","Physics applied to biology.","Biophysique.svg","biophysique.html"],
+      ["Biostatistics","Statistical analysis in medicine.","Biostatistique.svg","biostatistique.html"],
+      ["Chemistry","Chemical elements and interactions.","Chimie.svg","chimie.html"],
+      ["Cytology","Cell structure and functions.","Cytologie.svg","cytologie.html"],
+      ["Embryology","Human embryonic development.","Embryologie.svg","embryologie.html"],
+      ["Histology","Microscopic tissue analysis.","Histologie.svg","histologie.html"],
+      ["Physiology","Organ and system functions.","Physiologie.svg","physiologie.html"],
+      ["SSH","Human and social sciences in medicine.","SSH.svg","ssh.html"]
+    ]
+  }
 };
 
-let lang="fr";
-function applyLang(){
-  desc.textContent=texts[lang].desc;
+function render(){
+  desc.textContent=data[lang].desc;
+  grid.innerHTML="";
+  data[lang].modules.forEach(m=>{
+    grid.innerHTML+=`
+    <a href="${m[3]}" class="card">
+      <div class="icon"><img src="${m[2]}"></div>
+      <h3>${m[0]}</h3>
+      <p>${m[1]}</p>
+    </a>`;
+  });
 }
 langBtn.onclick=()=>{
   lang=lang==="fr"?"en":"fr";
   langBtn.textContent=lang==="fr"?"🌍 FR":"🌍 EN";
-  applyLang();
+  render();
 };
-applyLang();
 
-const titleText=texts.fr.title;
-let i=0,del=false,pause=0;
+const titleText=data.fr.title;
+let i=0,del=false;
 setInterval(()=>{
-  if(pause>0){pause--;return;}
   if(!del){
     typeTitle.textContent=titleText.slice(0,++i);
-    if(i===titleText.length){pause=10;del=true;}
+    if(i===titleText.length) del=true;
   }else{
     typeTitle.textContent=titleText.slice(0,--i);
-    if(i===0){pause=10;del=false;}
+    if(i===0) del=false;
   }
-},150);
+},160);
+
+render();
 </script>
 
 </body>
 </html>
+
