@@ -20,7 +20,6 @@
   --shadow:0 20px 60px rgba(0,0,0,.45);
   --menuW:260px;
 }
-
 [data-theme="light"]{
   --bg:#f6f7fb;
   --card:#ffffff;
@@ -30,9 +29,7 @@
   --border:rgba(15,23,42,.12);
   --shadow:0 20px 60px rgba(2,6,23,.10);
 }
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
   min-height:100vh;
@@ -41,7 +38,6 @@ body{
   color:var(--text);
   display:flex;
 }
-
 .stars{
   position:fixed;
   inset:0;
@@ -52,7 +48,6 @@ body{
   background-size:160px 160px;
   opacity:.3;
 }
-
 .watermark{
   position:fixed;
   inset:0;
@@ -65,7 +60,6 @@ body{
   width:min(75vw,800px);
   opacity:.09;
 }
-
 .menu{
   width:var(--menuW);
   padding:18px;
@@ -79,7 +73,6 @@ body{
   inset:0 auto 0 0;
   overflow:auto;
 }
-
 .menuTop{
   display:flex;
   align-items:center;
@@ -91,7 +84,6 @@ body{
 }
 .menuTop img{width:40px}
 .menuTop strong{font-weight:950}
-
 .dropdown{
   position:relative;
   border-radius:14px;
@@ -130,7 +122,6 @@ body{
 }
 .dropList a:hover{background:var(--soft)}
 .dropdown.open .dropList{display:block}
-
 .menu a.nav{
   display:flex;
   gap:10px;
@@ -146,7 +137,6 @@ body{
   background:var(--soft);
   border-color:var(--border);
 }
-
 .controls{
   margin-top:auto;
   display:flex;
@@ -163,7 +153,6 @@ body{
   font-weight:900;
   user-select:none;
 }
-
 .menuUser{
   display:flex;
   gap:10px;
@@ -190,18 +179,15 @@ body{
   text-overflow:ellipsis;
   white-space:nowrap
 }
-
 .container{
   margin-left:var(--menuW);
   width:100%;
   padding:40px 20px 80px;
 }
-
 .wrap{
   max-width:1100px;
   margin:auto;
 }
-
 .banner{
   border-radius:22px;
   overflow:hidden;
@@ -214,7 +200,6 @@ body{
   object-fit:cover;
   display:block;
 }
-
 .topActions{
   display:flex;
   gap:10px;
@@ -230,7 +215,6 @@ body{
   font-weight:950;
   cursor:pointer;
 }
-
 .header{
   background:var(--card);
   border-radius:22px;
@@ -249,7 +233,6 @@ body{
   color:var(--muted);
   line-height:1.7;
 }
-
 .section{
   margin-top:18px;
   background:var(--card);
@@ -258,14 +241,12 @@ body{
   box-shadow:var(--shadow);
   border:1px solid var(--border);
 }
-
 .section h2{
   margin:0 0 12px;
   color:var(--accent2);
   font-size:18px;
   font-weight:950;
 }
-
 .list a{
   display:flex;
   justify-content:space-between;
@@ -283,7 +264,6 @@ body{
   background:rgba(155,92,255,.18);
   border-color:var(--border);
 }
-
 .badge{
   font-size:12px;
   font-weight:950;
@@ -293,7 +273,6 @@ body{
   border:1px solid var(--border);
   background:rgba(255,255,255,.04);
 }
-
 .driveGrid{
   display:grid;
   grid-template-columns:repeat(2, minmax(0,1fr));
@@ -312,7 +291,6 @@ body{
 .driveCard:hover{transform:translateY(-3px)}
 .driveCard .t{font-weight:950; font-size:16px}
 .driveCard .s{margin-top:6px; color:var(--muted); font-weight:850; font-size:13px; line-height:1.6}
-
 .video{
   margin-top:12px;
   border-radius:16px;
@@ -327,7 +305,6 @@ body{
   border-bottom:1px solid var(--border);
 }
 iframe{width:100%; height:320px; display:block}
-
 @media(max-width:900px){
   .menu{display:none}
   .container{margin-left:0}
@@ -437,41 +414,60 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const DRIVE_FR = "https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view?usp=drive_link";
-const DRIVE_EN = "https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view?usp=drive_link";
+const driveFr=document.getElementById("driveFr");
+const driveEn=document.getElementById("driveEn");
+const driveFrS=document.getElementById("driveFrS");
+const driveEnS=document.getElementById("driveEnS");
+const driveTitle=document.getElementById("driveTitle");
+const courseList=document.getElementById("courseList");
+const videoWrap=document.getElementById("videoWrap");
+const cTitle=document.getElementById("cTitle");
+const vTitle=document.getElementById("vTitle");
+const title=document.getElementById("title");
+const desc=document.getElementById("desc");
+const langBtn=document.getElementById("langBtn");
+const themeBtn=document.getElementById("themeBtn");
+const yearsDrop=document.getElementById("yearsDrop");
+const dropIcon=document.getElementById("dropIcon");
+const backBtn=document.getElementById("backBtn");
+const homeBtn=document.getElementById("homeBtn");
+const levelBtn=document.getElementById("levelBtn");
+const u=document.getElementById("u");
+const e=document.getElementById("e");
+const av=document.getElementById("av");
 
-driveFr.href = DRIVE_FR;
-driveEn.href = DRIVE_EN;
+const DRIVE_FR="https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view";
+const DRIVE_EN="https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view";
+
+driveFr.href=DRIVE_FR;
+driveEn.href=DRIVE_EN;
 
 onAuthStateChanged(auth, async user=>{
   if(!user) location.href="login.html";
-  e.textContent = user.email;
-
-  const snap = await getDoc(doc(db,"users",user.uid));
+  e.textContent=user.email;
+  const snap=await getDoc(doc(db,"users",user.uid));
   if(snap.exists()){
-    const d = snap.data();
-    u.textContent = "@"+(d.username||"username");
-    av.textContent = d.gender==="female" ? "👩‍⚕️" : "👨‍⚕️";
+    const d=snap.data();
+    u.textContent="@"+(d.username||"username");
+    av.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
   }
 });
 
 themeBtn.onclick=()=>{
-  document.documentElement.dataset.theme =
-    document.documentElement.dataset.theme==="dark"?"light":"dark";
+  document.documentElement.dataset.theme=
+  document.documentElement.dataset.theme==="dark"?"light":"dark";
 };
 
-yearsDrop.addEventListener("click", (ev)=>{
-  if(ev.target.closest(".dropBtn")){
-    yearsDrop.classList.toggle("open");
-    dropIcon.textContent = yearsDrop.classList.contains("open") ? "▴" : "▾";
-  }
-});
+yearsDrop.onclick=()=>{
+  yearsDrop.classList.toggle("open");
+  dropIcon.textContent=yearsDrop.classList.contains("open")?"▴":"▾";
+};
 
 backBtn.onclick=()=>history.back();
 homeBtn.onclick=()=>location.href="accueil.html";
 levelBtn.onclick=()=>location.href="level1.html";
 
-const data = {
+const data={
   fr:{
     typeTitle:"02 • Système Squelettique",
     desc:"Étude de l’ossature humaine, de sa structure, de ses fonctions et de son rôle fondamental en médecine.",
@@ -481,10 +477,11 @@ const data = {
     cTitle:"📘 Cours",
     vTitle:"🎥 YouTube",
     courses:[
-      {t:"Cours Système Squelettique (PDF)", href:DRIVE_FR},
+      {t:"Cours Système Squelettique (PDF)",href:DRIVE_FR}
     ],
     videos:[
-      {cap:"Playlist Ostéologie", src:"https://youtu.be/cH9EBUuYoso?si=48UvlF148rnpraf-"}
+      {cap:"Playlist Ostéologie",src:"https://www.youtube.com/embed/cH9EBUuYoso"}
+      {cap:"vd",src:"https://youtu.be/HXOSnunzLR8?si=HdYAg3tHoOKbB0gS"}
     ]
   },
   en:{
@@ -496,56 +493,49 @@ const data = {
     cTitle:"📘 Lessons",
     vTitle:"🎥 YouTube Videos",
     courses:[
-      {t:"Skeletal System Course (PDF)", href:DRIVE_EN},
-      {t:"Osteology Handout (PDF)", href:DRIVE_EN},
-      {t:"Locomotor System (PDF)", href:DRIVE_EN}
+      {t:"Skeletal System Course (PDF)",href:DRIVE_EN},
     ],
     videos:[
-      {cap:"Osteology Playlist", src:"https://www.youtube.com/embed/videoseries?list=PL5E1A4652795818BF"}
+      {cap:"Osteology Playlist",src:"https://www.youtube.com/embed/videoseries?list=PL5E1A4652795818BF"}
+      {cap:"vd",src:"https://youtu.be/HXOSnunzLR8?si=HdYAg3tHoOKbB0gS"}
     ]
   }
 };
 
+let typeText=data.fr.typeTitle;
+let i=0,del=false;
+
 function render(langKey){
   const L=data[langKey];
-  cTitle.textContent = L.cTitle;
-  vTitle.textContent = L.vTitle;
-  desc.textContent = L.desc;
-  driveTitle.textContent = L.driveTitle;
-  driveFrS.textContent = L.driveFrS;
-  driveEnS.textContent = L.driveEnS;
-
+  typeText=L.typeTitle;
+  cTitle.textContent=L.cTitle;
+  vTitle.textContent=L.vTitle;
+  desc.textContent=L.desc;
+  driveTitle.textContent=L.driveTitle;
+  driveFrS.textContent=L.driveFrS;
+  driveEnS.textContent=L.driveEnS;
   courseList.innerHTML="";
-  L.courses.forEach((x)=>{
+  L.courses.forEach(x=>{
     const a=document.createElement("a");
     a.href=x.href;
     a.target="_blank";
-    a.rel="noopener noreferrer";
-    a.innerHTML = `<span>${x.t}</span><span class="badge">PDF</span>`;
+    a.innerHTML=`<span>${x.t}</span><span class="badge">PDF</span>`;
     courseList.appendChild(a);
   });
-
   videoWrap.innerHTML="";
-  L.videos.forEach((v)=>{
+  L.videos.forEach(v=>{
     const box=document.createElement("div");
     box.className="video";
-    box.innerHTML = `<div class="cap">${v.cap}</div><iframe src="${v.src}" loading="lazy" frameborder="0" allowfullscreen></iframe>`;
+    box.innerHTML=`<div class="cap">${v.cap}</div><iframe src="${v.src}" loading="lazy" allowfullscreen></iframe>`;
     videoWrap.appendChild(box);
   });
-
-  typeText = L.typeTitle;
-  i=0; del=false;
 }
 
-let lang="fr";
 langBtn.onclick=()=>{
-  lang = lang==="fr" ? "en" : "fr";
-  langBtn.textContent = lang==="fr" ? "🌍 FR" : "🌍 EN";
-  render(lang);
+  langBtn.textContent=langBtn.textContent.includes("FR")?"🌍 EN":"🌍 FR";
+  render(langBtn.textContent.includes("FR")?"fr":"en");
 };
 
-let typeText=data.fr.typeTitle;
-let i=0,del=false;
 setInterval(()=>{
   if(!del){
     title.textContent=typeText.slice(0,++i);
