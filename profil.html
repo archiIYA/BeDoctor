@@ -5,291 +5,173 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BeDoctor | Profile</title>
 
-<link rel="icon" type="image/svg+xml" href="logo.svg">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root{
-  --bg:#0b0f1a;
-  --card:#141a2a;
-  --text:#f5f7ff;
-  --muted:#aab2d5;
-  --accent:#8b5cf6;
-  --accent2:#ec4899;
-  --radius:20px;
-  --shadow:0 30px 80px rgba(0,0,0,.55);
+  --bg:#0b0f1a;--card:#141a2a;--text:#f5f7ff;--muted:#aab2d5;
+  --accent:#8b5cf6;--accent2:#ec4899;--radius:20px;
 }
-
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  min-height:100vh;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  margin:0;font-family:system-ui;
   background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
 }
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle,rgba(236,72,153,.6) 1px,transparent 2px),
-    radial-gradient(circle,rgba(139,92,246,.6) 1px,transparent 2px);
-  background-size:140px 140px;
-  opacity:.35;
-  z-index:-1;
+nav{
+  position:fixed;top:0;left:0;right:0;height:60px;
+  background:#0b0f1a;display:flex;align-items:center;
+  padding:0 20px;gap:20px;z-index:100;
 }
+nav a{color:#fff;text-decoration:none;font-weight:700}
+.logo{font-size:20px;font-weight:900}
 
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:30px 20px 60px;
+.container{max-width:1100px;margin:auto;padding:100px 20px}
+.grid{display:grid;grid-template-columns:300px 1fr;gap:28px}
+.sidebar,.main{
+  background:var(--card);border-radius:var(--radius);padding:24px
 }
-
-.grid{
-  display:grid;
-  grid-template-columns:300px 1fr;
-  gap:28px;
+.avatar{font-size:80px;text-align:center}
+.info{font-size:13px;color:var(--muted);text-align:center}
+input,select,button{
+  width:100%;padding:14px;border-radius:14px;
+  border:none;background:#1f2540;color:#fff;margin-bottom:12px
 }
-
-.sidebar{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:24px;
-  box-shadow:var(--shadow);
-  text-align:center;
+button{cursor:pointer;font-weight:900;
+  background:linear-gradient(135deg,var(--accent),var(--accent2))
 }
-
-.avatar{
-  font-size:80px;
-  margin-bottom:10px;
-}
-
-.email{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:16px;
-}
-
-canvas{
-  margin-top:20px;
-}
-
-.main{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:26px;
-  box-shadow:var(--shadow);
-}
-
-h1{
-  margin-top:0;
-}
-
-label{
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  background:#1f2540;
-  color:#fff;
-  margin-bottom:14px;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  border:none;
-  cursor:pointer;
-  font-weight:900;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;
-  margin-top:10px;
-}
-
-.footer{
-  margin-top:40px;
-  text-align:center;
-  color:var(--muted);
-  font-weight:700;
-}
-
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
+.delete{background:#ef4444}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 
 <body>
 
+<nav>
+  <span class="logo" id="logo">👨‍⚕️ BeDoctor</span>
+  <a href="index.html">Home</a>
+  <a href="profile.html">Profile</a>
+</nav>
+
 <div class="container">
-  <div class="grid">
+<div class="grid">
 
-    <div class="sidebar">
-      <div class="avatar" id="avatar">👨‍⚕️</div>
-      <div class="email" id="email">email@example.com</div>
+<div class="sidebar">
+  <div class="avatar" id="avatar">👨‍⚕️</div>
+  <div class="info" id="email"></div>
+  <div class="info" id="phone"></div>
+  <div class="info" id="username"></div>
+  <canvas id="progressChart" height="200"></canvas>
+</div>
 
-      <canvas id="progressChart" width="240" height="240"></canvas>
-    </div>
+<div class="main">
+<h1>👤 Profile</h1>
 
-    <div class="main">
-      <h1>👤 Complete your profile</h1>
+<input id="firstName" placeholder="First name">
+<input id="lastName" placeholder="Last name">
 
-      <label>First Name</label>
-      <input id="firstName" placeholder="First name">
+<select id="gender">
+  <option value="">Gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
 
-      <label>Last Name</label>
-      <input id="lastName" placeholder="Last name">
+<select id="faculty">
+  <option value="">Faculty</option>
+  <option>Algiers</option><option>Blida</option>
+  <option>Annaba</option><option>Setif</option>
+</select>
 
-      <label>Gender</label>
-      <select id="gender">
-        <option value="">Choose gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+<select id="level">
+  <option value="">Level</option>
+  <option>1st Year</option><option>2nd Year</option>
+  <option>3rd Year</option><option>4th Year</option>
+  <option>5th Year</option><option>6th Year</option>
+  <option>7th Year</option><option>Resident</option>
+</select>
 
-      <label>Faculty</label>
-      <select id="faculty">
-        <option value="">Choose faculty</option>
-        <option value="Algiers">Algiers</option>
-        <option value="Blida">Blida</option>
-        <option value="Annaba">Annaba</option>
-        <option value="Setif">Setif</option>
-      </select>
+<button id="saveBtn">Save & Go Home</button>
+<button class="delete" id="deleteBtn">Delete Account</button>
+</div>
 
-      <button id="saveBtn">Save Profile</button>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    dr iyad + dr ines
-  </div>
+</div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  collection,
-  query,
-  where,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+import { getAuth,onAuthStateChanged,deleteUser } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getFirestore,doc,getDoc,setDoc,deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
-  authDomain: "bedoctor-81569.firebaseapp.com",
-  projectId: "bedoctor-81569"
-};
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp({
+  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+  authDomain:"bedoctor-81569.firebaseapp.com",
+  projectId:"bedoctor-81569"
+});
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-let currentUser;
+let currentUser, userRef;
 
-async function generateUsername(first,last){
-  let base = (first + last).toLowerCase();
-  let username = base;
-  let i = 1;
+const chart = new Chart(progressChart,{
+  type:"doughnut",
+  data:{datasets:[{data:[0,100],backgroundColor:["#8b5cf6","#1f2540"]}]},
+  options:{cutout:"70%",plugins:{legend:{display:false}}}
+});
 
-  while(true){
-    const q = query(collection(db,"users"), where("username","==",username));
-    const snap = await getDocs(q);
-    if(snap.empty) return username;
-    username = base + i++;
-  }
+function calcProgress(d){
+  return Math.round(
+    ["firstName","lastName","gender","faculty","level"]
+    .filter(k=>d[k]).length / 5 * 100
+  );
 }
 
-const ctx = document.getElementById("progressChart");
-const chart = new Chart(ctx,{
-  type:"doughnut",
-  data:{
-    labels:["Completed","Remaining"],
-    datasets:[{
-      data:[0,100],
-      backgroundColor:["#8b5cf6","#1f2540"],
-      borderWidth:0
-    }]
-  },
-  options:{
-    plugins:{legend:{display:false}},
-    cutout:"70%"
-  }
-});
-
 onAuthStateChanged(auth, async user=>{
-  if(!user){
-    window.location.href="login.html";
-    return;
-  }
+  if(!user) return location.href="login.html";
+  currentUser=user;
+  userRef=doc(db,"users",user.uid);
 
-  currentUser = user;
-  document.getElementById("email").textContent = user.email;
+  const snap=await getDoc(userRef);
+  if(!snap.exists()) return;
 
-  const ref = doc(db,"users",user.uid);
-  const snap = await getDoc(ref);
+  const d=snap.data();
+  email.textContent=d.email;
+  phone.textContent=d.phone||"";
+  username.textContent="@"+d.username;
 
-  if(snap.exists()){
-    const data = snap.data();
-    document.getElementById("firstName").value = data.firstName;
-    document.getElementById("lastName").value = data.lastName;
-    document.getElementById("gender").value = data.gender;
-    document.getElementById("faculty").value = data.faculty;
-    document.getElementById("avatar").textContent =
-      data.gender === "female" ? "👩‍⚕️" : "👨‍⚕️";
+  firstName.value=d.firstName;
+  lastName.value=d.lastName;
+  gender.value=d.gender;
+  faculty.value=d.faculty;
+  level.value=d.level;
 
-    chart.data.datasets[0].data = [data.progress,100-data.progress];
-    chart.update();
-  }
+  avatar.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
+  logo.textContent=(d.gender==="female"?"👩‍⚕️":"👨‍⚕️")+" BeDoctor";
+
+  chart.data.datasets[0].data=[d.progress,100-d.progress];
+  chart.update();
 });
 
-saveBtn.onclick = async ()=>{
-  const first = firstName.value.trim();
-  const last = lastName.value.trim();
-  const gender = document.getElementById("gender").value;
-  const faculty = document.getElementById("faculty").value;
+saveBtn.onclick=async()=>{
+  const data={
+    firstName:firstName.value.trim(),
+    lastName:lastName.value.trim(),
+    gender:gender.value,
+    faculty:faculty.value,
+    level:level.value
+  };
+  data.progress=calcProgress(data);
 
-  if(!first || !last || !gender || !faculty){
-    alert("Fill all fields");
-    return;
-  }
+  await setDoc(userRef,data,{merge:true});
+  location.href="index.html";
+};
 
-  const username = await generateUsername(first,last);
-
-  await setDoc(doc(db,"users",currentUser.uid),{
-    email: currentUser.email,
-    firstName:first,
-    lastName:last,
-    gender,
-    faculty,
-    username,
-    progress:0,
-    createdAt:Date.now()
-  });
-
-  document.getElementById("avatar").textContent =
-    gender === "female" ? "👩‍⚕️" : "👨‍⚕️";
-
-  alert("Profile saved successfully ✅");
+deleteBtn.onclick=async()=>{
+  if(!confirm("Delete account?"))return;
+  await deleteDoc(userRef);
+  await deleteUser(currentUser);
+  location.href="register.html";
 };
 </script>
 
 </body>
 </html>
-
