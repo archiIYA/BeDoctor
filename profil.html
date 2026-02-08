@@ -18,6 +18,7 @@
   --accent:#8b5cf6;
   --accent2:#ec4899;
   --danger:#ef4444;
+  --ok:#22c55e;
   --radius:18px;
   --shadow:0 25px 60px rgba(0,0,0,.5);
 }
@@ -28,151 +29,266 @@ body{
   margin:0;
   min-height:100vh;
   font-family:system-ui;
-  background:radial-gradient(circle at top,#1b2040,#0b0f1a);
   color:var(--text);
   display:flex;
+  background:
+    radial-gradient(900px 500px at 18% 16%, rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 600px at 86% 18%, rgba(236,72,153,.18), transparent 62%),
+    radial-gradient(1100px 650px at 50% 100%, rgba(139,92,246,.14), transparent 62%),
+    radial-gradient(circle at top,#1b2040,#0b0f1a);
   overflow-x:hidden;
 }
 
-body::before{
-  content:"";
+.stars{
   position:fixed;
   inset:0;
+  z-index:-3;
+  pointer-events:none;
   background:
-    radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 2px);
-  background-size:120px 120px;
-  opacity:.15;
-  z-index:-1;
+    radial-gradient(circle, rgba(236,72,153,.80) 1px, transparent 2px),
+    radial-gradient(circle, rgba(139,92,246,.80) 1px, transparent 2px);
+  background-size:140px 140px;
+  opacity:.38;
+}
+
+.watermark{
+  position:fixed;
+  left:62%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  width:min(780px, 92vw);
+  opacity:.14; 
+  z-index:-2;
+  pointer-events:none;
+  filter: drop-shadow(0 30px 90px rgba(0,0,0,.40));
+  animation: floatMark 7s ease-in-out infinite;
+}
+@keyframes floatMark{
+  0%,100%{ transform:translate(-50%,-50%) translateY(0); }
+  50%{ transform:translate(-50%,-50%) translateY(-10px); }
 }
 
 .menu{
-  width:230px;
-  background:#0b0f1a;
+  width:240px;
+  background:rgba(11,15,26,.92);
   border-right:1px solid #1f2540;
-  padding:20px;
+  padding:22px 18px 18px;
   position:fixed;
   inset:0 auto 0 0;
+  backdrop-filter: blur(14px);
   display:flex;
   flex-direction:column;
+  gap:14px;
 }
 
-.menu .platform-logo{
-  font-size:22px;
-  font-weight:900;
-  text-align:center;
-  margin-bottom:30px;
+.menuTop{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
+.menuTop img{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  filter: drop-shadow(0 20px 40px rgba(139,92,246,.25));
+}
+.menuTop .title{
+  font-size:18px;
+  font-weight:950;
+  line-height:1.05;
+}
+.menuTop .sub{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+  margin-top:2px;
+}
+
+.menuLinks{
+  margin-top:6px;
+}
 .menu a{
   display:block;
   color:#fff;
   text-decoration:none;
   padding:12px 14px;
-  border-radius:12px;
-  font-weight:700;
-  margin-bottom:8px;
+  border-radius:14px;
+  font-weight:800;
+  margin-bottom:10px;
+  border:1px solid transparent;
+  transition:.2s;
 }
-
 .menu a:hover{
   background:#1f2540;
+  border-color:rgba(255,255,255,.10);
+  transform: translateX(2px);
 }
 
-.menu-user{
+.menuUser{
   margin-top:auto;
-  background:#141a2a;
+  padding:12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.menuUser .miniAvatar{
+  width:44px;height:44px;
   border-radius:14px;
-  padding:14px;
-  text-align:center;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(236,72,153,.28));
+  border:1px solid rgba(255,255,255,.12);
 }
-
-.menu-user .avatar{
-  font-size:40px;
+.menuUser .meta{
+  min-width:0;
 }
-
-.menu-user .username{
-  font-weight:900;
-  margin-top:6px;
-  font-size:14px;
+.menuUser .meta .u{
+  font-weight:950;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.menuUser .meta .e{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .container{
-  margin-left:230px;
+  margin-left:240px;
+  max-width:1180px;
+  padding:26px 26px 40px;
   width:100%;
 }
 
-.cover{
-  height:160px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:0 0 30px 30px;
+.banner{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: var(--shadow);
+  background:#0b0f1a;
+  animation: enterUp .8s ease both;
 }
-
-.content{
-  padding:40px;
+.banner img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  display:block;
+  filter:saturate(1.05) contrast(1.05);
+}
+.banner::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(90deg, rgba(139,92,246,.18), rgba(236,72,153,.18));
+  opacity:.9;
+  pointer-events:none;
+}
+.banner .badge{
+  position:absolute;
+  left:18px; bottom:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:999px;
+  background: rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(12px);
+  font-weight:950;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:320px 1fr;
-  gap:30px;
-  margin-top:-80px;
+  grid-template-columns:340px 1fr;
+  gap:22px;
+  margin-top:18px;
 }
 
 .sidebar{
-  background:var(--card);
+  background:rgba(20,26,42,.92);
   border-radius:var(--radius);
-  padding:26px;
+  padding:22px;
   box-shadow:var(--shadow);
   text-align:center;
+  border:1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(14px);
+  animation: enterUp 1s ease both;
 }
 
 .avatar{
-  font-size:88px;
+  font-size:86px;
   margin-bottom:8px;
 }
 
 .infoBox{
-  background:var(--cardSoft);
+  background:rgba(26,33,64,.92);
   border-radius:14px;
   padding:14px;
   margin:14px 0;
   text-align:left;
   font-size:13px;
+  border:1px solid rgba(255,255,255,.10);
 }
 
 .infoItem{
   margin-bottom:8px;
   color:var(--muted);
-  font-weight:700;
+  font-weight:800;
 }
+.infoItem:last-child{margin-bottom:0}
 
 .infoItem span{
   color:#fff;
-  font-weight:900;
+  font-weight:950;
 }
 
-canvas{margin-top:20px}
+canvas{ margin-top:10px; }
 
 .main{
-  background:var(--card);
+  background:rgba(20,26,42,.92);
   border-radius:var(--radius);
-  padding:30px;
+  padding:24px;
   box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(14px);
+  animation: enterUp 1.1s ease both;
 }
+
+h2{margin:0 0 14px}
 
 label{
   font-size:13px;
   color:var(--muted);
-  font-weight:800;
+  font-weight:900;
+  display:block;
+  margin:10px 0 8px;
 }
 
 input,select{
   width:100%;
   padding:14px;
   border-radius:14px;
-  border:none;
+  border:1px solid rgba(255,255,255,.12);
   background:#1f2540;
   color:#fff;
-  margin-bottom:14px;
+  margin-bottom:4px;
+  outline:none;
 }
 
 button{
@@ -181,116 +297,189 @@ button{
   border-radius:16px;
   border:none;
   cursor:pointer;
-  font-weight:900;
-  margin-top:10px;
+  font-weight:950;
+  margin-top:12px;
   font-size:16px;
+  transition:.2s;
 }
 
 .save{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 0 40px rgba(139,92,246,.26);
 }
+.save:hover{ transform: translateY(-1px); }
 
 .delete{
   background:var(--danger);
+  color:#fff;
+}
+.delete:hover{ transform: translateY(-1px); }
+
+@keyframes enterUp{
+  from{ opacity:0; transform: translateY(16px); }
+  to{ opacity:1; transform: translateY(0); }
 }
 
-.success{
-  background:#22c55e;
-  padding:14px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:900;
-  margin-top:14px;
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  min-width: 260px;
+  max-width: 92vw;
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(20,26,42,.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
   display:none;
+  animation: toastIn .25s ease both;
+  font-weight:900;
+}
+.toast.ok{ border-color: rgba(34,197,94,.35); }
+.toast.err{ border-color: rgba(239,68,68,.45); }
+.toast small{
+  display:block;
+  font-weight:800;
+  color:var(--muted);
+  margin-top:4px;
+}
+@keyframes toastIn{
+  from{ opacity:0; transform: translateY(10px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+@media(max-width:980px){
+  .grid{ grid-template-columns:1fr; }
+}
+@media(max-width:900px){
+  .menu{display:none}
+  .container{margin-left:0}
 }
 </style>
 </head>
 
 <body>
 
+<div class="stars"></div>
+<img class="watermark" src="logo.svg" alt="" aria-hidden="true">
+
 <div class="menu">
-  <div class="platform-logo">🩺 BeDoctor</div>
-
-  <a href="accueil.html">🏠 Home</a>
-  <a href="profile.html">👤 Profile</a>
-  <a href="courses.html">📚 Courses</a>
-
-  <div class="menu-user">
-    <div class="avatar" id="menuAvatar">👨‍⚕️</div>
-    <div class="username" id="menuUsername">@username</div>
+  <div class="menuTop">
+    <img src="logo.svg" alt="BeDoctor Logo">
+    <div>
+      <div class="title" id="logoText">BeDoctor</div>
+      <div class="sub">Medical Learning</div>
+    </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="cover"></div>
+  <div class="menuLinks">
+    <a href="accueil.html">🏠 Home</a>
+    <a href="profil.html">👤 Profile</a>
+    <a href="courses.html">📚 Courses</a>
+  </div>
 
-  <div class="content">
-    <div class="grid">
-
-      <div class="sidebar">
-        <div class="avatar" id="avatar">👨‍⚕️</div>
-
-        <div class="infoBox">
-          <div class="infoItem">📧 Email: <span id="email"></span></div>
-          <div class="infoItem">📱 Phone: <span id="phone">—</span></div>
-          <div class="infoItem">👤 Username: <span id="username"></span></div>
-        </div>
-
-        <canvas id="progressChart" width="220" height="220"></canvas>
-      </div>
-
-      <div class="main">
-        <h2>👤 Profile Information</h2>
-
-        <label>First Name</label>
-        <input id="firstName">
-
-        <label>Last Name</label>
-        <input id="lastName">
-
-        <label>Gender</label>
-        <select id="gender">
-          <option value="">Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-
-        <label>Faculty</label>
-        <select id="faculty">
-          <option value="">Faculty</option>
-          <option>Algiers</option>
-          <option>Blida</option>
-          <option>Annaba</option>
-          <option>Setif</option>
-        </select>
-
-        <label>Level</label>
-        <select id="level">
-          <option value="">Level</option>
-          <option>1st Year</option><option>2nd Year</option>
-          <option>3rd Year</option><option>4th Year</option>
-          <option>5th Year</option><option>6th Year</option>
-          <option>7th Year</option><option>Resident</option>
-        </select>
-
-        <button class="save" id="saveBtn">💾 Save Profile</button>
-        <button class="delete" id="deleteBtn">🗑️ Delete Account</button>
-
-        <div class="success" id="successMsg">✅ Profile saved successfully</div>
-      </div>
-
+  <div class="menuUser">
+    <div class="miniAvatar" id="miniAvatar">👨‍⚕️</div>
+    <div class="meta">
+      <div class="u" id="miniUser">@username</div>
+      <div class="e" id="miniEmail">email@example.com</div>
     </div>
   </div>
 </div>
 
+<div class="container">
+
+  <div class="banner">
+    <img src="banner.svg" alt="BeDoctor Banner">
+    <div class="badge">✨ Your Profile Dashboard</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="sidebar">
+      <div class="avatar" id="avatar">👨‍⚕️</div>
+
+      <div class="infoBox">
+        <div class="infoItem">📧 Email: <span id="email"></span></div>
+        <div class="infoItem">📱 Phone: <span id="phone">—</span></div>
+        <div class="infoItem">👤 Username: <span id="username"></span></div>
+      </div>
+
+      <canvas id="progressChart" width="220" height="220"></canvas>
+    </div>
+
+    <div class="main">
+      <h2>👤 Profile Information</h2>
+
+      <label>First Name</label>
+      <input id="firstName" placeholder="First name">
+
+      <label>Last Name</label>
+      <input id="lastName" placeholder="Last name">
+
+      <label>Gender</label>
+      <select id="gender">
+        <option value="">Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <label>Faculty</label>
+      <select id="faculty">
+        <option value="">Faculty</option>
+        <option>Algiers</option>
+        <option>Blida</option>
+        <option>Annaba</option>
+        <option>Setif</option>
+      </select>
+
+      <label>Level</label>
+      <select id="level">
+        <option value="">Level</option>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>4th Year</option>
+        <option>5th Year</option>
+        <option>6th Year</option>
+        <option>7th Year</option>
+        <option>Resident</option>
+      </select>
+
+      <button class="save" id="saveBtn">💾 Save Profile</button>
+      <button class="delete" id="deleteBtn">🗑️ Delete Account</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <div id="toastTitle">Done</div>
+  <small id="toastMsg">Message</small>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged,deleteUser } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth,onAuthStateChanged,deleteUser,signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import {
-  getFirestore,doc,setDoc,getDoc,deleteDoc
+  getFirestore,doc,setDoc,getDoc,deleteDoc,
+  collection,query,where,getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-const app = initializeApp({
+function getDeviceId(){
+  let id = localStorage.getItem("deviceId");
+  if(!id){
+    id = crypto.randomUUID();
+    localStorage.setItem("deviceId", id);
+  }
+  return id;
+}
+const deviceId = getDeviceId();
+
+  const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain:"bedoctor-81569.firebaseapp.com",
   projectId:"bedoctor-81569"
@@ -298,61 +487,181 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+let currentUser;
+
+function showToast(type, title, msg){
+  const t = document.getElementById("toast");
+  t.classList.remove("ok","err");
+  t.classList.add(type);
+  document.getElementById("toastTitle").textContent = title;
+  document.getElementById("toastMsg").textContent = msg;
+  t.style.display = "block";
+  setTimeout(()=> t.style.display="none", 1600);
+}
+
 const chart = new Chart(progressChart,{
   type:"doughnut",
-  data:{datasets:[{data:[0,100],backgroundColor:["#8b5cf6","#1f2540"],borderWidth:0}]},
+  data:{
+    datasets:[{
+      data:[0,100],
+      backgroundColor:["#8b5cf6","#1f2540"],
+      borderWidth:0
+    }]
+  },
   options:{cutout:"70%",plugins:{legend:{display:false}}}
 });
 
+gender.onchange = ()=>{
+  const g = gender.value;
+  avatar.textContent = g==="female"?"👩‍⚕️":"👨‍⚕️";
+  document.getElementById("miniAvatar").textContent = avatar.textContent;
+  document.getElementById("logoText").textContent = "BeDoctor"; // ثابت
+};
+
+function calcProgress(d){
+  let f=0;
+  ["firstName","lastName","gender","faculty","level"].forEach(k=>d[k]&&f++);
+  return Math.round((f/5)*100);
+}
+
+async function generateUsername(first,last){
+  const base=(first+last).toLowerCase().replace(/\s+/g,"");
+  let u=base,i=1;
+  while(true){
+    const q=query(collection(db,"users"),where("username","==",u));
+    if((await getDocs(q)).empty) return u;
+    u=base+i++;
+  }
+}
+
 onAuthStateChanged(auth, async user=>{
   if(!user) return location.href="login.html";
+  currentUser=user;
 
-  const snap = await getDoc(doc(db,"users",user.uid));
+  const sessionRef = doc(db,"sessions",user.uid);
+  const sessionSnap = await getDoc(sessionRef);
+
+  if(sessionSnap.exists()){
+    const activeDevice = sessionSnap.data().deviceId;
+    if(activeDevice !== deviceId){
+      alert("Your account was opened on another device");
+      await signOut(auth);
+      return;
+    }
+  }
+
+  await setDoc(sessionRef,{
+    deviceId,
+    lastLogin: Date.now()
+  });
+
+  const ref=doc(db,"users",user.uid);
+  const snap=await getDoc(ref);
+
+  email.textContent=user.email;
+  document.getElementById("miniEmail").textContent = user.email;
+
   if(snap.exists()){
     const d=snap.data();
-    email.textContent=d.email;
-    phone.textContent=d.phone||"—";
+
+    phone.textContent=d.phone || "—";
     username.textContent="@"+d.username;
-    menuUsername.textContent="@"+d.username;
 
-    avatar.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
-    menuAvatar.textContent=avatar.textContent;
+    document.getElementById("miniUser").textContent = "@"+d.username;
 
-    firstName.value=d.firstName;
-    lastName.value=d.lastName;
-    gender.value=d.gender;
-    faculty.value=d.faculty;
-    level.value=d.level;
+    firstName.value=d.firstName || "";
+    lastName.value=d.lastName || "";
+    gender.value=d.gender || "";
+    faculty.value=d.faculty || "";
+    level.value=d.level || "";
 
-    chart.data.datasets[0].data=[d.progress,100-d.progress];
+    const av = (d.gender==="female") ? "👩‍⚕️" : "👨‍⚕️";
+    avatar.textContent = av;
+    document.getElementById("miniAvatar").textContent = av;
+
+    const prog = Number(d.progress ?? 0);
+    chart.data.datasets[0].data=[prog,100-prog];
     chart.update();
+  }else{
+    document.getElementById("miniUser").textContent = "@new_user";
   }
 });
 
 saveBtn.onclick = async ()=>{
-  const ref=doc(db,"users",auth.currentUser.uid);
-  const snap=await getDoc(ref);
-  const d=snap.data();
+  if(!currentUser){
+    showToast("err","❌ Error","No user session.");
+    return;
+  }
 
-  await setDoc(ref,{
-    ...d,
-    firstName:firstName.value,
-    lastName:lastName.value,
+  const data={
+    firstName:firstName.value.trim(),
+    lastName:lastName.value.trim(),
     gender:gender.value,
     faculty:faculty.value,
     level:level.value
-  });
+  };
 
-  successMsg.style.display="block";
-  setTimeout(()=>location.href="accueil.html",600);
+  if(Object.values(data).includes("")){
+    showToast("err","⚠️ Missing","Please fill all fields.");
+    return;
+  }
+
+  try{
+    const ref=doc(db,"users",currentUser.uid);
+    const snap=await getDoc(ref);
+
+    const usernameValue = snap.exists()
+      ? snap.data().username
+      : await generateUsername(data.firstName,data.lastName);
+
+    const progress=calcProgress(data);
+
+    await setDoc(ref,{
+      ...data,
+      email:currentUser.email,
+      phone:snap.exists()? (snap.data().phone || "") : "",
+      username:usernameValue,
+      progress,
+      createdAt:snap.exists()?snap.data().createdAt:Date.now()
+    });
+
+    username.textContent="@"+usernameValue;
+    document.getElementById("miniUser").textContent="@"+usernameValue;
+
+    chart.data.datasets[0].data=[progress,100-progress];
+    chart.update();
+
+    showToast("ok","✅ Saved","Profile updated successfully.");
+
+    setTimeout(()=> location.href="accueil.html", 450);
+
+  }catch(err){
+    console.error(err);
+    showToast("err","❌ Failed", err?.message || "Could not save profile.");
+  }
 };
 
 deleteBtn.onclick = async ()=>{
+  if(!currentUser) return;
   if(!confirm("Delete account?")) return;
-  await deleteDoc(doc(db,"users",auth.currentUser.uid));
-  await deleteUser(auth.currentUser);
-  location.href="register.html";
+
+  try{
+    await deleteDoc(doc(db,"users",currentUser.uid));
+    await deleteDoc(doc(db,"sessions",currentUser.uid));
+    await deleteUser(currentUser);
+    location.href="register.html";
+  }catch(err){
+    console.error(err);
+    showToast("err","❌ Failed", err?.message || "Could not delete account.");
+  }
 };
+
+window.addEventListener("beforeunload", ()=>{
+
+  if(currentUser){
+    try{ deleteDoc(doc(db,"sessions",currentUser.uid)); }catch(e){}
+  }
+});
 </script>
 
 </body>
