@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BeDoctor | Home</title>
-
+<title>BeDoctor | Parcours Médical</title>
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 
 <style>
@@ -13,11 +12,18 @@
   --card:#141a2a;
   --soft:#1a2140;
   --text:#f5f7ff;
-  --muted:#aab2d5;
-  --accent:#8b5cf6;
-  --accent2:#ec4899;
+  --muted:#b8c0e0;
+  --accent:#ff5fd2;
+  --accent2:#9b5cff;
   --radius:18px;
-  --shadow:0 25px 60px rgba(0,0,0,.5);
+}
+
+[data-theme="light"]{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --soft:#eef1ff;
+  --text:#0f172a;
+  --muted:#475569;
 }
 
 *{box-sizing:border-box}
@@ -27,183 +33,134 @@ body{
   min-height:100vh;
   font-family:system-ui;
   color:var(--text);
+  background:var(--bg);
   display:flex;
-  background:
-    radial-gradient(900px 500px at 18% 16%, rgba(139,92,246,.22), transparent 60%),
-    radial-gradient(900px 600px at 86% 18%, rgba(236,72,153,.18), transparent 62%),
-    radial-gradient(circle at top,#1b2040,#0b0f1a);
 }
 
 .stars{
   position:fixed;
   inset:0;
-  z-index:-3;
+  z-index:-1;
   background:
-    radial-gradient(circle, rgba(236,72,153,.8) 1px, transparent 2px),
-    radial-gradient(circle, rgba(139,92,246,.8) 1px, transparent 2px);
-  background-size:140px 140px;
+    radial-gradient(circle, rgba(255,95,210,.6) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.6) 1px, transparent 2px);
+  background-size:160px 160px;
   opacity:.35;
 }
 
-.watermark{
-  position:fixed;
-  right:-120px;
-  bottom:-120px;
-  width:520px;
-  opacity:.12;
-  z-index:-2;
-}
-
-/* MENU */
 .menu{
-  width:240px;
-  background:rgba(11,15,26,.92);
-  border-right:1px solid #1f2540;
-  padding:22px 18px;
-  position:fixed;
-  inset:0 auto 0 0;
-  backdrop-filter: blur(14px);
+  width:260px;
+  padding:20px;
+  background:var(--card);
+  border-right:1px solid rgba(255,255,255,.08);
   display:flex;
   flex-direction:column;
-  gap:14px;
 }
 
 .menuTop{
   display:flex;
   gap:10px;
   align-items:center;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,.04);
+  margin-bottom:20px;
 }
+.menuTop img{width:42px}
 
-.menuTop img{width:44px}
-
-.menuLinks a{
-  display:block;
-  color:#fff;
-  text-decoration:none;
-  padding:12px 14px;
-  border-radius:14px;
-  font-weight:800;
-  margin-bottom:10px;
-}
-
-.menuLinks a:hover{background:#1f2540}
-
-.menuUser{
-  margin-top:auto;
+.menu button,
+.menu a{
+  all:unset;
   display:flex;
+  align-items:center;
   gap:10px;
-  align-items:center;
-  padding:12px;
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
-}
-
-.menuUser .av{
-  width:44px;height:44px;
-  display:grid;place-items:center;
+  padding:12px 14px;
+  margin-bottom:8px;
   border-radius:14px;
-  font-size:22px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-}
-
-.container{
-  margin-left:240px;
-  padding:28px;
-  width:100%;
-  max-width:1200px;
-}
-
-/* HERO */
-.hero{
-  background:linear-gradient(135deg, rgba(139,92,246,.18), rgba(236,72,153,.18));
-  border-radius:22px;
-  padding:40px;
-  box-shadow:var(--shadow);
-  animation:fadeUp .8s ease both;
-}
-
-.hero h1{
-  margin:0;
-  font-size:34px;
-  font-weight:950;
-}
-
-.hero p{
-  color:var(--muted);
-  max-width:600px;
-  margin:12px 0 0;
-}
-
-/* STATS */
-.stats{
-  margin-top:24px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.card{
-  background:var(--card);
-  padding:22px;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  animation:fadeUp 1s ease both;
-}
-
-.card h2{
-  margin:0;
-  font-size:28px;
-  color:var(--accent);
-}
-
-.card span{
-  color:var(--muted);
+  cursor:pointer;
   font-weight:800;
 }
-
-/* COURSES */
-.courses{
-  margin-top:28px;
-}
-
-.course{
+.menu button:hover,
+.menu a:hover{
   background:var(--soft);
-  padding:18px;
-  border-radius:16px;
-  margin-bottom:14px;
+}
+
+.dropdown{
+  margin-bottom:8px;
+}
+.dropdown-content{
+  display:none;
+  padding-left:14px;
+}
+.dropdown.open .dropdown-content{
+  display:block;
+}
+
+.controls{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  transition:.2s;
+  gap:8px;
+  margin-top:auto;
 }
-
-.course:hover{
-  transform:translateY(-2px);
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
-
-.course button{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  color:#fff;
-  padding:10px 14px;
+.ctrl{
+  flex:1;
+  padding:10px;
   border-radius:12px;
+  background:var(--soft);
   font-weight:900;
   cursor:pointer;
+  text-align:center;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(16px)}
-  to{opacity:1;transform:translateY(0)}
+  .container{
+  flex:1;
+  padding:60px 20px;
 }
 
-@media(max-width:900px){
+.hero{
+  text-align:center;
+  max-width:800px;
+  margin:auto;
+}
+.badge{
+  display:inline-flex;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(155,92,255,.18);
+  font-weight:800;
+}
+.hero h1{
+  font-size:42px;
+  margin:20px 0 8px;
+  color:var(--accent);
+}
+.hero h2{
+  font-size:32px;
+  margin:0;
+}
+.hero p{
+  margin-top:16px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.grid{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+}
+.card{
+  padding:26px;
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--soft),var(--card));
+  text-decoration:none;
+  color:inherit;
+  transition:.3s;
+}
+.card:hover{transform:translateY(-6px)}
+.card h3{margin:0 0 8px}
+.card p{margin:0;color:var(--muted)}
+
+@media(max-width:800px){
   .menu{display:none}
-  .container{margin-left:0}
-  .stats{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -211,98 +168,100 @@ body{
 <body>
 
 <div class="stars"></div>
-<img class="watermark" src="logo.svg">
 
 <div class="menu">
   <div class="menuTop">
     <img src="logo.svg">
-    <div>
-      <strong>BeDoctor</strong><br>
-      <small style="color:#aab2d5">Medical Learning</small>
+    <strong>BeDoctor</strong>
+  </div>
+
+  <div class="dropdown" id="parcours">
+    <button onclick="toggleDropdown()">🎓 Parcours Médical</button>
+    <div class="dropdown-content">
+      <a href="level1.html">🧬 1ère Année</a>
+      <a href="level2.html">❤️ 2ème Année</a>
+      <a href="level3.html">🩺 3ème Année</a>
     </div>
   </div>
 
-  <div class="menuLinks">
-    <a href="accueil.html">🏠 Home</a>
-    <a href="profil.html">👤 Profile</a>
-    <a href="courses.html">📚 Courses</a>
-  </div>
+  <a href="Cours.html">📚 Cours</a>
+  <a href="Examens.html">📝 Examens</a>
+  <a href="Notes.html">🗒️ Notes</a>
+  <a href="Statistiques.html">📊 Statistiques</a>
+  <a href="Pomodoro.html">⏱️ Pomodoro</a>
+  <a href="profil.html">👤 Profil</a>
 
-  <div class="menuUser">
-    <div class="av" id="av">👨‍⚕️</div>
-    <div>
-      <div id="u">@username</div>
-      <small id="e" style="color:#aab2d5"></small>
-    </div>
+  <div class="controls">
+    <div class="ctrl" onclick="toggleLang()">🌍 FR/EN</div>
+    <div class="ctrl" onclick="toggleTheme()">🌙</div>
   </div>
 </div>
 
 <div class="container">
 
   <section class="hero">
-    <h1>🧠 Welcome back to BeDoctor</h1>
-    <p>Continue your medical journey with smart courses, QCM training and real progress tracking.</p>
+    <div class="badge" data-i18n="badge">🎓 Parcours Médical</div>
+    <h1 data-i18n="title">Votre Parcours Médical</h1>
+    <h2 data-i18n="subtitle">Commence avec TBiB</h2>
+    <p data-i18n="desc">
+      Des cours structurés, des ressources cliniques et des contenus interactifs
+      pour accompagner l’étudiant en médecine à chaque étape de son parcours.
+    </p>
   </section>
 
-  <section class="stats">
-    <div class="card">
-      <h2 id="p">0%</h2>
-      <span>📈 Overall Progress</span>
-    </div>
-    <div class="card">
-      <h2>120+</h2>
-      <span>📝 QCM Completed</span>
-    </div>
-    <div class="card">
-      <h2>32</h2>
-      <span>📚 Active Courses</span>
-    </div>
-  </section>
-
-  <section class="courses">
-    <div class="course">
-      <div>🫀 Cardiovascular System</div>
-      <button>Continue</button>
-    </div>
-    <div class="course">
-      <div>🧠 Neurology Basics</div>
-      <button>Continue</button>
-    </div>
-    <div class="course">
-      <div>🦠 Microbiology</div>
-      <button>Continue</button>
-    </div>
+  <section class="grid">
+    <a href="level1.html" class="card">
+      <h3 data-i18n="y1">Première Année Médecine</h3>
+      <p data-i18n="y1d">Bases fondamentales : anatomie, biologie et sciences médicales.</p>
+    </a>
+    <a href="level2.html" class="card">
+      <h3 data-i18n="y2">Deuxième Année Médecine</h3>
+      <p data-i18n="y2d">Étude approfondie des systèmes du corps humain.</p>
+    </a>
+    <a href="level3.html" class="card">
+      <h3 data-i18n="y3">Troisième Année Médecine</h3>
+      <p data-i18n="y3d">Approche clinique, pathologies et diagnostics.</p>
+    </a>
   </section>
 
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+<script>
+function toggleDropdown(){
+  document.getElementById("parcours").classList.toggle("open");
+}
 
-const app = initializeApp({
-  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
-  authDomain:"bedoctor-81569.firebaseapp.com",
-  projectId:"bedoctor-81569"
-});
+function toggleTheme(){
+  const html=document.documentElement;
+  html.dataset.theme = html.dataset.theme==="dark"?"light":"dark";
+}
 
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-onAuthStateChanged(auth, async user=>{
-  if(!user) return location.href="login.html";
-
-  document.getElementById("e").textContent = user.email;
-
-  const snap = await getDoc(doc(db,"users",user.uid));
-  if(snap.exists()){
-    const d = snap.data();
-    document.getElementById("u").textContent = "@"+d.username;
-    document.getElementById("p").textContent = d.progress+"%";
-    document.getElementById("av").textContent = d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
+let lang="fr";
+const dict={
+  en:{
+    badge:"🎓 Medical Pathway",
+    title:"Your Medical Journey",
+    subtitle:"Starts with TBiB",
+    desc:"Structured courses, clinical resources and interactive content to guide medical students.",
+    y1:"First Year Medicine",
+    y1d:"Foundations: anatomy, biology and medical sciences.",
+    y2:"Second Year Medicine",
+    y2d:"In-depth study of human body systems.",
+    y3:"Third Year Medicine",
+    y3d:"Clinical approach, pathologies and diagnostics."
   }
-});
+};
+
+function toggleLang(){
+  lang = lang==="fr"?"en":"fr";
+  if(lang==="en"){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      el.textContent = dict.en[el.dataset.i18n];
+    });
+  }else{
+    location.reload();
+  }
+}
 </script>
 
 </body>
