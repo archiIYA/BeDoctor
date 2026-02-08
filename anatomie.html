@@ -1,112 +1,60 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anatomie | Première Année</title>
 
 <style>
-:root{
-  --bg:#0b0f1a;
-  --card:#141a2a;
-  --soft:#1a2140;
-  --text:#f5f7ff;
-  --muted:#b8c0e0;
-  --accent:#00e676;
-  --radius:18px;
-  --border:rgba(255,255,255,.12);
-}
-
 body{
   margin:0;
   font-family:system-ui;
-  background:var(--bg);
-  color:var(--text);
+  background:#0b0f1a;
+  color:#f5f7ff;
 }
-
 .container{
   max-width:1100px;
   margin:auto;
-  padding:40px 20px 80px;
+  padding:40px 20px;
 }
-
-h1{
-  font-size:42px;
-  color:var(--accent);
-  margin-bottom:10px;
-}
-
-p.sub{
-  color:var(--muted);
-  max-width:700px;
-}
-
-.lesson-list{
-  margin-top:40px;
+.top{
   display:flex;
-  flex-direction:column;
-  gap:18px;
+  justify-content:space-between;
+  align-items:center;
 }
-
+h1{color:#00e676;font-size:38px;margin:0}
+.lang{
+  padding:10px 16px;
+  border-radius:14px;
+  background:#1a2140;
+  cursor:pointer;
+  font-weight:900;
+}
+.sub{color:#b8c0e0;margin-top:10px}
 .lesson{
   display:flex;
+  gap:18px;
   align-items:center;
-  gap:20px;
-  background:linear-gradient(135deg,var(--soft),var(--card));
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:18px 22px;
+  background:#141a2a;
+  border-radius:18px;
+  padding:18px;
+  margin-top:18px;
   text-decoration:none;
   color:inherit;
-  transition:.25s;
+  transition:.2s;
 }
-
-.lesson:hover{
-  transform:translateY(-4px);
-}
-
+.lesson:hover{transform:translateY(-4px)}
 .num{
-  width:42px;
-  height:42px;
-  border-radius:14px;
+  width:52px;height:52px;
+  border-radius:16px;
   display:grid;
   place-items:center;
-  font-weight:900;
   background:rgba(0,230,118,.15);
-  color:var(--accent);
+  color:#00e676;
+  font-weight:900;
 }
-
-.lesson-content{
-  flex:1;
-}
-
-.lesson-content h3{
-  margin:0;
-  font-size:18px;
-}
-
-.lesson-content span{
-  font-size:14px;
-  color:var(--muted);
-}
-
-.badges{
-  display:flex;
-  gap:8px;
-}
-
-.badge{
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:700;
-  background:rgba(255,255,255,.08);
-}
-
-@media(max-width:600px){
-  h1{font-size:32px}
-  .lesson{flex-direction:column;align-items:flex-start}
-}
+h3{margin:0;font-size:18px}
+span{color:#b8c0e0;font-size:13px}
 </style>
 </head>
 
@@ -114,98 +62,132 @@ p.sub{
 
 <div class="container">
 
-  <h1>🧬 Anatomie</h1>
-  <p class="sub">
-    Tous les cours d’anatomie de première année, organisés de manière progressive et logique.
-  </p>
-
-  <div class="lesson-list">
-
-    <a href="intro-anatomie.html" class="lesson">
-      <div class="num">1</div>
-      <div class="lesson-content">
-        <h3>Introduction à l’Anatomie Humaine</h3>
-        <span>Notions générales, plans, axes et terminologie anatomique.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-    <a href="systeme-squelettique.html" class="lesson">
-      <div class="num">2</div>
-      <div class="lesson-content">
-        <h3>Système Squelettique</h3>
-        <span>Organisation générale du squelette humain.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-      </div>
-    </a>
-
-    <a href="osteologie.html" class="lesson">
-      <div class="num">3</div>
-      <div class="lesson-content">
-        <h3>Ostéologie</h3>
-        <span>Étude détaillée des os et de leur structure.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-    <a href="arthrologie.html" class="lesson">
-      <div class="num">4</div>
-      <div class="lesson-content">
-        <h3>Arthrologie</h3>
-        <span>Étude des articulations et de leurs moyens d’union.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-    <a href="myologie.html" class="lesson">
-      <div class="num">5</div>
-      <div class="lesson-content">
-        <h3>Myologie</h3>
-        <span>Étude des muscles et de leur fonctionnement.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-    <a href="angiologie.html" class="lesson">
-      <div class="num">6</div>
-      <div class="lesson-content">
-        <h3>Angiologie</h3>
-        <span>Étude des artères, veines et lymphatiques.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-    <a href="innervation-membre-superieur.html" class="lesson">
-      <div class="num">7</div>
-      <div class="lesson-content">
-        <h3>Innervation du Membre Supérieur</h3>
-        <span>Nerfs et plexus du membre thoracique.</span>
-      </div>
-      <div class="badges">
-        <div class="badge">Cours</div>
-        <div class="badge">YouTube</div>
-      </div>
-    </a>
-
-  </div>
+<div class="top">
+  <h1 id="title">🧬 Anatomie</h1>
+  <div class="lang" id="langBtn">🌍 FR</div>
 </div>
+
+<p class="sub" id="desc">
+  Tous les cours d’anatomie de première année.
+</p>
+
+<a class="lesson" href="01-introduction-anatomie.html">
+  <div class="num">01</div>
+  <div><h3>Introduction à l’Anatomie Humaine</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="02-systeme-squelettique.html">
+  <div class="num">02</div>
+  <div><h3>Système Squelettique</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="03-osteologie.html">
+  <div class="num">03</div>
+  <div><h3>Ostéologie</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="04-arthrologie.html">
+  <div class="num">04</div>
+  <div><h3>Arthrologie</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="05-myologie.html">
+  <div class="num">05</div>
+  <div><h3>Myologie</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="06-angiologie.html">
+  <div class="num">06</div>
+  <div><h3>Angiologie</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="07-innervation-membre-superieur.html">
+  <div class="num">07</div>
+  <div><h3>Innervation du Membre Thoracique</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="08-articulation-epaule.html">
+  <div class="num">08</div>
+  <div><h3>Articulation de l'Épaule</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="09-articulation-coude.html">
+  <div class="num">09</div>
+  <div><h3>Articulation du Coude</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="10-articulation-poignet.html">
+  <div class="num">10</div>
+  <div><h3>Articulation du Poignet</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="11-articulation-hanche.html">
+  <div class="num">11</div>
+  <div><h3>Articulation de la Hanche</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="12-articulation-genou.html">
+  <div class="num">12</div>
+  <div><h3>Articulation du Genou</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="13-articulation-cheville.html">
+  <div class="num">13</div>
+  <div><h3>Articulation de la Cheville</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="14-systeme-musculaire.html">
+  <div class="num">14</div>
+  <div><h3>Système Musculaire</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="15-arteres-membre-thoracique.html">
+  <div class="num">15</div>
+  <div><h3>Artères du membre Thoracique</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="16-arteres-membre-pelvien.html">
+  <div class="num">16</div>
+  <div><h3>Artères du membre Pelvien</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="17-veines-des-membres.html">
+  <div class="num">17</div>
+  <div><h3>Veines des Membres</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="18-lymphatiques-des-membres.html">
+  <div class="num">18</div>
+  <div><h3>Lymphatiques des Membres</h3><span>Cours</span></div>
+</a>
+
+<a class="lesson" href="19-nerfs-membre-thoracique.html">
+  <div class="num">19</div>
+  <div><h3>Nerfs du membre Thoracique</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="20-nerfs-membre-pelvien.html">
+  <div class="num">20</div>
+  <div><h3>Nerfs du membre Pelvien</h3><span>Cours + YouTube</span></div>
+</a>
+
+<a class="lesson" href="21-plexus.html">
+  <div class="num">21</div>
+  <div><h3>Plexus</h3><span>Cours</span></div>
+</a>
+
+</div>
+
+<script>
+let fr=true;
+langBtn.onclick=()=>{
+  fr=!fr;
+  langBtn.textContent=fr?"🌍 FR":"🌍 EN";
+  desc.textContent=fr
+  ?"Tous les cours d’anatomie de première année."
+  :"All first-year anatomy lessons.";
+};
+</script>
 
 </body>
 </html>
