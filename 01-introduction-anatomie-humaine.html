@@ -74,7 +74,7 @@ body{
   backdrop-filter:blur(14px);
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
   position:fixed;
   inset:0 auto 0 0;
 }
@@ -100,8 +100,12 @@ body{
   text-decoration:none;
   color:inherit;
   font-weight:900;
+  border:1px solid transparent;
 }
-.menu a:hover{background:var(--soft)}
+.menu a:hover{
+  background:var(--soft);
+  border-color:var(--border);
+}
 
 .controls{
   margin-top:auto;
@@ -117,6 +121,7 @@ body{
   text-align:center;
   cursor:pointer;
   font-weight:900;
+  user-select:none;
 }
 
 .menuUser{
@@ -137,7 +142,7 @@ body{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 .menuUser .u{font-weight:900}
-.menuUser .e{font-size:12px;color:var(--muted)}
+.menuUser .e{font-size:12px;color:var(--muted); max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 
 .container{
   margin-left:var(--menuW);
@@ -157,6 +162,7 @@ body{
   width:100%;
   height:200px;
   object-fit:cover;
+  display:block;
 }
 
 .header{
@@ -166,6 +172,7 @@ body{
   border-radius:22px;
   padding:24px;
   box-shadow:var(--shadow);
+  border:1px solid var(--border);
 }
 .header h1{
   margin:0;
@@ -181,16 +188,18 @@ body{
 
 .section{
   max-width:1100px;
-  margin:20px auto;
+  margin:18px auto;
   background:var(--card);
   border-radius:22px;
-  padding:24px;
+  padding:22px;
   box-shadow:var(--shadow);
+  border:1px solid var(--border);
 }
 
 .section h2{
-  margin-top:0;
+  margin:0 0 12px;
   color:var(--accent2);
+  font-size:18px;
 }
 
 .list a{
@@ -201,21 +210,53 @@ body{
   margin-bottom:10px;
   text-decoration:none;
   color:inherit;
-  font-weight:800;
+  font-weight:900;
+  border:1px solid transparent;
 }
-.list a:hover{background:rgba(155,92,255,.18)}
+.list a:hover{
+  background:rgba(155,92,255,.18);
+  border-color:var(--border);
+}
+
+.driveGrid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:12px;
+}
+.driveCard{
+  background:linear-gradient(135deg, rgba(0,230,118,.16), rgba(155,92,255,.14));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:var(--shadow);
+  transition:.2s;
+}
+.driveCard:hover{transform:translateY(-3px)}
+.driveCard .t{font-weight:950; font-size:16px}
+.driveCard .s{margin-top:6px; color:var(--muted); font-weight:800; font-size:13px; line-height:1.6}
 
 .video{
-  margin-top:14px;
+  margin-top:12px;
   border-radius:16px;
   overflow:hidden;
   border:1px solid var(--border);
+  background:var(--soft);
 }
-iframe{width:100%;height:300px}
+.video .cap{
+  padding:10px 12px;
+  font-weight:900;
+  color:var(--muted);
+  border-bottom:1px solid var(--border);
+}
+iframe{width:100%; height:320px; display:block}
 
 @media(max-width:900px){
   .menu{display:none}
   .container{margin-left:0}
+  iframe{height:240px}
+  .driveGrid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -223,17 +264,21 @@ iframe{width:100%;height:300px}
 <body>
 
 <div class="stars"></div>
-<div class="watermark"><img src="logo.svg"></div>
+<div class="watermark"><img src="logo.svg" alt=""></div>
 
 <div class="menu">
   <div class="menuTop">
-    <img src="logo.svg">
+    <img src="logo.svg" alt="BeDoctor">
     <strong>BeDoctor</strong>
   </div>
 
-  <a href="level1.html">🧬 1ère Année</a>
+  <a href="level1.html">🧬 Première Année</a>
   <a href="anatomie.html">📚 Anatomie</a>
   <a href="anatomie3d.html">🧠 Anatomie 3D</a>
+  <a href="examens.html">📝 Examens</a>
+  <a href="notes.html">🗒️ Notes</a>
+  <a href="stats.html">📊 Statistiques</a>
+  <a href="pomodoro.html">⏱️ Pomodoro</a>
   <a href="profil.html">👤 Profil</a>
 
   <div class="controls">
@@ -253,37 +298,37 @@ iframe{width:100%;height:300px}
 <div class="container">
 
   <div class="banner">
-    <img src="banner.svg">
+    <img src="banner.svg" alt="">
   </div>
 
   <div class="header">
     <h1 id="title"></h1>
-    <p id="desc">
-      Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine.
-    </p>
+    <p id="desc">Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine.</p>
+  </div>
+
+  <div class="section">
+    <h2 id="driveTitle">🏛️ نسخة كلية الجزائر العاصمة 2025</h2>
+    <div class="driveGrid">
+      <a class="driveCard" id="driveFr" target="_blank" rel="noopener noreferrer">
+        <div class="t" id="driveFrT">🇫🇷 النسخة الفرنسية</div>
+        <div class="s" id="driveFrS">افتح مجلد الدروس الرسمي (Alger 2025) بصيغة فرنسية.</div>
+      </a>
+
+      <a class="driveCard" id="driveEn" target="_blank" rel="noopener noreferrer">
+        <div class="t" id="driveEnT">🇬🇧 النسخة الإنجليزية</div>
+        <div class="s" id="driveEnS">Open the official course folder (Algiers 2025) in English.</div>
+      </a>
+    </div>
   </div>
 
   <div class="section">
     <h2 id="cTitle">📘 Cours</h2>
-    <div class="list">
-      <a target="_blank" href="https://drive.google.com/file/d/1e4RO28PCxKqAWcxSIwLqC3-92pQIYOxC/view">01 – Introduction à l’anatomie humaine (2022)</a>
-      <a target="_blank" href="https://drive.google.com/file/d/1eKwcgKfkS8VrhedYXU-JukBzT5DeZ2zt/view">Introduction anatomie humaine (2021)</a>
-      <a target="_blank" href="https://drive.google.com/file/d/1-7UY_D4_ids-GxDdPpgrRTCrPNGnkn5j/view">Introduction anatomie (2020)</a>
-      <a target="_blank" href="https://drive.google.com/file/d/191L9NKFVQ5mTwely083lNLUnOFoafk8B/view">Introduction – version 2019</a>
-    </div>
+    <div class="list" id="courseList"></div>
   </div>
 
   <div class="section">
     <h2 id="vTitle">🎥 YouTube</h2>
-
-    <div class="video">
-      <iframe src="https://www.youtube.com/embed/dIV2EIBh6jU" loading="lazy"></iframe>
-    </div>
-
-    <div class="video">
-      <iframe src="https://www.youtube.com/embed/v11lrw3BMcU" loading="lazy"></iframe>
-    </div>
-
+    <div id="videoWrap"></div>
   </div>
 
 </div>
@@ -302,6 +347,12 @@ const app = initializeApp({
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const DRIVE_FR = "https://drive.google.com/drive/folders/1Q7_5dP-R5dKXj8U3gA00cXMmSuzsCaq-";
+const DRIVE_EN = "https://drive.google.com/drive/folders/1Q7_5dP-R5dKXj8U3gA00cXMmSuzsCaq-";
+
+document.getElementById("driveFr").href = DRIVE_FR;
+document.getElementById("driveEn").href = DRIVE_EN;
+
 onAuthStateChanged(auth, async user=>{
   if(!user) location.href="login.html";
   document.getElementById("e").textContent=user.email;
@@ -319,33 +370,114 @@ themeBtn.onclick=()=>{
     document.documentElement.dataset.theme==="dark"?"light":"dark";
 };
 
-let lang="fr";
-langBtn.onclick=()=>{
-  lang=lang==="fr"?"en":"fr";
-  langBtn.textContent=lang==="fr"?"🌍 FR":"🌍 EN";
-
-  title.textContent = lang==="fr"
-    ? "01 • Introduction à l’Anatomie Humaine"
-    : "01 • Introduction to Human Anatomy";
-
-  desc.textContent = lang==="fr"
-    ? "Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine."
-    : "General introduction to human anatomy, its objectives, methods and importance in medicine.";
-
-  cTitle.textContent = lang==="fr"?"📘 Cours":"📘 Lessons";
-  vTitle.textContent = lang==="fr"?"🎥 YouTube":"🎥 YouTube Videos";
+const data = {
+  fr:{
+    typeTitle:"01 • Introduction à l’Anatomie Humaine",
+    desc:"Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine.",
+    driveTitle:"🏛️ نسخة كلية الجزائر العاصمة 2025",
+    driveFrT:"🇫🇷 النسخة الفرنسية",
+    driveFrS:"افتح مجلد الدروس الرسمي (Alger 2025) بصيغة فرنسية.",
+    driveEnT:"🇬🇧 النسخة الإنجليزية",
+    driveEnS:"Open the official course folder (Algiers 2025) in English.",
+    cTitle:"📘 Cours",
+    vTitle:"🎥 YouTube",
+    courses:[
+      {t:"01 – Introduction à l’anatomie humaine (2022)", href:"https://drive.google.com/file/d/1e4RO28PCxKqAWcxSIwLqC3-92pQIYOxC/view"},
+      {t:"Introduction anatomie humaine (2021)", href:"https://drive.google.com/file/d/1eKwcgKfkS8VrhedYXU-JukBzT5DeZ2zt/view"},
+      {t:"Introduction anatomie (2020)", href:"https://drive.google.com/file/d/1-7UY_D4_ids-GxDdPpgrRTCrPNGnkn5j/view"},
+      {t:"01 – Polycopié Introduction (cours) – version 2019", href:"https://drive.google.com/file/d/1vAxK6jsHVvAocvXpc6sV6GOLL7Dyky1A/view"},
+      {t:"01 – Introduction à l’anatomie humaine", href:"https://drive.google.com/file/d/191L9NKFVQ5mTwely083lNLUnOFoafk8B/view"}
+    ],
+    videos:[
+      {cap:"Introduction (vidéo 1)", src:"https://www.youtube.com/embed/dIV2EIBh6jU"},
+      {cap:"Généralités (vidéo 2)", src:"https://www.youtube.com/embed/v11lrw3BMcU"},
+      {cap:"Playlist (BibliomedTV)", src:"https://www.youtube.com/embed/videoseries?list=PLgvQ26vlzasPBXNZtdoPDR6p7Kd7jIQ_p"},
+      {cap:"Playlist (Introduction)", src:"https://www.youtube.com/embed/videoseries?list=PLcBaSZzuv9g224Kd0rOBjBEAkG3t4CNvu"}
+    ]
+  },
+  en:{
+    typeTitle:"01 • Introduction to Human Anatomy",
+    desc:"General introduction to human anatomy, its goals, methods, and importance in medicine.",
+    driveTitle:"🏛️ Algiers University 2025 Pack",
+    driveFrT:"🇫🇷 French Folder",
+    driveFrS:"Open the official course folder (Algiers 2025) in French.",
+    driveEnT:"🇬🇧 English Folder",
+    driveEnS:"Open the official course folder (Algiers 2025) in English.",
+    cTitle:"📘 Lessons",
+    vTitle:"🎥 YouTube Videos",
+    courses:[
+      {t:"01 – Introduction to human anatomy (2022)", href:"https://drive.google.com/file/d/1e4RO28PCxKqAWcxSIwLqC3-92pQIYOxC/view"},
+      {t:"Human anatomy introduction (2021)", href:"https://drive.google.com/file/d/1eKwcgKfkS8VrhedYXU-JukBzT5DeZ2zt/view"},
+      {t:"Anatomy introduction (2020)", href:"https://drive.google.com/file/d/1-7UY_D4_ids-GxDdPpgrRTCrPNGnkn5j/view"},
+      {t:"01 – Introduction handout (2019)", href:"https://drive.google.com/file/d/1vAxK6jsHVvAocvXpc6sV6GOLL7Dyky1A/view"},
+      {t:"01 – Human anatomy introduction", href:"https://drive.google.com/file/d/191L9NKFVQ5mTwely083lNLUnOFoafk8B/view"}
+    ],
+    videos:[
+      {cap:"Introduction (video 1)", src:"https://www.youtube.com/embed/dIV2EIBh6jU"},
+      {cap:"General concepts (video 2)", src:"https://www.youtube.com/embed/v11lrw3BMcU"},
+      {cap:"Playlist (BibliomedTV)", src:"https://www.youtube.com/embed/videoseries?list=PLgvQ26vlzasPBXNZtdoPDR6p7Kd7jIQ_p"},
+      {cap:"Playlist (Introduction)", src:"https://www.youtube.com/embed/videoseries?list=PLcBaSZzuv9g224Kd0rOBjBEAkG3t4CNvu"}
+    ]
+  }
 };
 
-let t="01 • Introduction à l’Anatomie Humaine",i=0,d=false;
+function render(langKey){
+  const L=data[langKey];
+  cTitle.textContent=L.cTitle;
+  vTitle.textContent=L.vTitle;
+  desc.textContent=L.desc;
+
+  driveTitle.textContent=L.driveTitle;
+  driveFrT.textContent=L.driveFrT;
+  driveFrS.textContent=L.driveFrS;
+  driveEnT.textContent=L.driveEnT;
+  driveEnS.textContent=L.driveEnS;
+
+  const list=document.getElementById("courseList");
+  list.innerHTML="";
+  L.courses.forEach((x)=>{
+    const a=document.createElement("a");
+    a.href=x.href;
+    a.target="_blank";
+    a.rel="noopener noreferrer";
+    a.textContent=x.t;
+    list.appendChild(a);
+  });
+
+  const wrap=document.getElementById("videoWrap");
+  wrap.innerHTML="";
+  L.videos.forEach((v)=>{
+    const box=document.createElement("div");
+    box.className="video";
+    box.innerHTML = `<div class="cap">${v.cap}</div><iframe src="${v.src}" loading="lazy" frameborder="0" allowfullscreen></iframe>`;
+    wrap.appendChild(box);
+  });
+
+  typeText = L.typeTitle;
+  i=0; del=false;
+}
+
+let lang="fr";
+langBtn.onclick=()=>{
+  lang = lang==="fr" ? "en" : "fr";
+  langBtn.textContent = lang==="fr" ? "🌍 FR" : "🌍 EN";
+  render(lang);
+};
+
+let typeText=data.fr.typeTitle;
+let i=0,del=false;
 setInterval(()=>{
-  if(!d){
-    title.textContent=t.slice(0,++i);
-    if(i===t.length)d=true;
+  const el=document.getElementById("title");
+  if(!del){
+    el.textContent=typeText.slice(0,++i);
+    if(i===typeText.length) del=true;
   }else{
-    title.textContent=t.slice(0,--i);
-    if(i===0)d=false;
+    el.textContent=typeText.slice(0,--i);
+    if(i===0) del=false;
   }
 },90);
+
+render("fr");
 </script>
 
 </body>
