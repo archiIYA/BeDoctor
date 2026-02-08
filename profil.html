@@ -237,11 +237,21 @@ button{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged,deleteUser } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getAuth,onAuthStateChanged,deleteUser,signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import {
   getFirestore,doc,setDoc,getDoc,deleteDoc,
   collection,query,where,getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+function getDeviceId(){
+  let id = localStorage.getItem("deviceId");
+  if(!id){
+    id = crypto.randomUUID();
+    localStorage.setItem("deviceId", id);
+  }
+  return id;
+}
+const deviceId = getDeviceId();
 
 const app = initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
@@ -284,6 +294,23 @@ async function generateUsername(first,last){
 onAuthStateChanged(auth, async user=>{
   if(!user) return location.href="login.html";
   currentUser=user;
+
+  const sessionRef = doc(db,"sessions",user.uid);
+  const sessionSnap = await getDoc(sessionRef);
+
+  if(sessionSnap.exists()){
+    const activeDevice = sessionSnap.data().deviceId;
+    if(activeDevice !== deviceId){
+      alert("Your account was opened on another device");
+      await signOut(auth);
+      return;
+    }
+  }
+
+  await setDoc(sessionRef,{
+    deviceId,
+    lastLogin: Date.now()
+  });
 
   const ref=doc(db,"users",user.uid);
   const snap=await getDoc(ref);
@@ -346,7 +373,14 @@ deleteBtn.onclick = async ()=>{
   await deleteUser(currentUser);
   location.href="register.html";
 };
+
+window.addEventListener("beforeunload", async ()=>{
+  if(currentUser){
+    await deleteDoc(doc(db,"sessions",currentUser.uid));
+  }
+});
 </script>
 
 </body>
 </html>
+
