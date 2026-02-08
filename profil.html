@@ -12,6 +12,7 @@
 :root{
   --bg:#0b0f1a;
   --card:#141a2a;
+  --cardSoft:#1a2140;
   --text:#f5f7ff;
   --muted:#aab2d5;
   --accent:#8b5cf6;
@@ -83,22 +84,33 @@ body{
 }
 
 .avatar{
-  font-size:90px;
-  margin-bottom:10px;
+  font-size:88px;
+  margin-bottom:8px;
 }
 
-.user-email{
-  font-size:14px;
-  font-weight:800;
-}
-
-.user-info{
+.infoBox{
+  background:var(--cardSoft);
+  border-radius:14px;
+  padding:14px;
+  margin:14px 0;
+  text-align:left;
   font-size:13px;
-  color:var(--muted);
-  margin-top:6px;
 }
 
-canvas{margin-top:20px}
+.infoItem{
+  margin-bottom:8px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.infoItem span{
+  color:#fff;
+  font-weight:900;
+}
+
+canvas{
+  margin-top:20px;
+}
 
 .main{
   background:var(--card);
@@ -108,6 +120,12 @@ canvas{margin-top:20px}
 }
 
 h2{margin-top:0}
+
+label{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:800;
+}
 
 input,select{
   width:100%;
@@ -139,6 +157,12 @@ button{
   background:var(--danger);
   color:#fff;
 }
+
+@media(max-width:900px){
+  .menu{display:none}
+  .container{margin-left:0}
+  .grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 
@@ -156,9 +180,12 @@ button{
 
     <div class="sidebar">
       <div class="avatar" id="avatar">👨‍⚕️</div>
-      <div class="user-email" id="email"></div>
-      <div class="user-info" id="phone"></div>
-      <div class="user-info" id="username"></div>
+
+      <div class="infoBox">
+        <div class="infoItem">📧 Email: <span id="email"></span></div>
+        <div class="infoItem">📱 Phone: <span id="phone">—</span></div>
+        <div class="infoItem">👤 Username: <span id="username"></span></div>
+      </div>
 
       <canvas id="progressChart" width="220" height="220"></canvas>
     </div>
@@ -166,15 +193,20 @@ button{
     <div class="main">
       <h2>👤 Profile Information</h2>
 
+      <label>First Name</label>
       <input id="firstName" placeholder="First name">
+
+      <label>Last Name</label>
       <input id="lastName" placeholder="Last name">
 
+      <label>Gender</label>
       <select id="gender">
         <option value="">Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
 
+      <label>Faculty</label>
       <select id="faculty">
         <option value="">Faculty</option>
         <option>Algiers</option>
@@ -183,6 +215,7 @@ button{
         <option>Setif</option>
       </select>
 
+      <label>Level</label>
       <select id="level">
         <option value="">Level</option>
         <option>1st Year</option>
@@ -252,12 +285,16 @@ onAuthStateChanged(auth, async user=>{
   if(!user) return location.href="login.html";
   currentUser=user;
 
-  const snap = await getDoc(doc(db,"users",user.uid));
+  const ref=doc(db,"users",user.uid);
+  const snap=await getDoc(ref);
+
+  email.textContent=user.email;
+
   if(snap.exists()){
     const d=snap.data();
-    email.textContent=d.email;
-    phone.textContent=d.phone||"";
+    phone.textContent=d.phone || "—";
     username.textContent="@"+d.username;
+
     firstName.value=d.firstName;
     lastName.value=d.lastName;
     gender.value=d.gender;
@@ -300,7 +337,7 @@ saveBtn.onclick = async ()=>{
     createdAt:snap.exists()?snap.data().createdAt:Date.now()
   });
 
-  location.href="index.html";
+  alert("Profile updated ✅");
 };
 
 deleteBtn.onclick = async ()=>{
