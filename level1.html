@@ -44,8 +44,8 @@ body{
   inset:0;
   z-index:-3;
   background:
-    radial-gradient(circle, rgba(0,230,118,.55) 1px, transparent 2px),
-    radial-gradient(circle, rgba(155,92,255,.45) 1px, transparent 2px);
+    radial-gradient(circle, rgba(0,230,118,.45) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.35) 1px, transparent 2px);
   background-size:160px 160px;
   opacity:.35;
 }
@@ -70,7 +70,17 @@ body{
   border-right:1px solid var(--border);
   display:flex;
   flex-direction:column;
+  gap:8px;
 }
+
+.menuTop{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:10px;
+}
+.menuTop img{width:42px}
+.menuTop strong{font-size:18px}
 
 .menu a{
   display:flex;
@@ -81,9 +91,29 @@ body{
   text-decoration:none;
   color:inherit;
   font-weight:800;
-  margin-bottom:8px;
 }
 .menu a:hover{background:var(--soft)}
+
+.dropdown button{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:none;
+  background:var(--soft);
+  color:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.dropdown-content{
+  display:none;
+  margin-top:6px;
+}
+.dropdown-content a{
+  margin-left:10px;
+  font-size:14px;
+}
+.dropdown.open .dropdown-content{display:block}
 
 .controls{
   margin-top:auto;
@@ -99,6 +129,25 @@ body{
   cursor:pointer;
   font-weight:900;
 }
+
+.menuUser{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:10px;
+  padding:10px;
+  border-radius:14px;
+  background:var(--soft);
+}
+.menuUser .av{
+  width:40px;height:40px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  font-size:20px;
+  background:linear-gradient(135deg,#00e676,#9b5cff);
+}
+.menuUser .u{font-weight:900}
+.menuUser .e{font-size:12px;color:var(--muted)}
 
 .container{
   flex:1;
@@ -144,18 +193,12 @@ body{
 .card:hover{transform:translateY(-6px)}
 
 .icon{
-  width:64px;
-  height:64px;
+  width:64px;height:64px;
   border-radius:18px;
+  display:grid;place-items:center;
   background:rgba(255,255,255,.08);
-  display:grid;
-  place-items:center;
-  border:1px solid var(--border);
 }
-.icon img{width:42px;height:42px}
-
-.card h3{margin:0;font-size:20px;font-weight:900}
-.card p{margin:0;color:var(--muted);line-height:1.6}
+.icon img{width:42px}
 
 @media(max-width:900px){
   .menu{display:none}
@@ -167,32 +210,30 @@ body{
 <body>
 
 <div class="stars"></div>
-<div class="watermark"><img src="logo.svg" alt=""></div>
+<div class="watermark"><img src="logo.svg"></div>
 
 <div class="menu">
-  <div class="menuStars"></div>
-
   <div class="menuTop">
-    <img src="logo.svg" alt="BeDoctor">
+    <img src="logo.svg">
     <strong>BeDoctor</strong>
   </div>
 
   <div class="dropdown" id="parcours">
     <button id="btnParcours">🎓 Parcours Médical</button>
     <div class="dropdown-content">
-      <a id="y1Link" href="level1.html">🧬 1ère Année</a>
-      <a id="y2Link" href="level2.html">❤️ 2ème Année</a>
-      <a id="y3Link" href="level3.html">🩺 3ème Année</a>
+      <a href="level1.html">🧬 1ère Année</a>
+      <a href="level2.html">❤️ 2ème Année</a>
+      <a href="level3.html">🩺 3ème Année</a>
     </div>
   </div>
 
-  <a id="navCourses" href="courses.html">📚 Cours</a>
-  <a id="navAnat" href="anatomie3d.html">🧠 Anatomie 3D</a>
-  <a id="navExams" href="examens.html">📝 Examens</a>
-  <a id="navNotes" href="notes.html">🗒️ Notes</a>
-  <a id="navStats" href="stats.html">📊 Statistiques</a>
-  <a id="navPomo" href="pomodoro.html">⏱️ Pomodoro</a>
-  <a id="navProfile" href="profil.html">👤 Profil</a>
+  <a id="navCourses">📚 Cours</a>
+  <a id="navAnat">🧠 Anatomie 3D</a>
+  <a id="navExams">📝 Examens</a>
+  <a id="navNotes">🗒️ Notes</a>
+  <a id="navStats">📊 Statistiques</a>
+  <a id="navPomo">⏱️ Pomodoro</a>
+  <a id="navProfile">👤 Profil</a>
 
   <div class="controls">
     <div class="ctrl" id="langBtn">🌍 FR</div>
@@ -201,7 +242,7 @@ body{
 
   <div class="menuUser">
     <div class="av" id="miniAvatar">👨‍⚕️</div>
-    <div class="meta">
+    <div>
       <div class="u" id="miniUser">@username</div>
       <div class="e" id="miniEmail">email@example.com</div>
     </div>
@@ -209,116 +250,67 @@ body{
 </div>
 
 <div class="container">
-
   <div class="header">
     <h1 id="typeTitle"></h1>
-    <p id="desc">
-      La première année de médecine constitue la base fondamentale de la formation médicale.
-    </p>
+    <p id="desc"></p>
   </div>
 
-  <div class="grid">
-
-    <a href="anatomie.html" class="card">
-      <div class="icon"><img src="Anatomie.svg"></div>
-      <h3>Anatomie</h3>
-      <p>Étude détaillée de la morphologie du corps humain et de ses structures.</p>
-    </a>
-
-    <a href="biochimie.html" class="card">
-      <div class="icon"><img src="Biochimie.svg"></div>
-      <h3>Biochimie</h3>
-      <p>Analyse des réactions chimiques indispensables au fonctionnement cellulaire.</p>
-    </a>
-
-    <a href="biophysique.html" class="card">
-      <div class="icon"><img src="Biophysique.svg"></div>
-      <h3>Biophysique</h3>
-      <p>Application des principes physiques aux systèmes biologiques.</p>
-    </a>
-
-    <a href="biostatistique.html" class="card">
-      <div class="icon"><img src="Biostatistique.svg"></div>
-      <h3>Biostatistique</h3>
-      <p>Méthodes statistiques appliquées aux données biomédicales.</p>
-    </a>
-
-    <a href="chimie.html" class="card">
-      <div class="icon"><img src="Chimie.svg"></div>
-      <h3>Chimie</h3>
-      <p>Étude des éléments chimiques et de leurs interactions dans le vivant.</p>
-    </a>
-
-    <a href="cytologie.html" class="card">
-      <div class="icon"><img src="Cytologie.svg"></div>
-      <h3>Cytologie</h3>
-      <p>Exploration de la structure et des fonctions cellulaires.</p>
-    </a>
-
-    <a href="embryologie.html" class="card">
-      <div class="icon"><img src="Embryologie.svg"></div>
-      <h3>Embryologie</h3>
-      <p>Développement embryonnaire humain de la fécondation à l’organogenèse.</p>
-    </a>
-
-    <a href="histologie.html" class="card">
-      <div class="icon"><img src="Histologie.svg"></div>
-      <h3>Histologie</h3>
-      <p>Analyse microscopique des tissus biologiques.</p>
-    </a>
-
-    <a href="physiologie.html" class="card">
-      <div class="icon"><img src="Physiologie.svg"></div>
-      <h3>Physiologie</h3>
-      <p>Fonctionnement normal des organes et systèmes du corps humain.</p>
-    </a>
-
-    <a href="ssh.html" class="card">
-      <div class="icon"><img src="SSH.svg"></div>
-      <h3>SSH</h3>
-      <p>Approche sociale, humaine et éthique de la médecine.</p>
-    </a>
-
-  </div>
+  <div class="grid" id="grid"></div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
-const app = initializeApp({
+initializeApp({
   apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
   authDomain:"bedoctor-81569.firebaseapp.com",
   projectId:"bedoctor-81569"
 });
-const auth = getAuth(app);
-onAuthStateChanged(auth,u=>{ if(!u) location.href="login.html"; });
+
+onAuthStateChanged(getAuth(),u=>{ if(!u) location.href="login.html"; });
+
+btnParcours.onclick=()=>parcours.classList.toggle("open");
 
 themeBtn.onclick=()=>{
   document.documentElement.dataset.theme =
     document.documentElement.dataset.theme==="dark"?"light":"dark";
 };
 
+const texts={
+fr:{
+ title:"🧬 Première Année Médecine",
+ desc:"La première année de médecine constitue la base fondamentale de la formation médicale."
+},
+en:{
+ title:"🧬 First Year of Medicine",
+ desc:"The first year of medicine forms the fundamental basis of medical education."
+}
+};
+
 let lang="fr";
+function applyLang(){
+  desc.textContent=texts[lang].desc;
+}
 langBtn.onclick=()=>{
   lang=lang==="fr"?"en":"fr";
   langBtn.textContent=lang==="fr"?"🌍 FR":"🌍 EN";
-  desc.textContent = lang==="fr"
-    ? "La première année de médecine constitue la base fondamentale de la formation médicale."
-    : "The first year of medicine forms the fundamental basis of medical education.";
+  applyLang();
 };
+applyLang();
 
-const titleText="🧬 Première Année Médecine";
-let i=0,del=false;
+const titleText=texts.fr.title;
+let i=0,del=false,pause=0;
 setInterval(()=>{
+  if(pause>0){pause--;return;}
   if(!del){
     typeTitle.textContent=titleText.slice(0,++i);
-    if(i===titleText.length) del=true;
+    if(i===titleText.length){pause=10;del=true;}
   }else{
     typeTitle.textContent=titleText.slice(0,--i);
-    if(i===0) del=false;
+    if(i===0){pause=10;del=false;}
   }
-},120);
+},150);
 </script>
 
 </body>
