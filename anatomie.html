@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BeDoctor | Anatomie – 1ère Année</title>
-<link rel="icon" type="image/svg+xml" href="logo.svg">
+<title>Anatomie | Première Année</title>
 
 <style>
 :root{
@@ -12,249 +11,201 @@
   --card:#141a2a;
   --soft:#1a2140;
   --text:#f5f7ff;
-  --muted:#aab2d5;
-  --accent:#8b5cf6;
-  --accent2:#ec4899;
+  --muted:#b8c0e0;
+  --accent:#00e676;
   --radius:18px;
   --border:rgba(255,255,255,.12);
-  --shadow:0 25px 60px rgba(0,0,0,.45);
 }
-
-*{box-sizing:border-box}
 
 body{
   margin:0;
-  min-height:100vh;
   font-family:system-ui;
-  background:
-    radial-gradient(900px 500px at 20% 20%, rgba(139,92,246,.25), transparent 60%),
-    radial-gradient(900px 500px at 80% 10%, rgba(236,72,153,.22), transparent 60%),
-    radial-gradient(circle at top,#1b2040,#0b0f1a);
+  background:var(--bg);
   color:var(--text);
-  display:flex;
-}
-
-.stars{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  background:
-    radial-gradient(circle, rgba(236,72,153,.7) 1px, transparent 2px),
-    radial-gradient(circle, rgba(139,92,246,.7) 1px, transparent 2px);
-  background-size:160px 160px;
-  opacity:.35;
-}
-
-.watermark{
-  position:fixed;
-  inset:0;
-  display:grid;
-  place-items:center;
-  z-index:-2;
-  pointer-events:none;
-}
-.watermark img{
-  width:min(70vw,700px);
-  opacity:.08;
-}
-
-.menu{
-  width:260px;
-  padding:20px;
-  background:rgba(11,15,26,.92);
-  border-right:1px solid #1f2540;
-  display:flex;
-  flex-direction:column;
-}
-
-.menuTop{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin-bottom:26px;
-}
-.menuTop img{width:42px}
-
-.menu a{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:12px 14px;
-  border-radius:14px;
-  text-decoration:none;
-  color:#fff;
-  font-weight:800;
-  margin-bottom:8px;
-}
-.menu a:hover{background:#1f2540}
-
-.menuUser{
-  margin-top:auto;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(255,255,255,.05);
-}
-.menuUser .av{
-  width:42px;height:42px;
-  display:grid;place-items:center;
-  border-radius:12px;
-  font-size:22px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
 .container{
-  flex:1;
+  max-width:1100px;
+  margin:auto;
   padding:40px 20px 80px;
 }
 
-.header{
-  max-width:1100px;
-  margin:auto;
-}
-.header h1{
+h1{
   font-size:42px;
   color:var(--accent);
+  margin-bottom:10px;
 }
-.header p{
-  max-width:720px;
+
+p.sub{
   color:var(--muted);
-  line-height:1.7;
+  max-width:700px;
 }
 
-.grid{
-  max-width:1100px;
-  margin:50px auto 0;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px;
+.lesson-list{
+  margin-top:40px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
 }
 
-.card{
+.lesson{
+  display:flex;
+  align-items:center;
+  gap:20px;
   background:linear-gradient(135deg,var(--soft),var(--card));
-  border-radius:var(--radius);
-  padding:22px;
   border:1px solid var(--border);
-  box-shadow:var(--shadow);
+  border-radius:var(--radius);
+  padding:18px 22px;
   text-decoration:none;
   color:inherit;
   transition:.25s;
 }
-.card:hover{transform:translateY(-6px)}
 
-.card h3{
-  margin:0;
-  font-size:20px;
+.lesson:hover{
+  transform:translateY(-4px);
+}
+
+.num{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
   font-weight:900;
-}
-.card p{
-  margin:8px 0 0;
-  color:var(--muted);
-  line-height:1.6;
+  background:rgba(0,230,118,.15);
+  color:var(--accent);
 }
 
-@media(max-width:900px){
-  .menu{display:none}
-  .header h1{font-size:32px}
+.lesson-content{
+  flex:1;
+}
+
+.lesson-content h3{
+  margin:0;
+  font-size:18px;
+}
+
+.lesson-content span{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.badges{
+  display:flex;
+  gap:8px;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  background:rgba(255,255,255,.08);
+}
+
+@media(max-width:600px){
+  h1{font-size:32px}
+  .lesson{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 
 <body>
 
-<div class="stars"></div>
-<div class="watermark"><img src="logo.svg"></div>
-
-<div class="menu">
-  <div class="menuTop">
-    <img src="logo.svg">
-    <strong>BeDoctor</strong>
-  </div>
-
-  <a href="accueil.html">🏠 Accueil</a>
-  <a href="level1.html">🧬 1ère Année</a>
-  <a href="anatomie.html">🧠 Anatomie</a>
-  <a href="anatomie3d.html">🧠 Anatomie 3D</a>
-  <a href="profil.html">👤 Profil</a>
-
-  <div class="menuUser">
-    <div class="av" id="av">👨‍⚕️</div>
-    <div>
-      <div id="u">@username</div>
-      <small id="e" style="color:#aab2d5"></small>
-    </div>
-  </div>
-</div>
-
 <div class="container">
 
-  <div class="header">
-    <h1>🧠 Anatomie – Première Année</h1>
-    <p>Tous les cours fondamentaux d’anatomie humaine pour la première année de médecine.</p>
-  </div>
+  <h1>🧬 Anatomie</h1>
+  <p class="sub">
+    Tous les cours d’anatomie de première année, organisés de manière progressive et logique.
+  </p>
 
-  <div class="grid">
+  <div class="lesson-list">
 
-    <a class="card" href="introduction-anatomie.html"><h3>Introduction à l'Anatomie Humaine</h3><p>Bases et principes fondamentaux de l’anatomie.</p></a>
+    <a href="intro-anatomie.html" class="lesson">
+      <div class="num">1</div>
+      <div class="lesson-content">
+        <h3>Introduction à l’Anatomie Humaine</h3>
+        <span>Notions générales, plans, axes et terminologie anatomique.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
-    <a class="card" href="articulation-epaule.html"><h3>Articulation de l'Épaule</h3><p>Anatomie fonctionnelle de l’épaule.</p></a>
-    <a class="card" href="articulation-coude.html"><h3>Articulation du Coude</h3><p>Mécanismes et structures du coude.</p></a>
-    <a class="card" href="articulation-poignet.html"><h3>Articulation du Poignet</h3><p>Organisation anatomique du poignet.</p></a>
-    <a class="card" href="articulation-hanche.html"><h3>Articulation de la Hanche</h3><p>Articulation coxo-fémorale.</p></a>
-    <a class="card" href="articulation-genou.html"><h3>Articulation du Genou</h3><p>Stabilité et mouvements du genou.</p></a>
-    <a class="card" href="articulation-cheville.html"><h3>Articulation de la Cheville</h3><p>Structures de la cheville et du pied.</p></a>
+    <a href="systeme-squelettique.html" class="lesson">
+      <div class="num">2</div>
+      <div class="lesson-content">
+        <h3>Système Squelettique</h3>
+        <span>Organisation générale du squelette humain.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+      </div>
+    </a>
 
-    <a class="card" href="systeme-articulaire.html"><h3>Système Articulaire</h3><p>Vue globale des articulations.</p></a>
+    <a href="osteologie.html" class="lesson">
+      <div class="num">3</div>
+      <div class="lesson-content">
+        <h3>Ostéologie</h3>
+        <span>Étude détaillée des os et de leur structure.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
-    <a class="card" href="arteres-membre-thoracique.html"><h3>Artères du membre Thoracique</h3><p>Vascularisation du membre supérieur.</p></a>
-    <a class="card" href="arteres-membre-pelvien.html"><h3>Artères du membre Pelvien</h3><p>Vascularisation du membre inférieur.</p></a>
-    <a class="card" href="veines-membres.html"><h3>Veines des Membres</h3><p>Retour veineux des membres.</p></a>
-    <a class="card" href="lymphatiques-membres.html"><h3>Lymphatiques des Membres</h3><p>Système lymphatique périphérique.</p></a>
+    <a href="arthrologie.html" class="lesson">
+      <div class="num">4</div>
+      <div class="lesson-content">
+        <h3>Arthrologie</h3>
+        <span>Étude des articulations et de leurs moyens d’union.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
-    <a class="card" href="systeme-circulatoire.html"><h3>Système Circulatoire</h3><p>Cœur et circulation sanguine.</p></a>
+    <a href="myologie.html" class="lesson">
+      <div class="num">5</div>
+      <div class="lesson-content">
+        <h3>Myologie</h3>
+        <span>Étude des muscles et de leur fonctionnement.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
-    <a class="card" href="systeme-nerveux.html"><h3>Système Nerveux</h3><p>Organisation nerveuse centrale et périphérique.</p></a>
-    <a class="card" href="nerfs-membre-thoracique.html"><h3>Nerfs du membre Thoracique</h3><p>Innervation du membre supérieur.</p></a>
-    <a class="card" href="nerfs-membre-pelvien.html"><h3>Nerfs du membre Pelvien</h3><p>Innervation du membre inférieur.</p></a>
-    <a class="card" href="plexus.html"><h3>Plexus</h3><p>Plexus nerveux principaux.</p></a>
+    <a href="angiologie.html" class="lesson">
+      <div class="num">6</div>
+      <div class="lesson-content">
+        <h3>Angiologie</h3>
+        <span>Étude des artères, veines et lymphatiques.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
-    <a class="card" href="systeme-musculaire.html"><h3>Système Musculaire</h3><p>Organisation musculaire générale.</p></a>
-    <a class="card" href="systeme-musculaire-membre-thoracique.html"><h3>Système Musculaire du membre Thoracique</h3><p>Muscles du membre supérieur.</p></a>
-    <a class="card" href="systeme-musculaire-membre-pelvien.html"><h3>Système Musculaire du membre Pelvien</h3><p>Muscles du membre inférieur.</p></a>
-
-    <a class="card" href="systeme-squelettique.html"><h3>Système Squelettique</h3><p>Structure osseuse générale.</p></a>
-    <a class="card" href="systeme-squelettique-membre-thoracique.html"><h3>Système Squelettique du Membre Thoracique</h3><p>Os du membre supérieur.</p></a>
-    <a class="card" href="systeme-squelettique-membre-pelvien.html"><h3>Système Squelettique du Membre Pelvien</h3><p>Os du membre inférieur.</p></a>
+    <a href="innervation-membre-superieur.html" class="lesson">
+      <div class="num">7</div>
+      <div class="lesson-content">
+        <h3>Innervation du Membre Supérieur</h3>
+        <span>Nerfs et plexus du membre thoracique.</span>
+      </div>
+      <div class="badges">
+        <div class="badge">Cours</div>
+        <div class="badge">YouTube</div>
+      </div>
+    </a>
 
   </div>
 </div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-const app = initializeApp({
-  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
-  authDomain:"bedoctor-81569.firebaseapp.com",
-  projectId:"bedoctor-81569"
-});
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-onAuthStateChanged(auth, async user=>{
-  if(!user) location.href="login.html";
-  document.getElementById("e").textContent=user.email;
-  const snap=await getDoc(doc(db,"users",user.uid));
-  if(snap.exists()){
-    document.getElementById("u").textContent="@"+snap.data().username;
-    document.getElementById("av").textContent=
-      snap.data().gender==="female"?"👩‍⚕️":"👨‍⚕️";
-  }
-});
-</script>
 
 </body>
 </html>
