@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeDoctor | Introduction à l'Anatomie Humaine</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --card:#141a2a;
+  --soft:#1a2140;
+  --text:#f5f7ff;
+  --muted:#b8c0e0;
+  --accent:#00e676;
+  --accent2:#9b5cff;
+  --radius:18px;
+  --border:rgba(255,255,255,.12);
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+  --menuW:260px;
+}
+
+[data-theme="light"]{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --soft:#eef1ff;
+  --text:#0f172a;
+  --muted:#475569;
+  --border:rgba(15,23,42,.12);
+  --shadow:0 20px 60px rgba(2,6,23,.10);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(circle, rgba(0,230,118,.5) 1px, transparent 2px),
+    radial-gradient(circle, rgba(155,92,255,.45) 1px, transparent 2px);
+  background-size:160px 160px;
+  opacity:.3;
+}
+
+.watermark{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  z-index:-2;
+  pointer-events:none;
+}
+.watermark img{
+  width:min(75vw,800px);
+  opacity:.09;
+}
+
+.menu{
+  width:var(--menuW);
+  padding:18px;
+  background:rgba(20,26,42,.92);
+  border-right:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  position:fixed;
+  inset:0 auto 0 0;
+}
+
+.menuTop{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+}
+.menuTop img{width:40px}
+.menuTop strong{font-weight:950}
+
+.menu a{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px 14px;
+  border-radius:14px;
+  text-decoration:none;
+  color:inherit;
+  font-weight:900;
+}
+.menu a:hover{background:var(--soft)}
+
+.controls{
+  margin-top:auto;
+  display:flex;
+  gap:10px;
+}
+.ctrl{
+  flex:1;
+  padding:10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  text-align:center;
+  cursor:pointer;
+  font-weight:900;
+}
+
+.menuUser{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+}
+.menuUser .av{
+  width:42px;height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+.menuUser .u{font-weight:900}
+.menuUser .e{font-size:12px;color:var(--muted)}
+
+.container{
+  margin-left:var(--menuW);
+  width:100%;
+  padding:40px 20px 80px;
+}
+
+.banner{
+  max-width:1100px;
+  margin:auto;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.banner img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.header{
+  max-width:1100px;
+  margin:20px auto;
+  background:var(--card);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+.header h1{
+  margin:0;
+  font-size:32px;
+  color:var(--accent);
+  min-height:40px;
+}
+.header p{
+  margin:10px 0 0;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.section{
+  max-width:1100px;
+  margin:20px auto;
+  background:var(--card);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+
+.section h2{
+  margin-top:0;
+  color:var(--accent2);
+}
+
+.list a{
+  display:block;
+  padding:12px 14px;
+  border-radius:14px;
+  background:var(--soft);
+  margin-bottom:10px;
+  text-decoration:none;
+  color:inherit;
+  font-weight:800;
+}
+.list a:hover{background:rgba(155,92,255,.18)}
+
+.video{
+  margin-top:14px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+iframe{width:100%;height:300px}
+
+@media(max-width:900px){
+  .menu{display:none}
+  .container{margin-left:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+<div class="watermark"><img src="logo.svg"></div>
+
+<div class="menu">
+  <div class="menuTop">
+    <img src="logo.svg">
+    <strong>BeDoctor</strong>
+  </div>
+
+  <a href="level1.html">🧬 1ère Année</a>
+  <a href="anatomie.html">📚 Anatomie</a>
+  <a href="anatomie3d.html">🧠 Anatomie 3D</a>
+  <a href="profil.html">👤 Profil</a>
+
+  <div class="controls">
+    <div class="ctrl" id="langBtn">🌍 FR</div>
+    <div class="ctrl" id="themeBtn">🌙</div>
+  </div>
+
+  <div class="menuUser">
+    <div class="av" id="av">👨‍⚕️</div>
+    <div>
+      <div class="u" id="u">@username</div>
+      <div class="e" id="e">email</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="banner">
+    <img src="banner.svg">
+  </div>
+
+  <div class="header">
+    <h1 id="title"></h1>
+    <p id="desc">
+      Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2 id="cTitle">📘 Cours</h2>
+    <div class="list">
+      <a target="_blank" href="https://drive.google.com/file/d/1e4RO28PCxKqAWcxSIwLqC3-92pQIYOxC/view">01 – Introduction à l’anatomie humaine (2022)</a>
+      <a target="_blank" href="https://drive.google.com/file/d/1eKwcgKfkS8VrhedYXU-JukBzT5DeZ2zt/view">Introduction anatomie humaine (2021)</a>
+      <a target="_blank" href="https://drive.google.com/file/d/1-7UY_D4_ids-GxDdPpgrRTCrPNGnkn5j/view">Introduction anatomie (2020)</a>
+      <a target="_blank" href="https://drive.google.com/file/d/191L9NKFVQ5mTwely083lNLUnOFoafk8B/view">Introduction – version 2019</a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 id="vTitle">🎥 YouTube</h2>
+
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/dIV2EIBh6jU" loading="lazy"></iframe>
+    </div>
+
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/v11lrw3BMcU" loading="lazy"></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+  authDomain:"bedoctor-81569.firebaseapp.com",
+  projectId:"bedoctor-81569"
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async user=>{
+  if(!user) location.href="login.html";
+  document.getElementById("e").textContent=user.email;
+
+  const snap=await getDoc(doc(db,"users",user.uid));
+  if(snap.exists()){
+    const d=snap.data();
+    document.getElementById("u").textContent="@"+d.username;
+    document.getElementById("av").textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
+  }
+});
+
+themeBtn.onclick=()=>{
+  document.documentElement.dataset.theme =
+    document.documentElement.dataset.theme==="dark"?"light":"dark";
+};
+
+let lang="fr";
+langBtn.onclick=()=>{
+  lang=lang==="fr"?"en":"fr";
+  langBtn.textContent=lang==="fr"?"🌍 FR":"🌍 EN";
+
+  title.textContent = lang==="fr"
+    ? "01 • Introduction à l’Anatomie Humaine"
+    : "01 • Introduction to Human Anatomy";
+
+  desc.textContent = lang==="fr"
+    ? "Introduction générale à l’anatomie humaine, ses objectifs, ses méthodes et son importance en médecine."
+    : "General introduction to human anatomy, its objectives, methods and importance in medicine.";
+
+  cTitle.textContent = lang==="fr"?"📘 Cours":"📘 Lessons";
+  vTitle.textContent = lang==="fr"?"🎥 YouTube":"🎥 YouTube Videos";
+};
+
+let t="01 • Introduction à l’Anatomie Humaine",i=0,d=false;
+setInterval(()=>{
+  if(!d){
+    title.textContent=t.slice(0,++i);
+    if(i===t.length)d=true;
+  }else{
+    title.textContent=t.slice(0,--i);
+    if(i===0)d=false;
+  }
+},90);
+</script>
+
+</body>
+</html>
