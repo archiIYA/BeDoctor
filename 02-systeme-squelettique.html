@@ -15,7 +15,6 @@
   --muted:#b8c0e0;
   --accent:#00e676;
   --accent2:#9b5cff;
-  --radius:18px;
   --border:rgba(255,255,255,.12);
   --shadow:0 20px 60px rgba(0,0,0,.45);
   --menuW:260px;
@@ -27,7 +26,6 @@
   --text:#0f172a;
   --muted:#475569;
   --border:rgba(15,23,42,.12);
-  --shadow:0 20px 60px rgba(2,6,23,.10);
 }
 *{box-sizing:border-box}
 body{
@@ -56,10 +54,7 @@ body{
   z-index:-2;
   pointer-events:none;
 }
-.watermark img{
-  width:min(75vw,800px);
-  opacity:.09;
-}
+.watermark img{width:min(75vw,800px);opacity:.09}
 .menu{
   width:var(--menuW);
   padding:18px;
@@ -71,7 +66,6 @@ body{
   gap:10px;
   position:fixed;
   inset:0 auto 0 0;
-  overflow:auto;
 }
 .menuTop{
   display:flex;
@@ -84,45 +78,7 @@ body{
 }
 .menuTop img{width:40px}
 .menuTop strong{font-weight:950}
-.dropdown{
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-}
-.dropBtn{
-  width:100%;
-  padding:12px 14px;
-  border:0;
-  background:transparent;
-  color:inherit;
-  text-align:left;
-  font-weight:950;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.dropList{
-  display:none;
-  padding:8px;
-  border-top:1px solid var(--border);
-  background:rgba(0,0,0,.06);
-}
-.dropList a{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:10px 12px;
-  border-radius:12px;
-  text-decoration:none;
-  color:inherit;
-  font-weight:900;
-}
-.dropList a:hover{background:var(--soft)}
-.dropdown.open .dropList{display:block}
-.menu a.nav{
+.menu a{
   display:flex;
   gap:10px;
   align-items:center;
@@ -131,12 +87,8 @@ body{
   text-decoration:none;
   color:inherit;
   font-weight:900;
-  border:1px solid transparent;
 }
-.menu a.nav:hover{
-  background:var(--soft);
-  border-color:var(--border);
-}
+.menu a:hover{background:var(--soft)}
 .controls{
   margin-top:auto;
   display:flex;
@@ -151,7 +103,6 @@ body{
   text-align:center;
   cursor:pointer;
   font-weight:900;
-  user-select:none;
 }
 .menuUser{
   display:flex;
@@ -171,56 +122,24 @@ body{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 .menuUser .u{font-weight:950}
-.menuUser .e{
-  font-size:12px;
-  color:var(--muted);
-  max-width:150px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap
-}
+.menuUser .e{font-size:12px;color:var(--muted)}
 .container{
   margin-left:var(--menuW);
   width:100%;
   padding:40px 20px 80px;
 }
-.wrap{
-  max-width:1100px;
-  margin:auto;
-}
-.banner{
-  border-radius:22px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
+.wrap{max-width:1100px;margin:auto}
 .banner img{
   width:100%;
   height:200px;
   object-fit:cover;
-  display:block;
-}
-.topActions{
-  display:flex;
-  gap:10px;
-  margin:14px 0 18px;
-  flex-wrap:wrap;
-}
-.btn{
-  padding:10px 16px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
-  color:inherit;
-  font-weight:950;
-  cursor:pointer;
+  border-radius:22px;
 }
 .header{
   background:var(--card);
   border-radius:22px;
   padding:24px;
   box-shadow:var(--shadow);
-  border:1px solid var(--border);
 }
 .header h1{
   margin:0;
@@ -228,24 +147,12 @@ body{
   color:var(--accent);
   min-height:40px;
 }
-.header p{
-  margin:10px 0 0;
-  color:var(--muted);
-  line-height:1.7;
-}
 .section{
   margin-top:18px;
   background:var(--card);
   border-radius:22px;
   padding:22px;
   box-shadow:var(--shadow);
-  border:1px solid var(--border);
-}
-.section h2{
-  margin:0 0 12px;
-  color:var(--accent2);
-  font-size:18px;
-  font-weight:950;
 }
 .list a{
   display:flex;
@@ -258,95 +165,43 @@ body{
   text-decoration:none;
   color:inherit;
   font-weight:950;
-  border:1px solid transparent;
-}
-.list a:hover{
-  background:rgba(155,92,255,.18);
-  border-color:var(--border);
 }
 .badge{
   font-size:12px;
   font-weight:950;
   color:var(--muted);
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.04);
 }
-.driveGrid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:12px;
-}
-.driveCard{
-  background:linear-gradient(135deg, rgba(0,230,118,.16), rgba(155,92,255,.14));
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-  text-decoration:none;
-  color:inherit;
-  box-shadow:var(--shadow);
-  transition:.2s;
-}
-.driveCard:hover{transform:translateY(-3px)}
-.driveCard .t{font-weight:950; font-size:16px}
-.driveCard .s{margin-top:6px; color:var(--muted); font-weight:850; font-size:13px; line-height:1.6}
 .video{
   margin-top:12px;
   border-radius:16px;
   overflow:hidden;
   border:1px solid var(--border);
-  background:var(--soft);
 }
 .video .cap{
-  padding:10px 12px;
+  padding:10px;
   font-weight:950;
   color:var(--muted);
-  border-bottom:1px solid var(--border);
 }
-iframe{width:100%; height:320px; display:block}
-@media(max-width:900px){
-  .menu{display:none}
-  .container{margin-left:0}
-  iframe{height:240px}
-  .driveGrid{grid-template-columns:1fr}
-}
+iframe{width:100%;height:320px}
 </style>
 </head>
 
 <body>
 
 <div class="stars"></div>
-<div class="watermark"><img src="logo.svg" alt=""></div>
+<div class="watermark"><img src="logo.svg"></div>
 
 <div class="menu">
   <div class="menuTop">
-    <img src="logo.svg" alt="BeDoctor">
-    <strong>BeDoctor</strong>
+    <img src="logo.svg"><strong>BeDoctor</strong>
   </div>
-
-  <div class="dropdown" id="yearsDrop">
-    <button class="dropBtn" id="dropBtn">🎓 Parcours Médical <span id="dropIcon">▾</span></button>
-    <div class="dropList" id="dropList">
-      <a href="level1.html">🧬 1ère Année</a>
-      <a href="level2.html">❤️ 2ème Année</a>
-      <a href="level3.html">🩺 3ème Année</a>
-    </div>
-  </div>
-
-  <a class="nav" href="courses.html">📚 Cours</a>
-  <a class="nav" href="anatomie3d.html">🧠 Anatomie 3D</a>
-  <a class="nav" href="examens.html">📝 Examens</a>
-  <a class="nav" href="notes.html">🗒️ Notes</a>
-  <a class="nav" href="stats.html">📊 Statistiques</a>
-  <a class="nav" href="pomodoro.html">⏱️ Pomodoro</a>
-  <a class="nav" href="profil.html">👤 Profil</a>
-
+  <a href="accueil.html">🏠 Accueil</a>
+  <a href="level1.html">🧬 Première Année</a>
+  <a href="profil.html">👤 Profil</a>
   <div class="controls">
     <div class="ctrl" id="langBtn">🌍 FR</div>
     <div class="ctrl" id="themeBtn">🌙</div>
   </div>
-
   <div class="menuUser">
     <div class="av" id="av">👨‍⚕️</div>
     <div>
@@ -356,197 +211,127 @@ iframe{width:100%; height:320px; display:block}
   </div>
 </div>
 
-<div class="container">
-  <div class="wrap">
+<div class="container"><div class="wrap">
 
-    <div class="banner">
-      <img src="banner.svg" alt="">
-    </div>
+<div class="banner"><img src="banner.svg"></div>
 
-    <div class="topActions">
-      <button class="btn" id="backBtn">⬅️ Retour</button>
-      <button class="btn" id="homeBtn">🏠 Accueil</button>
-      <button class="btn" id="levelBtn">🧬 Première Année</button>
-    </div>
+<div class="header">
+  <h1 id="title"></h1>
+  <p id="desc"></p>
+</div>
 
-    <div class="header">
-      <h1 id="title"></h1>
-      <p id="desc"></p>
-    </div>
-
-    <div class="section">
-      <h2 id="driveTitle"></h2>
-      <div class="driveGrid">
-        <a class="driveCard" id="driveFr" target="_blank" rel="noopener noreferrer">
-          <div class="t" id="driveFrT">🇫🇷 Version Française</div>
-          <div class="s" id="driveFrS"></div>
-        </a>
-        <a class="driveCard" id="driveEn" target="_blank" rel="noopener noreferrer">
-          <div class="t" id="driveEnT">🇬🇧 English Version</div>
-          <div class="s" id="driveEnS"></div>
-        </a>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 id="cTitle"></h2>
-      <div class="list" id="courseList"></div>
-    </div>
-
-    <div class="section">
-      <h2 id="vTitle"></h2>
-      <div id="videoWrap"></div>
-    </div>
-
+<div class="section">
+  <h2 id="driveTitle"></h2>
+  <div class="list">
+    <a id="driveFr" target="_blank">🇫🇷 Version Française <span class="badge">PDF</span></a>
+    <a id="driveEn" target="_blank">🇬🇧 English Version <span class="badge">PDF</span></a>
   </div>
 </div>
+
+<div class="section">
+  <h2 id="cTitle"></h2>
+  <div class="list" id="courseList"></div>
+</div>
+
+<div class="section">
+  <h2 id="vTitle"></h2>
+  <div id="videoWrap"></div>
+</div>
+
+</div></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
-import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-const app = initializeApp({
-  apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
-  authDomain:"bedoctor-81569.firebaseapp.com",
-  projectId:"bedoctor-81569"
-});
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-const driveFr=document.getElementById("driveFr");
-const driveEn=document.getElementById("driveEn");
-const driveFrS=document.getElementById("driveFrS");
-const driveEnS=document.getElementById("driveEnS");
-const driveTitle=document.getElementById("driveTitle");
-const courseList=document.getElementById("courseList");
-const videoWrap=document.getElementById("videoWrap");
-const cTitle=document.getElementById("cTitle");
-const vTitle=document.getElementById("vTitle");
-const title=document.getElementById("title");
-const desc=document.getElementById("desc");
-const langBtn=document.getElementById("langBtn");
-const themeBtn=document.getElementById("themeBtn");
-const yearsDrop=document.getElementById("yearsDrop");
-const dropIcon=document.getElementById("dropIcon");
-const backBtn=document.getElementById("backBtn");
-const homeBtn=document.getElementById("homeBtn");
-const levelBtn=document.getElementById("levelBtn");
-const u=document.getElementById("u");
-const e=document.getElementById("e");
-const av=document.getElementById("av");
-
-const DRIVE_FR="https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view";
-const DRIVE_EN="https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view";
-
-driveFr.href=DRIVE_FR;
-driveEn.href=DRIVE_EN;
-
-onAuthStateChanged(auth, async user=>{
-  if(!user) location.href="login.html";
-  e.textContent=user.email;
-  const snap=await getDoc(doc(db,"users",user.uid));
-  if(snap.exists()){
-    const d=snap.data();
-    u.textContent="@"+(d.username||"username");
-    av.textContent=d.gender==="female"?"👩‍⚕️":"👨‍⚕️";
-  }
+initializeApp({
+ apiKey:"AIzaSyBFt5fRSInCvNsrVQfHVTGmsCWajD8jvPI",
+ authDomain:"bedoctor-81569.firebaseapp.com",
+ projectId:"bedoctor-81569"
 });
 
-themeBtn.onclick=()=>{
-  document.documentElement.dataset.theme=
-  document.documentElement.dataset.theme==="dark"?"light":"dark";
+onAuthStateChanged(getAuth(),u=>{
+ if(!u) location.href="login.html";
+ e.textContent=u.email;
+});
+
+const DATA={
+fr:{
+ title:"02 • Système Squelettique",
+ desc:"Étude de l’ossature humaine, de sa structure et de son rôle fondamental.",
+ drive:"🏛️ كلية الجزائر العاصمة 2025",
+ frLink:"https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view",
+ enLink:"https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view",
+ c:"📘 Cours",
+ v:"🎥 YouTube",
+ courses:[
+  ["Cours Système Squelettique","https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view"]
+ ],
+ videos:[
+  ["Ostéologie générale","https://www.youtube.com/embed/cH9EBUuYoso"],
+  ["Squelette humain","https://www.youtube.com/embed/HXOSnunzLR8"]
+ ]
+},
+en:{
+ title:"02 • Skeletal System",
+ desc:"Study of the human skeleton, its structure and medical importance.",
+ drive:"🏛️ Algiers University 2025",
+ frLink:"https://drive.google.com/file/d/1aFZj-nkAninR5wes7oToWrQSa3IfM8bK/view",
+ enLink:"https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view",
+ c:"📘 Lessons",
+ v:"🎥 YouTube",
+ courses:[
+  ["Skeletal System PDF","https://drive.google.com/file/d/1LjK-QPNDgO_4ao-0G9Ldd87NbmIEFkqv/view"]
+ ],
+ videos:[
+  ["Human Skeleton","https://www.youtube.com/embed/HXOSnunzLR8"]
+ ]
+}
 };
 
-yearsDrop.onclick=()=>{
-  yearsDrop.classList.toggle("open");
-  dropIcon.textContent=yearsDrop.classList.contains("open")?"▴":"▾";
-};
+let lang="fr",txt="",i=0,del=false;
 
-backBtn.onclick=()=>history.back();
-homeBtn.onclick=()=>location.href="accueil.html";
-levelBtn.onclick=()=>location.href="level1.html";
+function render(){
+ const L=DATA[lang];
+ txt=L.title;
+ title.textContent="";
+ desc.textContent=L.desc;
+ driveTitle.textContent=L.drive;
+ driveFr.href=L.frLink;
+ driveEn.href=L.enLink;
+ cTitle.textContent=L.c;
+ vTitle.textContent=L.v;
 
-const data={
-  fr:{
-    typeTitle:"02 • Système Squelettique",
-    desc:"Étude de l’ossature humaine, de sa structure, de ses fonctions et de son rôle fondamental en médecine.",
-    driveTitle:"🏛️ كلية الجزائر العاصمة 2025",
-    driveFrS:"افتح النسخة الفرنسية الرسمية الخاصة بالدرس (Alger 2025).",
-    driveEnS:"Open the official English version for this lesson (Algiers 2025).",
-    cTitle:"📘 Cours",
-    vTitle:"🎥 YouTube",
-    courses:[
-      {t:"Cours Système Squelettique (PDF)",href:DRIVE_FR}
-    ],
-    videos:[
-      {cap:"Playlist Ostéologie",src:"https://www.youtube.com/embed/cH9EBUuYoso"}
-      {cap:"vd",src:"https://youtu.be/HXOSnunzLR8?si=HdYAg3tHoOKbB0gS"}
-    ]
-  },
-  en:{
-    typeTitle:"02 • Skeletal System",
-    desc:"Study of the human skeleton, its structure, functions, and why it matters in medicine.",
-    driveTitle:"🏛️ Algiers University 2025",
-    driveFrS:"Open the official French version for this lesson (Algiers 2025).",
-    driveEnS:"Open the official English version for this lesson (Algiers 2025).",
-    cTitle:"📘 Lessons",
-    vTitle:"🎥 YouTube Videos",
-    courses:[
-      {t:"Skeletal System Course (PDF)",href:DRIVE_EN},
-    ],
-    videos:[
-      {cap:"Osteology Playlist",src:"https://www.youtube.com/embed/videoseries?list=PL5E1A4652795818BF"}
-      {cap:"vd",src:"https://youtu.be/HXOSnunzLR8?si=HdYAg3tHoOKbB0gS"}
-    ]
-  }
-};
+ courseList.innerHTML="";
+ L.courses.forEach(x=>{
+  const a=document.createElement("a");
+  a.href=x[1];
+  a.target="_blank";
+  a.innerHTML=`<span>${x[0]}</span><span class="badge">PDF</span>`;
+  courseList.appendChild(a);
+ });
 
-let typeText=data.fr.typeTitle;
-let i=0,del=false;
-
-function render(langKey){
-  const L=data[langKey];
-  typeText=L.typeTitle;
-  cTitle.textContent=L.cTitle;
-  vTitle.textContent=L.vTitle;
-  desc.textContent=L.desc;
-  driveTitle.textContent=L.driveTitle;
-  driveFrS.textContent=L.driveFrS;
-  driveEnS.textContent=L.driveEnS;
-  courseList.innerHTML="";
-  L.courses.forEach(x=>{
-    const a=document.createElement("a");
-    a.href=x.href;
-    a.target="_blank";
-    a.innerHTML=`<span>${x.t}</span><span class="badge">PDF</span>`;
-    courseList.appendChild(a);
-  });
-  videoWrap.innerHTML="";
-  L.videos.forEach(v=>{
-    const box=document.createElement("div");
-    box.className="video";
-    box.innerHTML=`<div class="cap">${v.cap}</div><iframe src="${v.src}" loading="lazy" allowfullscreen></iframe>`;
-    videoWrap.appendChild(box);
-  });
+ videoWrap.innerHTML="";
+ L.videos.forEach(v=>{
+  const box=document.createElement("div");
+  box.className="video";
+  box.innerHTML=`<div class="cap">${v[0]}</div><iframe src="${v[1]}" allowfullscreen></iframe>`;
+  videoWrap.appendChild(box);
+ });
 }
 
 langBtn.onclick=()=>{
-  langBtn.textContent=langBtn.textContent.includes("FR")?"🌍 EN":"🌍 FR";
-  render(langBtn.textContent.includes("FR")?"fr":"en");
+ lang=lang==="fr"?"en":"fr";
+ langBtn.textContent=lang==="fr"?"🌍 FR":"🌍 EN";
+ render();
 };
 
 setInterval(()=>{
-  if(!del){
-    title.textContent=typeText.slice(0,++i);
-    if(i===typeText.length) del=true;
-  }else{
-    title.textContent=typeText.slice(0,--i);
-    if(i===0) del=false;
-  }
+ if(!del){ title.textContent=txt.slice(0,++i); if(i===txt.length)del=true }
+ else{ title.textContent=txt.slice(0,--i); if(i===0)del=false }
 },90);
 
-render("fr");
+render();
 </script>
 
 </body>
