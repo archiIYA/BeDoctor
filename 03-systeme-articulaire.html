@@ -187,6 +187,7 @@ iframe{width:100%;height:320px}
   <div class="menuTop"><img src="logo.svg"><strong>BeDoctor</strong></div>
   <a href="accueil.html">🏠 Accueil</a>
   <a href="level1.html">🧬 Première Année</a>
+  <a href="anatomie.html">📚 Anatomie</a>
   <a href="profil.html">👤 Profil</a>
   <div class="controls">
     <div class="ctrl" id="langBtn">🌍 FR</div>
@@ -194,7 +195,10 @@ iframe{width:100%;height:320px}
   </div>
   <div class="menuUser">
     <div class="av" id="av">👨‍⚕️</div>
-    <div><div class="u" id="u">@username</div><div class="e" id="e">email</div></div>
+    <div>
+      <div class="u" id="userName">@username</div>
+      <div class="e" id="userEmail">email</div>
+    </div>
   </div>
 </div>
 
@@ -237,9 +241,9 @@ initializeApp({
  projectId:"bedoctor-81569"
 });
 
-onAuthStateChanged(getAuth(),u=>{
- if(!u) location.href="login.html";
- e.textContent=u.email;
+onAuthStateChanged(getAuth(),user=>{
+ if(!user) location.href="login.html";
+ document.getElementById("userEmail").textContent=user.email;
 });
 
 const DATA={
@@ -258,7 +262,7 @@ fr:{
  ],
  videos:[
   ["Playlist Arthrologie","https://www.youtube.com/embed/videoseries?list=PL5E1A4652795818BF"],
-  ["Articulations – résumé","https://www.youtube.com/embed/HXOSnunzLR8"]
+  ["Résumé Système Articulaire","https://www.youtube.com/embed/HXOSnunzLR8"]
  ]
 },
 en:{
