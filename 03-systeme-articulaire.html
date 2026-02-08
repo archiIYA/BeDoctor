@@ -145,7 +145,7 @@ body{
   margin:0;
   font-size:32px;
   color:var(--accent);
-  min-height:40px;
+  min-height:42px;
 }
 .section{
   margin-top:18px;
@@ -189,15 +189,17 @@ iframe{width:100%;height:320px}
   <a href="level1.html">🧬 Première Année</a>
   <a href="anatomie.html">📚 Anatomie</a>
   <a href="profil.html">👤 Profil</a>
+
   <div class="controls">
     <div class="ctrl" id="langBtn">🌍 FR</div>
     <div class="ctrl" id="themeBtn">🌙</div>
   </div>
+
   <div class="menuUser">
     <div class="av" id="av">👨‍⚕️</div>
     <div>
       <div class="u" id="userName">@username</div>
-      <div class="e" id="userEmail">email</div>
+      <div class="e" id="userEmail"></div>
     </div>
   </div>
 </div>
@@ -243,14 +245,14 @@ initializeApp({
 
 onAuthStateChanged(getAuth(),user=>{
  if(!user) location.href="login.html";
- document.getElementById("userEmail").textContent=user.email;
+ userEmail.textContent=user.email;
 });
 
 const DATA={
 fr:{
  title:"03 • Système Articulaire",
  desc:"Étude des articulations, de leur classification, de leur structure et de leur rôle dans le mouvement.",
- drive:"🏛️ كلية الجزائر العاصمة 2025",
+ drive:"🏛️ Université d’Alger 2025",
  frLink:"https://drive.google.com/file/d/1lWSPKbEXWIsDA58rmXNxTs16OP7P3u5D/view",
  enLink:"https://drive.google.com/file/d/1QJ7WcJ_M550oS8PXfZ_2Qy5ium26OASy/view",
  c:"📘 Cours",
@@ -284,11 +286,10 @@ en:{
 }
 };
 
-let lang="fr",txt="",i=0,del=false;
+let lang="fr",i=0,del=false;
 
 function render(){
  const L=DATA[lang];
- txt=L.title;
  title.textContent="";
  desc.textContent=L.desc;
  driveTitle.textContent=L.drive;
@@ -296,7 +297,6 @@ function render(){
  driveEn.href=L.enLink;
  cTitle.textContent=L.c;
  vTitle.textContent=L.v;
-
  courseList.innerHTML="";
  L.courses.forEach(x=>{
   const a=document.createElement("a");
@@ -305,7 +305,6 @@ function render(){
   a.innerHTML=`<span>${x[0]}</span><span class="badge">PDF</span>`;
   courseList.appendChild(a);
  });
-
  videoWrap.innerHTML="";
  L.videos.forEach(v=>{
   const box=document.createElement("div");
@@ -321,10 +320,16 @@ langBtn.onclick=()=>{
  render();
 };
 
+themeBtn.onclick=()=>{
+ document.documentElement.dataset.theme =
+  document.documentElement.dataset.theme==="dark"?"light":"dark";
+};
+
 setInterval(()=>{
+ const txt=DATA[lang].title;
  if(!del){ title.textContent=txt.slice(0,++i); if(i===txt.length)del=true }
  else{ title.textContent=txt.slice(0,--i); if(i===0)del=false }
-},90);
+},120);
 
 render();
 </script>
